@@ -13,6 +13,7 @@ export default function IntroZoom() {
      // Remove overlay the instant the CSS animation finishes
      const handleAnimationEnd = useCallback(() => {
           setPhase("done");
+          window.dispatchEvent(new CustomEvent("intro-finished"));
      }, []);
 
      if (phase === "done") return null;
