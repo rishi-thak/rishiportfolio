@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import Draggable from "./draggable";
 
 const PROJECTS = [
      {
@@ -232,88 +233,13 @@ function ProjectCard({ project, isExpanded, onToggle }: { project: typeof PROJEC
      );
 }
 
-function DraggableCard({ project, initialPos }: { project: typeof PROJECTS[0]; initialPos: { x: number; y: number } }) {
+function ProjectWrapper({ project, initialPos }: { project: typeof PROJECTS[0]; initialPos: { x: number; y: number } }) {
      const [isExpanded, setIsExpanded] = useState(false);
 
-     // Drag state
-     const [position, setPosition] = useState(initialPos);
-     const [isDragging, setIsDragging] = useState(false);
-     const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-     const hasDragged = useRef(false);
-     const cardRef = useRef<HTMLDivElement>(null);
-
-     const toggle = () => {
-          if (!hasDragged.current) {
-               setIsExpanded(!isExpanded);
-          }
-     };
-
-     const handleMouseDown = (e: React.MouseEvent) => {
-          setIsDragging(true);
-          hasDragged.current = false;
-          setDragOffset({
-               x: e.clientX - position.x,
-               y: e.clientY - position.y
-          });
-          e.preventDefault();
-     };
-
-     useEffect(() => {
-          const handleMouseMove = (e: MouseEvent) => {
-               if (isDragging) {
-                    hasDragged.current = true;
-
-                    let newX = e.clientX - dragOffset.x;
-                    let newY = e.clientY - dragOffset.y;
-
-                    // Clamping logic
-                    if (cardRef.current) {
-                         const rect = cardRef.current.getBoundingClientRect();
-                         const margin = 10;
-                         const maxX = window.innerWidth - rect.width - margin;
-                         const maxY = window.innerHeight - rect.height - margin;
-
-                         if (newX < margin) newX = margin;
-                         if (newX > maxX) newX = maxX;
-                         if (newY < margin) newY = margin;
-                         if (newY > maxY) newY = maxY;
-                    }
-
-                    setPosition({ x: newX, y: newY });
-               }
-          };
-
-          const handleMouseUp = () => {
-               setIsDragging(false);
-          };
-
-          if (isDragging) {
-               window.addEventListener('mousemove', handleMouseMove);
-               window.addEventListener('mouseup', handleMouseUp);
-          }
-
-          return () => {
-               window.removeEventListener('mousemove', handleMouseMove);
-               window.removeEventListener('mouseup', handleMouseUp);
-          };
-     }, [isDragging, dragOffset]);
-
      return (
-          <div
-               ref={cardRef}
-               className="card-ink"
-               onMouseDown={handleMouseDown}
-               style={{
-                    position: 'fixed',
-                    left: position.x,
-                    top: position.y,
-                    cursor: isDragging ? 'grabbing' : 'grab',
-                    zIndex: isDragging ? 60 : 50,
-                    touchAction: 'none'
-               }}
-          >
-               <ProjectCard project={project} isExpanded={isExpanded} onToggle={toggle} />
-          </div>
+          <Draggable initialPos={initialPos} className="card-ink">
+               <ProjectCard project={project} isExpanded={isExpanded} onToggle={() => setIsExpanded(!isExpanded)} />
+          </Draggable>
      );
 }
 
@@ -342,7 +268,7 @@ export default function ComicProjectCards() {
       `}</style>
 
                {PROJECTS.map((p, i) => (
-                    <DraggableCard
+                    <ProjectWrapper
                          key={p.id}
                          project={p}
                          initialPos={{
