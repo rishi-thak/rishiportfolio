@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { HalftoneDots, RadialBurst, TechChip } from "./comic-elements";
 import { ProjectOverlay } from "./project-overlay";
 import { SkillsOverlay } from "./skills-overlay";
+import { ContactOverlay } from "./contact-overlay";
 
 const PROJECTS = [
      {
@@ -144,6 +145,7 @@ function InfoPanel({ bg, accent, emoji, label, effect, onClick }: { bg: string; 
 export default function ComicPage() {
      const [expandedProject, setExpandedProject] = useState<number | null>(null);
      const [skillsOpen, setSkillsOpen] = useState(false);
+     const [contactOpen, setContactOpen] = useState(false);
      const [mounted, setMounted] = useState(false);
 
      useEffect(() => {
@@ -194,6 +196,7 @@ export default function ComicPage() {
                                              effect={panel.effect!}
                                              onClick={() => {
                                                   if (panel.label === "SKILLS") setSkillsOpen(true);
+                                                  if (panel.label === "CONTACT") setContactOpen(true);
                                              }}
                                         />
                                    )}
@@ -208,6 +211,10 @@ export default function ComicPage() {
 
                {skillsOpen && (
                     <SkillsOverlay onClose={() => setSkillsOpen(false)} />
+               )}
+
+               {contactOpen && (
+                    <ContactOverlay onClose={() => setContactOpen(false)} />
                )}
           </>
      );

@@ -30,9 +30,9 @@ export const SKILLS = [
 export function SkillsOverlay({ onClose }: { onClose: () => void }) {
      return (
           <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-               <div onClick={e => e.stopPropagation()} className="expanded-card" style={{ width: "min(1000px, 94vw)", height: "min(800px, 90vh)", background: "#fff", border: "5px solid #000", boxShadow: `12px 12px 0 #000`, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+               <div onClick={e => e.stopPropagation()} className="expanded-card" style={{ width: "min(900px, 94vw)", height: "auto", maxHeight: "90vh", background: "#fff", border: "5px solid #000", boxShadow: `12px 12px 0 #000`, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>
                     {/* Header */}
-                    <div style={{ background: "#000", padding: "16px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "5px solid #000" }}>
+                    <div style={{ background: "#000", padding: "12px 20px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "5px solid #000" }}>
                          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                               <span style={{ fontSize: 32 }}>⚡</span>
                               <h2 style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 42, color: "#00bbcc", letterSpacing: "0.05em", margin: 0, textTransform: "uppercase" }}>SKILLS</h2>
@@ -41,25 +41,25 @@ export function SkillsOverlay({ onClose }: { onClose: () => void }) {
                     </div>
 
                     {/* Content Grid */}
-                    <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr", padding: 12, gap: 12, background: "#000" }}>
+                    <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "auto auto", padding: 8, gap: 8, background: "#000" }}>
                          {SKILLS.map((s: any, idx: number) => (
                               <div key={s.category} style={{
                                    gridColumn: idx === 2 ? "1 / span 2" : "auto",
-                                   background: s.color, border: "4px solid #000", position: "relative", padding: 20, overflow: "hidden",
+                                   background: s.color, border: "4px solid #000", position: "relative", padding: 18, overflow: "hidden",
                                    display: "flex", flexDirection: "column"
                               }}>
                                    <HalftoneDots color={s.accent} opacity={0.15} size={10} />
 
                                    {/* Caption Tag */}
                                    <div style={{
-                                        position: "absolute", top: 12, left: 12, background: "#FFE500", border: "2px solid #000",
+                                        position: "absolute", top: 8, left: 8, background: "#FFE500", border: "2px solid #000",
                                         padding: "2px 8px", fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 12, color: "#000", zIndex: 1
                                    }}>
                                         {s.label}
                                    </div>
 
-                                   <div style={{ marginTop: 24, position: "relative", zIndex: 1 }}>
-                                        <h3 style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 24, color: s.accent, marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>{s.category}</h3>
+                                   <div style={{ marginTop: 18, position: "relative", zIndex: 1 }}>
+                                        <h3 style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 24, color: s.accent, marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>{s.category}</h3>
                                         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                                              {s.items.map((item: string) => (
                                                   <div key={item} style={{
