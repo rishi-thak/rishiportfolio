@@ -14,7 +14,7 @@ const PROJECTS = [
           demoUrl: "https://rrecords.vercel.app",
      },
      {
-          id: 2, issue: "2024-2025",
+          id: 2, issue: "2025",
           title: "WSB\nAnalyzer", tagline: "Reddit Sentiment Analysis",
           description: "A full-stack NLP tool analyzing 1,000+ WallStreetBets comments per request and scoring sentiment in real time. Features an asynchronous FastAPI backend for scraping/processing (improving data speed by 40%+) and a production-ready Next.js frontend achieving sub-200ms UI interactions.",
           coverEmoji: "🚀",
@@ -61,7 +61,7 @@ const PANELS: PanelDef[] = [
      {
           clip: "polygon(23% 51%, 67% 50%, 64% 100%, 27% 100%)",
           box: { left: "23%", top: "50%", width: "44%", height: "50%" },
-          type: "info", bg: "#ccbb00", accent: "#443300", emoji: "🔥", label: "PROJECTS", effect: "burst"
+          type: "info", bg: "#ccbb00", accent: "#443300", emoji: "🔥", label: "EXPERIENCE", effect: "burst"
      },
      {
           clip: "polygon(68% 50%, 100% 49%, 100% 100%, 65% 100%)",
@@ -106,8 +106,8 @@ function TechChip({ name, bg, ink }: { name: string; bg: string; ink: string }) 
           <span style={{
                display: "inline-block", background: ink, color: bg,
                border: "2px solid #000", padding: "2px 9px",
-               fontSize: 10, fontFamily: "'Anton', 'Impact', sans-serif",
-               letterSpacing: "0.12em", textTransform: "uppercase",
+               fontSize: 10, fontFamily: "'Bangers', system-ui, sans-serif",
+               letterSpacing: "0.08em", textTransform: "uppercase",
                lineHeight: "1.6", boxShadow: "2px 2px 0 #000", flexShrink: 0,
           }}>{name}</span>
      );
@@ -120,8 +120,8 @@ function StatBlock({ v, l, ink }: { v: string; l: string; ink: string }) {
                background: "#000", border: `3px solid ${ink}`,
                padding: "6px 10px", minWidth: 56, boxShadow: `3px 3px 0 ${ink}`,
           }}>
-               <span style={{ fontFamily: "'Anton', 'Impact', sans-serif", fontSize: 20, color: ink, lineHeight: 1, letterSpacing: "0.04em" }}>{v}</span>
-               <span style={{ fontFamily: "'Courier New', monospace", fontSize: 8, color: "#FFFFFF", letterSpacing: "0.15em", marginTop: 2 }}>{l}</span>
+               <span style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 22, color: ink, lineHeight: 1, letterSpacing: "0.06em", textTransform: "uppercase" }}>{v}</span>
+               <span style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 9, color: "#FFFFFF", letterSpacing: "0.05em", marginTop: 2, textTransform: "uppercase" }}>{l}</span>
           </div>
      );
 }
@@ -147,15 +147,15 @@ function ProjectPanel({ project, onClick }: { project: typeof PROJECTS[0]; onCli
                <HalftoneDots color={ink} size={8} opacity={0.15} />
                {hovered && <RadialBurst color={ink} opacity={0.1} />}
                <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
-                    <div style={{ fontFamily: "'Courier New', monospace", fontSize: 9, color: ink, letterSpacing: "0.2em", opacity: 0.8 }}>{project.issue}</div>
+                    <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 11, color: ink, letterSpacing: "0.05em", opacity: 0.9, textTransform: "uppercase" }}>{project.issue}</div>
                     <div style={{
-                         fontFamily: "'Anton', 'Impact', sans-serif", fontSize: "clamp(24px, 4vw, 54px)", lineHeight: 0.88,
+                         fontFamily: "'Bangers', system-ui, sans-serif", fontSize: "clamp(24px, 4vw, 54px)", lineHeight: 0.9,
                          color: ink, textShadow: `3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000`,
-                         whiteSpace: "pre-line",
+                         whiteSpace: "pre-line", textTransform: "uppercase", letterSpacing: "0.02em"
                     }}>{project.title}</div>
                     <div style={{
-                         background: "#000", color: ink, fontFamily: "'Anton', 'Impact', sans-serif",
-                         fontSize: 10, letterSpacing: "0.18em", padding: "3px 8px", alignSelf: "flex-start",
+                         background: "#000", color: ink, fontFamily: "'Bangers', system-ui, sans-serif",
+                         fontSize: 12, letterSpacing: "0.1em", padding: "4px 10px", alignSelf: "flex-start", textTransform: "uppercase"
                     }}>{project.tagline}</div>
                     <div style={{ fontSize: "clamp(36px, 4.5vw, 64px)", lineHeight: 1, filter: "drop-shadow(3px 4px 0 #000)" }}>{project.coverEmoji}</div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginTop: 4 }}>
@@ -183,8 +183,9 @@ function InfoPanel({ bg, accent, emoji, label, effect }: { bg: string; accent: s
                {effect === "burst" && <RadialBurst color={accent} opacity={0.15} />}
                <span style={{ fontSize: "clamp(32px, 5vw, 64px)", position: "relative", zIndex: 1 }}>{emoji}</span>
                <span style={{
-                    fontFamily: "'Anton', 'Impact', sans-serif", fontSize: "clamp(16px, 2.5vw, 32px)",
-                    color: accent, letterSpacing: "0.2em", position: "relative", zIndex: 1, marginTop: 8,
+                    fontFamily: "'Bangers', system-ui, sans-serif", fontSize: "clamp(16px, 2.5vw, 32px)",
+                    color: accent, letterSpacing: "0.1em", position: "relative", zIndex: 1, marginTop: 8,
+                    textTransform: "uppercase"
                }}>{label}</span>
           </div>
      );
@@ -203,28 +204,28 @@ function ExpandedProject({ project, onClose }: { project: typeof PROJECTS[0]; on
                          <div style={{ padding: "12px 20px", flex: 1, display: "flex", alignItems: "center", gap: 16 }}>
                               <span style={{ fontSize: 38 }}>{project.coverEmoji}</span>
                               <div>
-                                   <div style={{ fontFamily: "'Courier New', monospace", fontSize: 9, color: "#fff", letterSpacing: "0.2em" }}>{project.issue}</div>
-                                   <div style={{ fontFamily: "'Anton', 'Impact', sans-serif", fontSize: 26, color: ink, lineHeight: 1, textShadow: `2px 2px 0 ${bg}`, whiteSpace: "nowrap" }}>{project.title.replace("\n", " ")}</div>
-                                   <div style={{ fontFamily: "'Courier New', monospace", fontSize: 10, color: "#fff", letterSpacing: "0.14em" }}>{project.tagline}</div>
+                                   <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 11, color: "#fff", letterSpacing: "0.05em", textTransform: "uppercase" }}>{project.issue}</div>
+                                   <div style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 30, color: ink, lineHeight: 1, textShadow: `2px 2px 0 ${bg}`, whiteSpace: "nowrap", textTransform: "uppercase", letterSpacing: "0.02em" }}>{project.title.replace("\n", " ")}</div>
+                                   <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 400, fontSize: 12, color: "#fff", letterSpacing: "0.05em", textTransform: "uppercase" }}>{project.tagline}</div>
                               </div>
                          </div>
-                         <button onClick={onClose} style={{ background: ink, border: "none", borderLeft: "4px solid #000", width: 52, cursor: "pointer", fontFamily: "'Anton', 'Impact', sans-serif", fontSize: 22, color: "#000", flexShrink: 0 }} onMouseEnter={e => e.currentTarget.style.background = "#fff"} onMouseLeave={e => e.currentTarget.style.background = ink}>✕</button>
+                         <button onClick={onClose} style={{ background: ink, border: "none", borderLeft: "4px solid #000", width: 52, cursor: "pointer", fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 26, color: "#000", flexShrink: 0 }} onMouseEnter={e => e.currentTarget.style.background = "#fff"} onMouseLeave={e => e.currentTarget.style.background = ink}>✕</button>
                     </div>
                     {/* Body */}
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: 320 }}>
                          <div style={{ padding: 22, borderRight: "4px solid #000", display: "flex", flexDirection: "column", gap: 16, position: "relative", overflow: "hidden" }}>
                               <HalftoneDots color={ink} size={10} opacity={0.1} />
-                              <div style={{ background: "#000", border: `3px solid ${ink}`, padding: "10px 14px", fontFamily: "'Courier New', monospace", fontSize: 12, color: "#e8e8e8", lineHeight: 1.65, position: "relative", zIndex: 1, boxShadow: `4px 4px 0 ${ink}` }}>
+                              <div style={{ background: "#000", border: `3px solid ${ink}`, padding: "12px 16px", fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 14, color: "#e8e8e8", lineHeight: 1.4, position: "relative", zIndex: 1, boxShadow: `4px 4px 0 ${ink}`, textTransform: "uppercase" }}>
                                    <div style={{ position: "absolute", top: -14, left: 20, borderLeft: "10px solid transparent", borderRight: "10px solid transparent", borderBottom: `14px solid ${ink}` }} />
                                    <div style={{ position: "absolute", top: -9, left: 22, borderLeft: "8px solid transparent", borderRight: "8px solid transparent", borderBottom: "11px solid #000" }} />
                                    {project.description}
                               </div>
                               <div style={{ position: "relative", zIndex: 1 }}>
-                                   <div style={{ fontFamily: "'Anton', 'Impact', sans-serif", fontSize: 10, color: "#fff", letterSpacing: "0.22em", marginBottom: 8, borderBottom: `2px solid ${ink}`, paddingBottom: 4 }}>BY THE NUMBERS</div>
+                                   <div style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 14, color: "#fff", letterSpacing: "0.1em", marginBottom: 8, borderBottom: `2px solid ${ink}`, paddingBottom: 4, textTransform: "uppercase" }}>BY THE NUMBERS</div>
                                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>{project.stats.map(s => <StatBlock key={s.l} {...s} ink={ink} />)}</div>
                               </div>
                               <div style={{ position: "relative", zIndex: 1 }}>
-                                   <div style={{ fontFamily: "'Anton', 'Impact', sans-serif", fontSize: 10, color: "#fff", letterSpacing: "0.22em", marginBottom: 8, borderBottom: `2px solid ${ink}`, paddingBottom: 4 }}>STACK</div>
+                                   <div style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 14, color: "#fff", letterSpacing: "0.1em", marginBottom: 8, borderBottom: `2px solid ${ink}`, paddingBottom: 4, textTransform: "uppercase" }}>STACK</div>
                                    <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>{project.techStack.map(t => <TechChip key={t} name={t} bg={bg} ink={ink} />)}</div>
                               </div>
                          </div>
@@ -242,7 +243,7 @@ function ExpandedProject({ project, onClose }: { project: typeof PROJECTS[0]; on
                                    ) : (
                                         <div style={{ flex: 1, border: `4px dashed ${ink}`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8 }}>
                                              <span style={{ fontSize: 36 }}>🚧</span>
-                                             <span style={{ fontFamily: "'Anton', 'Impact', sans-serif", fontSize: 16, color: ink, letterSpacing: "0.14em" }}>DEMO INCOMING!</span>
+                                             <span style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 20, color: ink, letterSpacing: "0.1em", textTransform: "uppercase" }}>DEMO INCOMING!</span>
                                         </div>
                                    )}
                               </div>
@@ -270,7 +271,7 @@ export default function ComicPage() {
      return (
           <>
                <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Kalam:wght@300;400;700&display=swap');
         .expanded-card {
           animation: popIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
