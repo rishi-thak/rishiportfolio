@@ -6,6 +6,7 @@ import { ProjectOverlay } from "./project-overlay";
 import { SkillsOverlay } from "./skills-overlay";
 import { ContactOverlay } from "./contact-overlay";
 import { AboutOverlay } from "./about-overlay";
+import { ExperienceOverlay } from "./experience-overlay";
 
 const PROJECTS = [
      {
@@ -148,6 +149,7 @@ export default function ComicPage() {
      const [skillsOpen, setSkillsOpen] = useState(false);
      const [contactOpen, setContactOpen] = useState(false);
      const [aboutOpen, setAboutOpen] = useState(false);
+     const [experienceOpen, setExperienceOpen] = useState(false);
      const [mounted, setMounted] = useState(false);
 
      useEffect(() => {
@@ -200,6 +202,7 @@ export default function ComicPage() {
                                                   if (panel.label === "SKILLS") setSkillsOpen(true);
                                                   if (panel.label === "CONTACT") setContactOpen(true);
                                                   if (panel.label === "ABOUT ME") setAboutOpen(true);
+                                                  if (panel.label === "EXPERIENCE") setExperienceOpen(true);
                                              }}
                                         />
                                    )}
@@ -222,6 +225,10 @@ export default function ComicPage() {
 
                {aboutOpen && (
                     <AboutOverlay onClose={() => setAboutOpen(false)} />
+               )}
+
+               {experienceOpen && (
+                    <ExperienceOverlay onClose={() => setExperienceOpen(false)} />
                )}
           </>
      );
