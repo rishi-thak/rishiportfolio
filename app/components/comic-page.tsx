@@ -5,6 +5,7 @@ import { HalftoneDots, RadialBurst, TechChip } from "./comic-elements";
 import { ProjectOverlay } from "./project-overlay";
 import { SkillsOverlay } from "./skills-overlay";
 import { ContactOverlay } from "./contact-overlay";
+import { AboutOverlay } from "./about-overlay";
 
 const PROJECTS = [
      {
@@ -55,7 +56,7 @@ const PANELS: PanelDef[] = [
      {
           clip: "polygon(70% 0, 100% 0, 100% 48%, 67% 49%)",
           box: { left: "67%", top: "0", width: "33%", height: "49%" },
-          type: "info", bg: "#cc2200", accent: "#ffcc00", emoji: "💥", label: "ABOUT ME", effect: "burst"
+          type: "info", bg: "#00aa88", accent: "#003322", emoji: "💥", label: "ABOUT ME", effect: "burst"
      },
      {
           clip: "polygon(0 52%, 22% 51%, 26% 100%, 0 100%)",
@@ -70,7 +71,7 @@ const PANELS: PanelDef[] = [
      {
           clip: "polygon(68% 50%, 100% 49%, 100% 100%, 65% 100%)",
           box: { left: "65%", top: "49%", width: "35%", height: "51%" },
-          type: "info", bg: "#00aa88", accent: "#003322", emoji: "🔗", label: "CONTACT", effect: "halftone"
+          type: "info", bg: "#cc2200", accent: "#ffcc00", emoji: "🔗", label: "CONTACT", effect: "halftone"
      },
 ];
 
@@ -146,6 +147,7 @@ export default function ComicPage() {
      const [expandedProject, setExpandedProject] = useState<number | null>(null);
      const [skillsOpen, setSkillsOpen] = useState(false);
      const [contactOpen, setContactOpen] = useState(false);
+     const [aboutOpen, setAboutOpen] = useState(false);
      const [mounted, setMounted] = useState(false);
 
      useEffect(() => {
@@ -197,6 +199,7 @@ export default function ComicPage() {
                                              onClick={() => {
                                                   if (panel.label === "SKILLS") setSkillsOpen(true);
                                                   if (panel.label === "CONTACT") setContactOpen(true);
+                                                  if (panel.label === "ABOUT ME") setAboutOpen(true);
                                              }}
                                         />
                                    )}
@@ -215,6 +218,10 @@ export default function ComicPage() {
 
                {contactOpen && (
                     <ContactOverlay onClose={() => setContactOpen(false)} />
+               )}
+
+               {aboutOpen && (
+                    <AboutOverlay onClose={() => setAboutOpen(false)} />
                )}
           </>
      );

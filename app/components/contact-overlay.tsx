@@ -4,6 +4,10 @@ import React from "react";
 import { HalftoneDots } from "./comic-elements";
 
 export function ContactOverlay({ onClose }: { onClose: () => void }) {
+     const redAccent = "#cc2200";
+     const yellowAccent = "#ffcc00";
+     const inkBlack = "#000000";
+
      const contactLinks = [
           { label: "EMAIL", value: "rjthakka@calpoly.edu", url: "mailto:rjthakka@calpoly.edu", icon: "📧" },
           { label: "LINKEDIN", value: "linkedin.com/in/rishi-thakkar1", url: "https://linkedin.com/in/rishi-thakkar1", icon: "💼" },
@@ -12,16 +16,16 @@ export function ContactOverlay({ onClose }: { onClose: () => void }) {
 
      return (
           <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-               <div onClick={e => e.stopPropagation()} className="expanded-card" style={{ width: "min(600px, 90vw)", background: "#00aa88", border: "5px solid #000", boxShadow: `12px 12px 0 #000`, position: "relative", overflow: "hidden" }}>
-                    <HalftoneDots color="#003322" opacity={0.15} size={10} />
+               <div onClick={e => e.stopPropagation()} className="expanded-card" style={{ width: "min(600px, 90vw)", background: redAccent, border: "5px solid #000", boxShadow: `12px 12px 0 #000`, position: "relative", overflow: "hidden" }}>
+                    <HalftoneDots color={yellowAccent} opacity={0.15} size={10} />
 
                     {/* Header */}
-                    <div style={{ background: "#000", padding: "16px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "5px solid #000" }}>
+                    <div style={{ background: inkBlack, padding: "16px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "5px solid #000" }}>
                          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                               <span style={{ fontSize: 32 }}>🔗</span>
-                              <h2 style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 36, color: "#00aa88", letterSpacing: "0.05em", margin: 0, textTransform: "uppercase" }}>Contact</h2>
+                              <h2 style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 36, color: yellowAccent, letterSpacing: "0.05em", margin: 0, textTransform: "uppercase" }}>Contact</h2>
                          </div>
-                         <button onClick={onClose} style={{ background: "#00aa88", border: "3px solid #000", width: 40, height: 40, cursor: "pointer", fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 20, color: "#000" }} onMouseEnter={e => e.currentTarget.style.background = "#fff"} onMouseLeave={e => e.currentTarget.style.background = "#00aa88"}>✕</button>
+                         <button onClick={onClose} style={{ background: yellowAccent, border: "3px solid #000", width: 40, height: 40, cursor: "pointer", fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 20, color: "#000" }} onMouseEnter={e => e.currentTarget.style.background = "#fff"} onMouseLeave={e => e.currentTarget.style.background = yellowAccent}>✕</button>
                     </div>
 
                     {/* Content */}
@@ -39,14 +43,14 @@ export function ContactOverlay({ onClose }: { onClose: () => void }) {
                                    style={{
                                         display: "flex", alignItems: "center", gap: 15, background: "#000", border: "3px solid #000",
                                         padding: "12px 20px", textDecoration: "none", transition: "transform 0.1s", cursor: "pointer",
-                                        boxShadow: "6px 6px 0 #003322"
+                                        boxShadow: `6px 6px 0 ${redAccent === "#cc2200" ? "#440000" : "#003322"}`
                                    }}
                                    onMouseEnter={e => e.currentTarget.style.transform = "translate(-2px, -2px)"}
                                    onMouseLeave={e => e.currentTarget.style.transform = "none"}
                               >
                                    <span style={{ fontSize: 28 }}>{link.icon}</span>
                                    <div style={{ display: "flex", flexDirection: "column" }}>
-                                        <span style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 14, color: "#00aa88", letterSpacing: "0.05em" }}>{link.label}</span>
+                                        <span style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 14, color: yellowAccent, letterSpacing: "0.05em" }}>{link.label}</span>
                                         <span style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 16, color: "#fff", textTransform: "uppercase" }}>{link.value}</span>
                                    </div>
                               </a>
@@ -54,8 +58,8 @@ export function ContactOverlay({ onClose }: { onClose: () => void }) {
                     </div>
 
                     {/* Footer strip */}
-                    <div style={{ height: 25, background: "#003322", display: "flex", alignItems: "center", padding: "0 20px", marginTop: 10 }}>
-                         
+                    <div style={{ height: 25, background: "#000", display: "flex", alignItems: "center", padding: "0 20px", marginTop: 10 }}>
+                         {/* <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 9, color: yellowAccent }}>TRANSMISSION SECURED // RISHI PORTFOLIO</div> */}
                     </div>
                </div>
           </div>
