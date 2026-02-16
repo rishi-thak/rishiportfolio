@@ -64,12 +64,32 @@ export function AboutOverlay({ onClose }: { onClose: () => void }) {
                               </div>
 
                               <div style={{ display: "flex", gap: 10 }}>
-                                   <div style={{ flex: 1, background: inkBlack, color: greenAccent, padding: "6px 12px", border: "2px solid #000", fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 11, textAlign: "center", textTransform: "uppercase", boxShadow: "4px 4px 0 #000" }}>
+                                   <a
+                                        href="https://github.com/rishi-thak"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={{
+                                             flex: 1, background: inkBlack, color: greenAccent, padding: "6px 12px", border: "2px solid #000",
+                                             fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 11, textAlign: "center", textTransform: "uppercase",
+                                             boxShadow: "4px 4px 0 #000", textDecoration: "none", transition: "transform 0.1s, filter 0.1s", cursor: "pointer"
+                                        }}
+                                        onMouseEnter={e => { e.currentTarget.style.transform = "translate(-1px, -1px)"; e.currentTarget.style.filter = "brightness(1.2)"; }}
+                                        onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.filter = "none"; }}
+                                   >
                                         ALWAYS BUILDING
-                                   </div>
-                                   <div style={{ flex: 1, background: greenAccent, color: "#000", padding: "6px 12px", border: "2px solid #000", fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 11, textAlign: "center", textTransform: "uppercase", boxShadow: "4px 4px 0 #000" }}>
+                                   </a>
+                                   <a
+                                        href="mailto:rjthakka@calpoly.edu"
+                                        style={{
+                                             flex: 1, background: greenAccent, color: "#000", padding: "6px 12px", border: "2px solid #000",
+                                             fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 11, textAlign: "center", textTransform: "uppercase",
+                                             boxShadow: "4px 4px 0 #000", textDecoration: "none", transition: "transform 0.1s, filter 0.1s", cursor: "pointer"
+                                        }}
+                                        onMouseEnter={e => { e.currentTarget.style.transform = "translate(-1px, -1px)"; e.currentTarget.style.filter = "brightness(1.1)"; }}
+                                        onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.filter = "none"; }}
+                                   >
                                         reach out to learn more
-                                   </div>
+                                   </a>
                               </div>
                          </div>
                     </div>

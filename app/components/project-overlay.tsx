@@ -60,7 +60,22 @@ export function ProjectOverlay({ project, onClose }: { project: Project; onClose
                                         <div style={{ border: `4px solid ${ink}`, boxShadow: `6px 6px 0 ${bg}`, flex: 1, display: "flex", flexDirection: "column" }}>
                                              <div style={{ background: "#111", padding: "5px 10px", display: "flex", gap: 5, alignItems: "center", borderBottom: `2px solid ${ink}`, flexShrink: 0 }}>
                                                   {["#E8003A", "#FFE500", "#009933"].map(c => <span key={c} style={{ width: 9, height: 9, borderRadius: "50%", background: c, border: "1px solid #000", display: "inline-block" }} />)}
-                                                  <span style={{ marginLeft: 6, fontFamily: "monospace", fontSize: 9, color: "#fff" }}>{project.demoUrl.replace("https://", "")}</span>
+                                                  <a
+                                                       href={project.demoUrl}
+                                                       target="_blank"
+                                                       rel="noopener noreferrer"
+                                                       style={{
+                                                            marginLeft: 6,
+                                                            fontFamily: "monospace",
+                                                            fontSize: 9,
+                                                            color: "#fff",
+                                                            textDecoration: "none"
+                                                       }}
+                                                       onMouseEnter={e => e.currentTarget.style.textDecoration = "underline"}
+                                                       onMouseLeave={e => e.currentTarget.style.textDecoration = "none"}
+                                                  >
+                                                       {project.demoUrl.replace("https://", "")}
+                                                  </a>
                                              </div>
                                              <iframe src={project.demoUrl} title={project.title} style={{ width: "100%", flex: 1, border: "none", background: "#0a0a0a" }} />
                                         </div>
