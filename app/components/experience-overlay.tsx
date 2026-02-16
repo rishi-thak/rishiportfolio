@@ -94,7 +94,7 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                                         key={i}
                                         initial="hidden"
                                         whileInView="visible"
-                                        viewport={{ once: true, amount: 0.2 }}
+                                        viewport={{ once: true, amount: 0.1 }}
                                         variants={{
                                              hidden: { opacity: 0, x: -30 },
                                              visible: {

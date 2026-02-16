@@ -223,23 +223,23 @@ export default function ComicPage() {
 
                <AnimatePresence>
                     {expandedProject !== null && (
-                         <ProjectOverlay origin={originRect} project={PROJECTS[expandedProject]} onClose={() => setExpandedProject(null)} />
+                         <ProjectOverlay key={`project-${expandedProject}`} origin={originRect} project={PROJECTS[expandedProject]} onClose={() => setExpandedProject(null)} />
                     )}
 
                     {skillsOpen && (
-                         <SkillsOverlay origin={originRect} onClose={() => setSkillsOpen(false)} />
+                         <SkillsOverlay key="skills" origin={originRect} onClose={() => setSkillsOpen(false)} />
                     )}
 
                     {contactOpen && (
-                         <ContactOverlay origin={originRect} onClose={() => setContactOpen(false)} />
+                         <ContactOverlay key="contact" origin={originRect} onClose={() => setContactOpen(false)} />
                     )}
 
                     {aboutOpen && (
-                         <AboutOverlay origin={originRect} onClose={() => setAboutOpen(false)} />
+                         <AboutOverlay key="about" origin={originRect} onClose={() => setAboutOpen(false)} />
                     )}
 
                     {experienceOpen && (
-                         <ExperienceOverlay origin={originRect} onClose={() => setExperienceOpen(false)} />
+                         <ExperienceOverlay key="experience" origin={originRect} onClose={() => setExperienceOpen(false)} />
                     )}
                </AnimatePresence>
           </>
