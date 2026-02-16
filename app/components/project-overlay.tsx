@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { HalftoneDots, TechChip, StatBlock } from "./comic-elements";
 
 type Project = {
@@ -17,11 +18,25 @@ type Project = {
      demoUrl: string;
 };
 
-export function ProjectOverlay({ project, onClose }: { project: Project; onClose: () => void }) {
+export function ProjectOverlay({ project, onClose, origin }: { project: Project; onClose: () => void; origin: { x: number; y: number } | null }) {
      const { bg, ink } = project;
      return (
-          <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.75)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-               <div onClick={e => e.stopPropagation()} className="expanded-card" style={{ width: "min(900px, 92vw)", background: bg, border: "4px solid #000", boxShadow: `8px 8px 0 #000`, position: "relative", overflow: "hidden" }}>
+          <motion.div
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               exit={{ opacity: 0, pointerEvents: "none" }}
+               onClick={onClose}
+               style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.75)", display: "flex", alignItems: "center", justifyContent: "center" }}
+          >
+               <motion.div
+                    initial={origin ? { scale: 0, opacity: 0, x: origin.x - (typeof window !== 'undefined' ? window.innerWidth / 2 : 0), y: origin.y - (typeof window !== 'undefined' ? window.innerHeight / 2 : 0) } : { scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1, x: 0, y: 0 }}
+                    exit={origin ? { scale: 0, opacity: 0, x: origin.x - (typeof window !== 'undefined' ? window.innerWidth / 2 : 0), y: origin.y - (typeof window !== 'undefined' ? window.innerHeight / 2 : 0) } : { scale: 0.9, opacity: 0 }}
+                    transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                    onClick={e => e.stopPropagation()}
+                    className="expanded-card"
+                    style={{ width: "min(900px, 92vw)", background: bg, border: "4px solid #000", boxShadow: `8px 8px 0 #000`, position: "relative", overflow: "hidden" }}
+               >
                     {/* Header */}
                     <div style={{ background: "#000", borderBottom: `4px solid ${ink}`, display: "flex", alignItems: "stretch" }}>
                          <div style={{ width: 10, background: bg, borderRight: `3px solid ${ink}`, flexShrink: 0 }} />
@@ -36,8 +51,21 @@ export function ProjectOverlay({ project, onClose }: { project: Project; onClose
                          <button onClick={onClose} style={{ background: ink, border: "none", borderLeft: "4px solid #000", width: 52, cursor: "pointer", fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 26, color: "#000", flexShrink: 0 }} onMouseEnter={e => e.currentTarget.style.background = "#fff"} onMouseLeave={e => e.currentTarget.style.background = ink}>✕</button>
                     </div>
                     {/* Body */}
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: 320 }}>
-                         <div style={{ padding: 22, borderRight: "4px solid #000", display: "flex", flexDirection: "column", gap: 16, position: "relative", overflow: "hidden" }}>
+                    <motion.div
+                         initial="hidden"
+                         animate="visible"
+                         variants={{
+                              visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
+                         }}
+                         style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: 320 }}
+                    >
+                         <motion.div
+                              variants={{
+                                   hidden: { opacity: 0, x: -20 },
+                                   visible: { opacity: 1, x: 0, transition: { type: "spring", damping: 20 } }
+                              }}
+                              style={{ padding: 22, borderRight: "4px solid #000", display: "flex", flexDirection: "column", gap: 16, position: "relative", overflow: "hidden" }}
+                         >
                               <HalftoneDots color={ink} size={10} opacity={0.1} />
                               <div style={{ background: "#000", border: `3px solid ${ink}`, padding: "12px 16px", fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 14, color: "#e8e8e8", lineHeight: 1.4, position: "relative", zIndex: 1, boxShadow: `4px 4px 0 ${ink}`, textTransform: "uppercase" }}>
                                    <div style={{ position: "absolute", top: -14, left: 20, borderLeft: "10px solid transparent", borderRight: "10px solid transparent", borderBottom: `14px solid ${ink}` }} />
@@ -52,8 +80,14 @@ export function ProjectOverlay({ project, onClose }: { project: Project; onClose
                                    <div style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 14, color: "#fff", letterSpacing: "0.1em", marginBottom: 8, borderBottom: `2px solid ${ink}`, paddingBottom: 4, textTransform: "uppercase" }}>STACK</div>
                                    <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>{project.techStack.map(t => <TechChip key={t} name={t} bg={bg} ink={ink} />)}</div>
                               </div>
-                         </div>
-                         <div style={{ padding: 22, background: "#000", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                         </motion.div>
+                         <motion.div
+                              variants={{
+                                   hidden: { opacity: 0, x: 20 },
+                                   visible: { opacity: 1, x: 0, transition: { type: "spring", damping: 20 } }
+                              }}
+                              style={{ padding: 22, background: "#000", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}
+                         >
                               <HalftoneDots color={bg} size={9} opacity={0.07} />
                               <div style={{ flex: 1, position: "relative", zIndex: 1, display: "flex", flexDirection: "column" }}>
                                    {project.demoUrl ? (
@@ -86,9 +120,9 @@ export function ProjectOverlay({ project, onClose }: { project: Project; onClose
                                         </div>
                                    )}
                               </div>
-                         </div>
-                    </div>
-               </div>
-          </div>
+                         </motion.div>
+                    </motion.div>
+               </motion.div>
+          </motion.div>
      );
 }

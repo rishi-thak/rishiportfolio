@@ -1,10 +1,8 @@
-"use client";
-
-import React from "react";
+import { motion } from "framer-motion";
 
 /* ═══ SVG EFFECTS ═══ */
 
-export function HalftoneDots({ color, size = 8, opacity = 0.2 }: { color: string; size?: number; opacity?: number }) {
+export function HalftoneDots({ color, size = 8, opacity = 0.2, hovered = false }: { color: string; size?: number; opacity?: number; hovered?: boolean }) {
      const id = `ht${color.replace(/[^a-z0-9]/gi, "")}${size}`;
      return (
           <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
@@ -13,21 +11,30 @@ export function HalftoneDots({ color, size = 8, opacity = 0.2 }: { color: string
                          <circle cx={size / 2} cy={size / 2} r={size * 0.28} fill={color} opacity={opacity} />
                     </pattern>
                </defs>
-               <rect width="100%" height="100%" fill={`url(#${id})`} />
+               <motion.rect
+                    width="100%" height="100%" fill={`url(#${id})`}
+                    animate={hovered ? { rotate: 2 } : { rotate: 0 }}
+                    transition={{ duration: 0.2 }}
+               />
           </svg>
      );
 }
 
-export function RadialBurst({ color, opacity = 0.15 }: { color: string; opacity?: number }) {
+export function RadialBurst({ color, opacity = 0.15, hovered = false }: { color: string; opacity?: number; hovered?: boolean }) {
      return (
-          <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
+          <motion.svg
+               viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"
+               style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
+               animate={hovered ? { scale: 1.1, opacity: Math.min(opacity * 1.5, 1) } : { scale: 1, opacity }}
+               transition={{ duration: 0.3 }}
+          >
                {[...Array(24)].map((_, i) => {
                     const angle = (i / 24) * Math.PI * 2;
                     const x2 = 100 + Math.cos(angle) * 150;
                     const y2 = 100 + Math.sin(angle) * 150;
-                    return <line key={i} x1="100" y1="100" x2={x2} y2={y2} stroke={color} strokeWidth={i % 3 === 0 ? "3" : "1.5"} opacity={opacity} />;
+                    return <line key={i} x1="100" y1="100" x2={x2} y2={y2} stroke={color} strokeWidth={i % 3 === 0 ? "3" : "1.5"} />;
                })}
-          </svg>
+          </motion.svg>
      );
 }
 

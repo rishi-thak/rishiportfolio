@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { HalftoneDots, TechChip } from "./comic-elements";
 
-export function ExperienceOverlay({ onClose }: { onClose: () => void }) {
+export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; origin: { x: number; y: number } | null }) {
      const experiences = [
           {
                company: "CodeBox",
@@ -34,7 +35,7 @@ export function ExperienceOverlay({ onClose }: { onClose: () => void }) {
           },
           {
                company: "Noyce School of Computing",
-               role: "Course Assistant",
+               role: "Teacher's Assistant",
                period: "Jan 2026 - Present",
                color: "#00bbcc",
                accent: "#003344",
@@ -59,8 +60,22 @@ export function ExperienceOverlay({ onClose }: { onClose: () => void }) {
      ];
 
      return (
-          <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.85)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-               <div onClick={e => e.stopPropagation()} className="expanded-card" style={{ width: "min(1000px, 94vw)", height: "min(850px, 92vh)", background: "#fff", border: "5px solid #000", boxShadow: `12px 12px 0 #000`, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+          <motion.div
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               exit={{ opacity: 0, pointerEvents: "none" }}
+               onClick={onClose}
+               style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.85)", display: "flex", alignItems: "center", justifyContent: "center" }}
+          >
+               <motion.div
+                    initial={origin ? { scale: 0, opacity: 0, x: origin.x - (typeof window !== 'undefined' ? window.innerWidth / 2 : 0), y: origin.y - (typeof window !== 'undefined' ? window.innerHeight / 2 : 0) } : { scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1, x: 0, y: 0 }}
+                    exit={origin ? { scale: 0, opacity: 0, x: origin.x - (typeof window !== 'undefined' ? window.innerWidth / 2 : 0), y: origin.y - (typeof window !== 'undefined' ? window.innerHeight / 2 : 0) } : { scale: 0.9, opacity: 0 }}
+                    transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                    onClick={e => e.stopPropagation()}
+                    className="expanded-card"
+                    style={{ width: "min(1000px, 94vw)", height: "min(850px, 92vh)", background: "#fff", border: "5px solid #000", boxShadow: `12px 12px 0 #000`, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}
+               >
 
                     {/* Header */}
                     <div style={{ background: "#000", padding: "16px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "5px solid #000" }}>
@@ -75,16 +90,36 @@ export function ExperienceOverlay({ onClose }: { onClose: () => void }) {
                     <div style={{ flex: 1, overflowY: "auto", background: "#f0f0f0", padding: 20 }}>
                          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
                               {experiences.map((exp, i) => (
-                                   <div key={i} style={{
-                                        display: "grid",
-                                        gridTemplateColumns: "250px 1fr",
-                                        background: "#fff",
-                                        border: "4px solid #000",
-                                        boxShadow: "8px 8px 0 #000",
-                                        minHeight: 180,
-                                        position: "relative",
-                                        overflow: "hidden"
-                                   }}>
+                                   <motion.div
+                                        key={i}
+                                        initial="hidden"
+                                        whileInView="visible"
+                                        viewport={{ once: true, amount: 0.2 }}
+                                        variants={{
+                                             hidden: { opacity: 0, x: -30 },
+                                             visible: {
+                                                  opacity: 1,
+                                                  x: 0,
+                                                  transition: {
+                                                       type: "spring",
+                                                       damping: 20,
+                                                       stiffness: 100,
+                                                       // Only apply delay to the first couple items to simulate stagger on open
+                                                       delay: i < 2 ? i * 0.15 + 0.2 : 0
+                                                  }
+                                             }
+                                        }}
+                                        style={{
+                                             display: "grid",
+                                             gridTemplateColumns: "250px 1fr",
+                                             background: "#fff",
+                                             border: "4px solid #000",
+                                             boxShadow: "8px 8px 0 #000",
+                                             minHeight: 180,
+                                             position: "relative",
+                                             overflow: "hidden"
+                                        }}
+                                   >
                                         {/* Left Side: Brand Panel */}
                                         <div style={{
                                              background: exp.color,
@@ -132,7 +167,7 @@ export function ExperienceOverlay({ onClose }: { onClose: () => void }) {
                                                   </ul>
                                              </div>
                                         </div>
-                                   </div>
+                                   </motion.div>
                               ))}
                          </div>
                     </div>
@@ -141,7 +176,7 @@ export function ExperienceOverlay({ onClose }: { onClose: () => void }) {
                     <div style={{ height: 30, background: "#000", display: "flex", alignItems: "center", padding: "0 20px" }}>
                          {/* <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 10, color: "#ccbb00" }}>SERVICE RECORD // RISHI THAKKAR // CAL POLY ENGINEERING</div> */}
                     </div>
-               </div>
-          </div>
+               </motion.div>
+          </motion.div>
      );
 }

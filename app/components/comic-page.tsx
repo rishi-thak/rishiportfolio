@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { HalftoneDots, RadialBurst, TechChip } from "./comic-elements";
 import { ProjectOverlay } from "./project-overlay";
 import { SkillsOverlay } from "./skills-overlay";
@@ -78,9 +79,10 @@ const PANELS: PanelDef[] = [
 
 /* ═══ PANEL CONTENTS ═══ */
 
-function ProjectPanel({ project, onClick }: { project: typeof PROJECTS[0]; onClick: () => void }) {
+function ProjectPanel({ project, onClick }: { project: typeof PROJECTS[0]; onClick: (e: React.MouseEvent) => void }) {
      const [hovered, setHovered] = useState(false);
      const { bg, ink } = project;
+
      return (
           <div
                onClick={onClick}
@@ -90,17 +92,18 @@ function ProjectPanel({ project, onClick }: { project: typeof PROJECTS[0]; onCli
                     width: "100%", height: "100%", background: bg,
                     display: "flex", flexDirection: "column", justifyContent: "center",
                     padding: "40px", position: "relative", overflow: "hidden",
-                    cursor: "pointer", filter: hovered ? "brightness(1.12)" : "brightness(1)",
+                    cursor: "pointer",
+                    filter: hovered ? "brightness(1.12)" : "brightness(1)",
                     transition: "filter 0.2s",
                }}
           >
-               <HalftoneDots color={ink} size={8} opacity={0.15} />
-               {hovered && <RadialBurst color={ink} opacity={0.1} />}
+               <HalftoneDots color={ink} size={8} opacity={0.15} hovered={hovered} />
+               <RadialBurst color={ink} opacity={0.1} hovered={hovered} />
                <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
                     <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 11, color: ink, letterSpacing: "0.05em", opacity: 0.9, textTransform: "uppercase" }}>{project.issue}</div>
                     <div style={{
                          fontFamily: "'Bangers', system-ui, sans-serif", fontSize: "clamp(24px, 4vw, 54px)", lineHeight: 0.9,
-                         color: ink, textShadow: `3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000`,
+                         color: ink, textShadow: `3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000`,
                          whiteSpace: "pre-line", textTransform: "uppercase", letterSpacing: "0.02em"
                     }}>{project.title}</div>
                     <div style={{
@@ -116,8 +119,9 @@ function ProjectPanel({ project, onClick }: { project: typeof PROJECTS[0]; onCli
      );
 }
 
-function InfoPanel({ bg, accent, emoji, label, effect, onClick }: { bg: string; accent: string; emoji: string; label: string; effect: "halftone" | "burst"; onClick?: () => void }) {
+function InfoPanel({ bg, accent, emoji, label, effect, onClick }: { bg: string; accent: string; emoji: string; label: string; effect: "halftone" | "burst"; onClick?: (e: React.MouseEvent) => void }) {
      const [hovered, setHovered] = useState(false);
+
      return (
           <div
                onClick={onClick}
@@ -130,8 +134,8 @@ function InfoPanel({ bg, accent, emoji, label, effect, onClick }: { bg: string; 
                     filter: hovered ? "brightness(1.12)" : "brightness(1)", transition: "filter 0.2s",
                }}
           >
-               {effect === "halftone" && <HalftoneDots color={accent} size={8} opacity={0.2} />}
-               {effect === "burst" && <RadialBurst color={accent} opacity={0.15} />}
+               {effect === "halftone" && <HalftoneDots color={accent} size={8} opacity={0.2} hovered={hovered} />}
+               {effect === "burst" && <RadialBurst color={accent} opacity={0.15} hovered={hovered} />}
                <span style={{ fontSize: "clamp(32px, 5vw, 64px)", position: "relative", zIndex: 1 }}>{emoji}</span>
                <span style={{
                     fontFamily: "'Bangers', system-ui, sans-serif", fontSize: "clamp(16px, 2.5vw, 32px)",
@@ -151,10 +155,23 @@ export default function ComicPage() {
      const [aboutOpen, setAboutOpen] = useState(false);
      const [experienceOpen, setExperienceOpen] = useState(false);
      const [mounted, setMounted] = useState(false);
+     const [originRect, setOriginRect] = useState<{ x: number, y: number } | null>(null);
 
      useEffect(() => {
           setMounted(true);
      }, []);
+
+     const openOverlay = (setter: (v: boolean) => void, e: React.MouseEvent) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          setOriginRect({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+          setter(true);
+     };
+
+     const openProject = (index: number, e: React.MouseEvent) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          setOriginRect({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+          setExpandedProject(index);
+     };
 
      if (!mounted) {
           return <div style={{ background: "#fff", width: "100vw", height: "100vh" }} />;
@@ -164,13 +181,6 @@ export default function ComicPage() {
           <>
                <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Kalam:wght@300;400;700&display=swap');
-        .expanded-card {
-          animation: popIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-        @keyframes popIn {
-          0% { transform: scale(0.9); opacity: 0; }
-          100% { transform: scale(1); opacity: 1; }
-        }
       `}</style>
 
                <div style={{ position: "relative", width: "100vw", height: "100vh", background: "#fff", overflow: "hidden" }}>
@@ -189,7 +199,7 @@ export default function ComicPage() {
                                    {panel.type === "project" ? (
                                         <ProjectPanel
                                              project={PROJECTS[panel.projectIndex!]}
-                                             onClick={() => setExpandedProject(panel.projectIndex!)}
+                                             onClick={(e) => openProject(panel.projectIndex!, e)}
                                         />
                                    ) : (
                                         <InfoPanel
@@ -198,11 +208,11 @@ export default function ComicPage() {
                                              emoji={panel.emoji!}
                                              label={panel.label!}
                                              effect={panel.effect!}
-                                             onClick={() => {
-                                                  if (panel.label === "SKILLS") setSkillsOpen(true);
-                                                  if (panel.label === "CONTACT") setContactOpen(true);
-                                                  if (panel.label === "ABOUT ME") setAboutOpen(true);
-                                                  if (panel.label === "EXPERIENCE") setExperienceOpen(true);
+                                             onClick={(e) => {
+                                                  if (panel.label === "SKILLS") openOverlay(setSkillsOpen, e);
+                                                  if (panel.label === "CONTACT") openOverlay(setContactOpen, e);
+                                                  if (panel.label === "ABOUT ME") openOverlay(setAboutOpen, e);
+                                                  if (panel.label === "EXPERIENCE") openOverlay(setExperienceOpen, e);
                                              }}
                                         />
                                    )}
@@ -211,25 +221,27 @@ export default function ComicPage() {
                     ))}
                </div>
 
-               {expandedProject !== null && (
-                    <ProjectOverlay project={PROJECTS[expandedProject]} onClose={() => setExpandedProject(null)} />
-               )}
+               <AnimatePresence>
+                    {expandedProject !== null && (
+                         <ProjectOverlay origin={originRect} project={PROJECTS[expandedProject]} onClose={() => setExpandedProject(null)} />
+                    )}
 
-               {skillsOpen && (
-                    <SkillsOverlay onClose={() => setSkillsOpen(false)} />
-               )}
+                    {skillsOpen && (
+                         <SkillsOverlay origin={originRect} onClose={() => setSkillsOpen(false)} />
+                    )}
 
-               {contactOpen && (
-                    <ContactOverlay onClose={() => setContactOpen(false)} />
-               )}
+                    {contactOpen && (
+                         <ContactOverlay origin={originRect} onClose={() => setContactOpen(false)} />
+                    )}
 
-               {aboutOpen && (
-                    <AboutOverlay onClose={() => setAboutOpen(false)} />
-               )}
+                    {aboutOpen && (
+                         <AboutOverlay origin={originRect} onClose={() => setAboutOpen(false)} />
+                    )}
 
-               {experienceOpen && (
-                    <ExperienceOverlay onClose={() => setExperienceOpen(false)} />
-               )}
+                    {experienceOpen && (
+                         <ExperienceOverlay origin={originRect} onClose={() => setExperienceOpen(false)} />
+                    )}
+               </AnimatePresence>
           </>
      );
 }

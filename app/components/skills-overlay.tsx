@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { HalftoneDots } from "./comic-elements";
 
 export const SKILLS = [
@@ -27,10 +28,24 @@ export const SKILLS = [
      }
 ];
 
-export function SkillsOverlay({ onClose }: { onClose: () => void }) {
+export function SkillsOverlay({ onClose, origin }: { onClose: () => void; origin: { x: number; y: number } | null }) {
      return (
-          <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-               <div onClick={e => e.stopPropagation()} className="expanded-card" style={{ width: "min(900px, 94vw)", height: "auto", maxHeight: "90vh", background: "#fff", border: "5px solid #000", boxShadow: `12px 12px 0 #000`, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+          <motion.div
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               exit={{ opacity: 0, pointerEvents: "none" }}
+               onClick={onClose}
+               style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center" }}
+          >
+               <motion.div
+                    initial={origin ? { scale: 0, opacity: 0, x: origin.x - (typeof window !== 'undefined' ? window.innerWidth / 2 : 0), y: origin.y - (typeof window !== 'undefined' ? window.innerHeight / 2 : 0) } : { scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1, x: 0, y: 0 }}
+                    exit={origin ? { scale: 0, opacity: 0, x: origin.x - (typeof window !== 'undefined' ? window.innerWidth / 2 : 0), y: origin.y - (typeof window !== 'undefined' ? window.innerHeight / 2 : 0) } : { scale: 0.9, opacity: 0 }}
+                    transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                    onClick={e => e.stopPropagation()}
+                    className="expanded-card"
+                    style={{ width: "min(900px, 94vw)", height: "auto", maxHeight: "90vh", background: "#fff", border: "5px solid #000", boxShadow: `12px 12px 0 #000`, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}
+               >
                     {/* Header */}
                     <div style={{ background: "#000", padding: "12px 20px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "5px solid #000" }}>
                          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -41,13 +56,27 @@ export function SkillsOverlay({ onClose }: { onClose: () => void }) {
                     </div>
 
                     {/* Content Grid */}
-                    <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "auto auto", padding: 8, gap: 8, background: "#000" }}>
+                    <motion.div
+                         initial="hidden"
+                         animate="visible"
+                         variants={{
+                              visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } }
+                         }}
+                         style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "auto auto", padding: 8, gap: 8, background: "#000" }}
+                    >
                          {SKILLS.map((s: any, idx: number) => (
-                              <div key={s.category} style={{
-                                   gridColumn: idx === 2 ? "1 / span 2" : "auto",
-                                   background: s.color, border: "4px solid #000", position: "relative", padding: 18, overflow: "hidden",
-                                   display: "flex", flexDirection: "column"
-                              }}>
+                              <motion.div
+                                   key={s.category}
+                                   variants={{
+                                        hidden: { opacity: 0, y: 20, scale: 0.95 },
+                                        visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", damping: 20, stiffness: 200 } }
+                                   }}
+                                   style={{
+                                        gridColumn: idx === 2 ? "1 / span 2" : "auto",
+                                        background: s.color, border: "4px solid #000", position: "relative", padding: 18, overflow: "hidden",
+                                        display: "flex", flexDirection: "column"
+                                   }}
+                              >
                                    <HalftoneDots color={s.accent} opacity={0.15} size={10} />
 
                                    {/* Caption Tag */}
@@ -72,15 +101,15 @@ export function SkillsOverlay({ onClose }: { onClose: () => void }) {
                                              ))}
                                         </div>
                                    </div>
-                              </div>
+                              </motion.div>
                          ))}
-                    </div>
+                    </motion.div>
 
                     {/* Footer strip - temporarily commented as in source */}
                     {/* <div style={{ height: 30, background: "#FFE500", borderTop: "5px solid #000", display: "flex", alignItems: "center", padding: "0 20px" }}>
                          <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 10, color: "#000" }}>CLASSIFIED DATA // RISHI PORTFOLIO // PAGE 24</div>
                     </div> */}
-               </div>
-          </div>
+               </motion.div>
+          </motion.div>
      );
 }
