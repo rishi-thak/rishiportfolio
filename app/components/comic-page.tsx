@@ -39,7 +39,7 @@ const PROJECTS = [
           bg: "#2E1065", ink: "#FACC15",
           techStack: ["React", "Node.js", "PostgreSQL", "Prisma", "TanStack Query"],
           stats: [{ v: "50+", l: "active users" }, { v: "5", l: "Fully built roles" }, { v: "∞", l: "COHORTS" },],
-          demoUrl: "https://assigncb.vercel.app",
+          demoUrl: "https://assigncb.vercel.app/onboarding",
      },
 ];
 

@@ -20,6 +20,12 @@ type Project = {
 
 export function ProjectOverlay({ project, onClose, origin }: { project: Project; onClose: () => void; origin: { x: number; y: number } | null }) {
      const { bg, ink } = project;
+     var newURL = "";
+
+     if(project.demoUrl == "https://assigncb.vercel.app/onboarding"){
+          newURL = "https://assigncb.vercel.app";
+     }
+
      return (
           <motion.div
                initial={{ opacity: 0 }}
@@ -108,7 +114,8 @@ export function ProjectOverlay({ project, onClose, origin }: { project: Project;
                                                        onMouseEnter={e => e.currentTarget.style.textDecoration = "underline"}
                                                        onMouseLeave={e => e.currentTarget.style.textDecoration = "none"}
                                                   >
-                                                       {project.demoUrl.replace("https://", "")}
+                                                       {project.demoUrl.replace("https://", "").replace("/onboarding", "")}
+                                                       
                                                   </a>
                                              </div>
                                              <iframe src={project.demoUrl} title={project.title} style={{ width: "100%", flex: 1, border: "none", background: "#0a0a0a" }} />
