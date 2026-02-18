@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HalftoneDots, RadialBurst, TechChip } from "./comic-elements";
+import { HalftoneDots, RadialBurst, TechChip, ThinkingBox } from "./comic-elements";
 import { ProjectOverlay } from "./project-overlay";
 import { SkillsOverlay } from "./skills-overlay";
 import { ContactOverlay } from "./contact-overlay";
 import { AboutOverlay } from "./about-overlay";
 import { ExperienceOverlay } from "./experience-overlay";
+import { ProjectsHubOverlay } from "./projects-hub-overlay";
 
 const PROJECTS = [
      {
@@ -29,8 +30,22 @@ const PROJECTS = [
           techStack: ["Python", "FastAPI", "PRAW", "React", "Next.js", "Vercel"],
           stats: [{ v: "1K+", l: "COMMENTS" }, { v: "40%", l: "SPEED" }, { v: "<200ms", l: "LATENCY" }],
           demoUrl: "",
-     }
+     },
+     {
+          id: 3, issue: "2025 - 2026",
+          title: "Assigned", tagline: "Full-Stack internal tooling",
+          description: "Engineered a custom internal assignment management platform for CodeBox’s 50+ members, implementing custom OTP authentication and multi-tiered role-based access control. Architected a complex relational schema with Prisma/PostgreSQL and developed a centralized TanStack Query command center for real-time state management.",
+          coverEmoji: "📝",
+          bg: "#2E1065", ink: "#FACC15",
+          techStack: ["React", "Node.js", "PostgreSQL", "Prisma", "TanStack Query"],
+          stats: [{ v: "50+", l: "active users" }, { v: "5", l: "Fully built roles" }, { v: "∞", l: "COHORTS" },],
+          demoUrl: "https://assigncb.vercel.app",
+     },
 ];
+
+const fixingIndexVsID = 1;
+const ACTIVE_PROJECT_INDEX = 2 - fixingIndexVsID;// Simply change this to the ID of the project you wanna feature to change it!
+const HUB_PROJECTS = PROJECTS;
 
 type PanelDef = {
      clip: string;
@@ -42,18 +57,19 @@ type PanelDef = {
      emoji?: string;
      label?: string;
      effect?: "halftone" | "burst";
+     isCurrentlyWorking?: boolean;
 };
 
 const PANELS: PanelDef[] = [
      {
           clip: "polygon(0 0, 36% 0, 39% 49%, 0 51%)",
           box: { left: "0", top: "0", width: "39%", height: "51%" },
-          type: "project", projectIndex: 0
+          type: "info", bg: "#0024cc", accent: "#e6adcf", emoji: "📚", label: "PROJECTS", effect: "halftone"
      },
      {
           clip: "polygon(37% 0, 69% 0, 66% 49%, 40% 49%)",
           box: { left: "37%", top: "0", width: "32%", height: "49%" },
-          type: "project", projectIndex: 1
+          type: "project", projectIndex: ACTIVE_PROJECT_INDEX, isCurrentlyWorking: true
      },
      {
           clip: "polygon(70% 0, 100% 0, 100% 48%, 67% 49%)",
@@ -79,9 +95,11 @@ const PANELS: PanelDef[] = [
 
 /* ═══ PANEL CONTENTS ═══ */
 
-function ProjectPanel({ project, onClick }: { project: typeof PROJECTS[0]; onClick: (e: React.MouseEvent) => void }) {
+function ProjectPanel({ project, onClick, isCurrentlyWorking }: { project: typeof PROJECTS[0]; onClick: (e: React.MouseEvent) => void; isCurrentlyWorking?: boolean }) {
      const [hovered, setHovered] = useState(false);
-     const { bg, ink } = project;
+     // If featured on homepage, use the theme colors; otherwise use project's own identity
+     const bg = isCurrentlyWorking ? "#a7374b" : project.bg;
+     const ink = isCurrentlyWorking ? "#66ab56" : project.ink;
 
      return (
           <div
@@ -99,6 +117,7 @@ function ProjectPanel({ project, onClick }: { project: typeof PROJECTS[0]; onCli
           >
                <HalftoneDots color={ink} size={8} opacity={0.15} hovered={hovered} />
                <RadialBurst color={ink} opacity={0.1} hovered={hovered} />
+               {isCurrentlyWorking && <ThinkingBox text="Currently Working On:" color={ink} />}
                <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
                     <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 11, color: ink, letterSpacing: "0.05em", opacity: 0.9, textTransform: "uppercase" }}>{project.issue}</div>
                     <div style={{
@@ -154,6 +173,7 @@ export default function ComicPage() {
      const [contactOpen, setContactOpen] = useState(false);
      const [aboutOpen, setAboutOpen] = useState(false);
      const [experienceOpen, setExperienceOpen] = useState(false);
+     const [projectsOpen, setProjectsOpen] = useState(false);
      const [mounted, setMounted] = useState(false);
      const [originRect, setOriginRect] = useState<{ x: number, y: number } | null>(null);
 
@@ -200,6 +220,7 @@ export default function ComicPage() {
                                         <ProjectPanel
                                              project={PROJECTS[panel.projectIndex!]}
                                              onClick={(e) => openProject(panel.projectIndex!, e)}
+                                             isCurrentlyWorking={panel.isCurrentlyWorking}
                                         />
                                    ) : (
                                         <InfoPanel
@@ -213,6 +234,7 @@ export default function ComicPage() {
                                                   if (panel.label === "CONTACT") openOverlay(setContactOpen, e);
                                                   if (panel.label === "ABOUT ME") openOverlay(setAboutOpen, e);
                                                   if (panel.label === "EXPERIENCE") openOverlay(setExperienceOpen, e);
+                                                  if (panel.label === "PROJECTS") openOverlay(setProjectsOpen, e);
                                              }}
                                         />
                                    )}
@@ -222,8 +244,30 @@ export default function ComicPage() {
                </div>
 
                <AnimatePresence>
+                    {projectsOpen && (
+                         <ProjectsHubOverlay
+                              key="projects-hub"
+                              projects={HUB_PROJECTS}
+                              origin={originRect}
+                              onClose={() => setProjectsOpen(false)}
+                              onSelectProject={(idx, e) => {
+                                   setProjectsOpen(false);
+                                   // Map back to the original index from the filtered list
+                                   const originalIndex = PROJECTS.indexOf(HUB_PROJECTS[idx]);
+                                   openProject(originalIndex, e);
+                              }}
+                         />
+                    )}
                     {expandedProject !== null && (
-                         <ProjectOverlay key={`project-${expandedProject}`} origin={originRect} project={PROJECTS[expandedProject]} onClose={() => setExpandedProject(null)} />
+                         <ProjectOverlay
+                              key={`project-${expandedProject}`}
+                              origin={originRect}
+                              project={PROJECTS[expandedProject]}
+                              onClose={() => {
+                                   setProjectsOpen(true);
+                                   setExpandedProject(null);
+                              }}
+                         />
                     )}
 
                     {skillsOpen && (

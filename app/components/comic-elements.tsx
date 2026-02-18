@@ -64,3 +64,52 @@ export function StatBlock({ v, l, ink }: { v: string; l: string; ink: string }) 
           </div>
      );
 }
+
+export function ThinkingBox({ text, color = "#000" }: { text: string; color?: string }) {
+     return (
+          <div style={{
+               position: "absolute",
+               top: 20,
+               right: 20,
+               zIndex: 10,
+               background: "#fff",
+               border: `3px solid #000`,
+               padding: "8px 14px",
+               transform: "rotate(2deg)",
+               boxShadow: "4px 4px 0 rgba(0,0,0,0.2)",
+               pointerEvents: "none"
+          }}>
+               <div style={{
+                    fontFamily: "'Kalam', cursive",
+                    fontWeight: 400,
+                    fontSize: 14,
+                    color: "#000",
+                    textTransform: "uppercase",
+                    lineHeight: 1.2
+               }}>
+                    {text}
+               </div>
+               {/* Thought bubbles tail - now on the right side */}
+               <div style={{
+                    position: "absolute",
+                    bottom: -12,
+                    right: 25,
+                    width: 12,
+                    height: 12,
+                    background: "#fff",
+                    border: `2px solid #000`,
+                    borderRadius: "50%"
+               }} />
+               <div style={{
+                    position: "absolute",
+                    bottom: -22,
+                    right: 40,
+                    width: 7,
+                    height: 7,
+                    background: "#fff",
+                    border: `2px solid #000`,
+                    borderRadius: "50%"
+               }} />
+          </div>
+     );
+}
