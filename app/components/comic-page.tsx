@@ -22,17 +22,7 @@ const PROJECTS = [
           demoUrl: "https://rrecords.vercel.app",
      },
      {
-          id: 2, issue: "2025",
-          title: "WSB\nAnalyzer", tagline: "Reddit Sentiment Analysis",
-          description: "A full-stack NLP tool analyzing 1,000+ WallStreetBets comments per request and scoring sentiment in real time. Features an asynchronous FastAPI backend for scraping/processing (improving data speed by 40%+) and a production-ready Next.js frontend achieving sub-200ms UI interactions.",
-          coverEmoji: "🚀",
-          bg: "#a7374b", ink: "#66ab56",
-          techStack: ["Python", "FastAPI", "PRAW", "React", "Next.js", "Vercel"],
-          stats: [{ v: "1K+", l: "COMMENTS" }, { v: "40%", l: "SPEED" }, { v: "<200ms", l: "LATENCY" }],
-          demoUrl: "",
-     },
-     {
-          id: 3, issue: "2025 - 2026",
+          id: 2, issue: "2025 - 2026",
           title: "Assigned", tagline: "Full-Stack internal tooling",
           description: "Engineered a custom internal assignment management platform for CodeBox’s 50+ members, implementing custom OTP authentication and multi-tiered role-based access control. Architected a complex relational schema with Prisma/PostgreSQL and developed a centralized TanStack Query command center for real-time state management.",
           coverEmoji: "📝",
@@ -41,6 +31,17 @@ const PROJECTS = [
           stats: [{ v: "50+", l: "active users" }, { v: "5", l: "Fully built roles" }, { v: "∞", l: "COHORTS" },],
           demoUrl: "https://assign.codeboxorg.com/onboarding",
      },
+     {
+          id: 3, issue: "2025",
+          title: "WSB\nAnalyzer", tagline: "Reddit Sentiment Analysis",
+          description: "A full-stack NLP tool analyzing 1,000+ WallStreetBets comments per request and scoring sentiment in real time. Features an asynchronous FastAPI backend for scraping/processing (improving data speed by 40%+) and a production-ready Next.js frontend achieving sub-200ms UI interactions.",
+          coverEmoji: "🚀",
+          bg: "#a7374b", ink: "#66ab56",
+          techStack: ["Python", "FastAPI", "PRAW", "React", "Next.js", "Vercel"],
+          stats: [{ v: "1K+", l: "COMMENTS" }, { v: "40%", l: "SPEED" }, { v: "<200ms", l: "LATENCY" }],
+          demoUrl: "",
+     },
+     
 ];
 
 const fixingIndexVsID = 1;
