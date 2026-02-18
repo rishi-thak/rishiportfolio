@@ -14,7 +14,7 @@ const PROJECTS = [
      {
           id: 1, issue: "2024-2025",
           title: "Rishi's\nRecords", tagline: "Album Rating Tool",
-          description: "An interactive music rating and discovery platform that lets users rate albums and explore recommendations. Flask REST API, persistent Supabase(PostgreSQL) storage, responsive UI, API-level caching, and asynchronous data fetching for real-time performance",
+          description: "Built an interactive music rating and discovery platform integrating the Spotify API for real-time metadata. Architected a Flask REST API with API-level caching and asynchronous fetching, powered by a multi-user Supabase schema featuring justifications, genre tagging, and community ratings.",
           coverEmoji: "🎧",
           bg: "#0024cc", ink: "#e6adcf",
           techStack: ["Python", "Flask", "React", "TypeScript", "Supabase", "Spotify API"],
@@ -41,7 +41,7 @@ const PROJECTS = [
           stats: [{ v: "1K+", l: "COMMENTS" }, { v: "40%", l: "SPEED" }, { v: "<200ms", l: "LATENCY" }],
           demoUrl: "",
      },
-     
+
 ];
 
 const fixingIndexVsID = 1;

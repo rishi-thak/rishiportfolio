@@ -13,10 +13,10 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                color: "#ccbb00",
                accent: "#443300",
                points: [
-                    "Co-founded a CS club attracting 200+ applicants in its first year, with 35 selected to develop full-stack software projects",
-                    "Built extensive internal tooling, including AssignCB - a full stack webapp for CodeBox to facilitate assignments through both club-wide initiatives and project-team specific tasks.",
-                    "Successfully worked with a small team to launch codeboxorg.com, achieving 500+ users in under a month.",
-                    "Building a project accelerator that empowers Cal Poly student engineers to design full-stack software"
+                    "Co-founded Cal Poly’s first student project accelerator, with 200+ applicants and 50+ admitted members",
+                    "Spearheaded 5 projects, including a mobile-based campus map, a note-sharing website, a full-stack buy/sell marketplace, a challenge based social media app, and a machine learning based reporting system for campus issues",
+                    "Worked as key technical lead on AuraFarm, overseeing 10 developers and architecting tech stack with React Native, Expo, Prisma, Supabase, and a RESTful API, encouraging best version control practices",
+                    "Built extensive internal tooling, including AssignCB - a full stack webapp for CodeBox to facilitate assignments through both club-wide initiatives and project-team specific tasks."
                ],
                tags: ["Leadership", "Full-Stack", "Community"]
           },
@@ -27,9 +27,9 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                color: "#cc2200",
                accent: "#ffcc00",
                points: [
-                    "Engineered scalable trading algorithms in Python, integrating yfinance and pandas",
-                    "Optimized parameters and tested over multi-year data, achieving a 55% hypothetical return",
-                    "Designed and optimized trading models using custom backtesting frameworks",
+                    "Engineered scalable trading algorithms, in Python, integrating data pipelines with yfinance and analytics with pandas; optimized parameters and tested over multi-year data, achieving a 55% return",
+                    "Designed and optimized trading models using custom backtesting frameworks and automated parameter tuning",
+                    "Engineered pairs trading models with extensive Matplotlib visualizations to analyze correlation breakdowns, cointegration, and entry/exit signal performance across strategy iterations",
                ],
                tags: ["Python", "Algorithms", "FinTech"]
           },
@@ -52,8 +52,8 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                color: "#00aa88",
                accent: "#003322",
                points: [
-                    "Designed and deployed React-based surveys integrated with EEG hardware",
-                    "Contributed to data cleaning and neural network planning for cognitive analysis"
+                    "Collaborated with faculty and peers to design and deploy React-based surveys integrated with EEG hardware",
+                    "Supported data collection and cleaning for a machine learning pipeline predicting student sense of belonging–- processed and structured 50+ student datapoints from EEG-integrated surveys"
                ],
                tags: ["React", "Research", "NeuroTech"]
           }

@@ -15,14 +15,15 @@ export const SKILLS = [
      {
           category: "FRAMEWORKS",
           label: "THE INFRASTRUCTURE",
-          items: ["React", "React Native", "Next.js", "Node.js", "Expo", "Flask", "FastAPI"],
+          items: ["React", "React Native", "Next.js", "Node.js", "Expo", "Flask", "FastAPI" ,"Prisma",
+          ],
           color: "#cc2200",
           accent: "#ffcc00"
      },
      {
           category: "TOOLS & CLOUD",
           label: "THE UTILITY BELT",
-          items: ["AWS", "Azure", "GCP", "Supabase", "SQLite", "REST APIs", "Git", "Pandas", "NumPy"],
+          items: ["AWS (S3)", "Azure", "Supabase", "SQLite", "REST APIs", "Git", "Pandas", "NumPy", "TanStack Query", "Matplotlib"],
           color: "#ccbb00",
           accent: "#443300"
      }
