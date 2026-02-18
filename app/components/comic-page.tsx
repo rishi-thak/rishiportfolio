@@ -174,6 +174,7 @@ export default function ComicPage() {
      const [aboutOpen, setAboutOpen] = useState(false);
      const [experienceOpen, setExperienceOpen] = useState(false);
      const [projectsOpen, setProjectsOpen] = useState(false);
+     const [openedFromHub, setOpenedFromHub] = useState(false);
      const [mounted, setMounted] = useState(false);
      const [originRect, setOriginRect] = useState<{ x: number, y: number } | null>(null);
 
@@ -251,6 +252,7 @@ export default function ComicPage() {
                               origin={originRect}
                               onClose={() => setProjectsOpen(false)}
                               onSelectProject={(idx, e) => {
+                                   setOpenedFromHub(true);
                                    setProjectsOpen(false);
                                    // Map back to the original index from the filtered list
                                    const originalIndex = PROJECTS.indexOf(HUB_PROJECTS[idx]);
@@ -264,8 +266,11 @@ export default function ComicPage() {
                               origin={originRect}
                               project={PROJECTS[expandedProject]}
                               onClose={() => {
-                                   setProjectsOpen(true);
+                                   if (openedFromHub) {
+                                        setProjectsOpen(true);
+                                   }
                                    setExpandedProject(null);
+                                   setOpenedFromHub(false);
                               }}
                          />
                     )}
