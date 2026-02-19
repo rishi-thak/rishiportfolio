@@ -99,7 +99,7 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                               >
                                    <h3 style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 18, color: "#000", margin: "0 0 10px 0", borderBottom: "2px solid #000", paddingBottom: 4 }}>Abstract</h3>
                                    <p style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 15, color: "#000", lineHeight: 1.7, margin: 0, textTransform: "uppercase" }}>
-                                        I strongly resonate WITH THE "LEARN BY DOING" PHILOSOPHY. I SPEND MY time building software with imapact, and CONNECTING fellow STUDENTS WITH OPPORTUNITIES
+                                        I strongly resonate WITH THE "LEARN BY DOING" PHILOSOPHY. I SPEND MY time building software with impact, and CONNECTING fellow STUDENTS WITH OPPORTUNITIES
                                         <br /><br />
                                         FROM PITCHING a club i co-founded TO AUDIENCES OF hundreds, TO REFINING DATA MODELS FOR QUANTITATIVE FINANCE, MY GOAL IS CONSTANT: BRIDGE THE GAP BETWEEN THEORY AND REALITY.
                                         <br /><br />
