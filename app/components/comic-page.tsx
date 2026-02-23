@@ -32,15 +32,26 @@ const PROJECTS = [
           demoUrl: "https://assign.codeboxorg.com/onboarding",
      },
      {
-          id: 3, issue: "2025",
+          id: 3, issue: "2026",
+          title: "bloom", tagline: "Built @ Poly Prompt 2026 - AI Study Companion",
+          description: "Developed BLOOM, a full-stack AI study companion that facilitates the Feynman Technique by utilizing GPT-4o and RAG to identify knowledge gaps and boost academic performance by 34%. Engineered a high-performance architecture using Next.js 16, Supabase, and D3.js to support live voice streaming , automated lecture transcription , and real-time practice exam generation.",
+          coverEmoji: "🧠",
+          bg: "#059669", ink: "#fbcfe8",
+          techStack: ["OpenAI 4o", "D3.js", "Next.js", "PostgreSQL", "Whisper API", "Realtime API", "DALL-E"],
+          stats: [{ v: "34%", l: "academic improvement" }, { v: "40k+", l: "lines" }, { v: "0", l: "LATENCY" }],
+          demoUrl: "https://teachbloom.vercel.app",
+     },
+     {
+          id: 4, issue: "2025",
           title: "WSB\nAnalyzer", tagline: "Reddit Sentiment Analysis",
           description: "A full-stack NLP tool analyzing 1,000+ WallStreetBets comments per request and scoring sentiment in real time. Features an asynchronous FastAPI backend for scraping/processing (improving data speed by 40%+) and a production-ready Next.js frontend achieving sub-200ms UI interactions.",
           coverEmoji: "🚀",
           bg: "#a7374b", ink: "#66ab56",
           techStack: ["Python", "FastAPI", "PRAW", "React", "Next.js", "Vercel"],
-          stats: [{ v: "1K+", l: "COMMENTS" }, { v: "40%", l: "SPEED" }, { v: "<200ms", l: "LATENCY" }],
+          stats: [{ v: "1K+", l: "COMMENTS" }, { v: "40%", l: "SPEED GAIN" }, { v: "<200ms", l: "LATENCY" }],
           demoUrl: "",
      },
+
 
 ];
 
