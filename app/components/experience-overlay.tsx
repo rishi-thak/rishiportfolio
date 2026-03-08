@@ -8,7 +8,7 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
      const experiences = [
           {
                company: "CodeBox",
-               role: "Co-Founder & Incoming President",
+               role: "Co-Founder & President",
                period: "April 2025 - Present",
                color: "#ccbb00",
                accent: "#443300",

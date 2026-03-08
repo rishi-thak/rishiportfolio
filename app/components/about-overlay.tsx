@@ -72,7 +72,7 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                                    style={{ background: "#fff", border: "3px solid #000", padding: 15, boxShadow: "6px 6px 0 #000", position: "relative" }}>
                                    <div style={{ position: "absolute", top: -12, left: 10, background: darkGreen, padding: "1px 8px", fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 11, color: "#fff", border: "2px solid #fff" }}>CURRENTly</div>
                                    <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 13, color: "#000", textTransform: "uppercase", lineHeight: 1.5 }}>
-                                        🏗️ Incoming President & CO-FOUNDER @ CODEBOX<br />
+                                        🏗️ President & CO-FOUNDER @ CODEBOX<br />
                                         📊 SWE LEAD @ CAL POLY Quant finance<br />
                                         🍎 Teacher's Assistant @ Cal Poly CSSE
                                    </div>
