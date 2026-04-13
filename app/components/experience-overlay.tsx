@@ -88,6 +88,28 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
 
                     {/* Content Area */}
                     <div style={{ flex: 1, overflowY: "auto", background: "#f0f0f0", padding: 20 }}>
+                         <style>{`
+                              @media (max-width: 768px) {
+                                   .experience-entry {
+                                        display: flex !important;
+                                        flex-direction: column !important;
+                                   }
+
+                                   .experience-entry-brand {
+                                        border-right: none !important;
+                                        border-bottom: 4px solid #000 !important;
+                                        justify-content: flex-start !important;
+                                        gap: 14px !important;
+                                   }
+
+                                   .experience-entry-role {
+                                        position: static !important;
+                                        transform: rotate(-2deg);
+                                        display: inline-block;
+                                        margin-bottom: 12px;
+                                   }
+                              }
+                         `}</style>
                          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
                               {experiences.map((exp, i) => (
                                    <motion.div
@@ -119,9 +141,12 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                                              position: "relative",
                                              overflow: "hidden"
                                         }}
+                                        className="experience-entry"
                                    >
                                         {/* Left Side: Brand Panel */}
-                                        <div style={{
+                                        <div
+                                             className="experience-entry-brand"
+                                             style={{
                                              background: exp.color,
                                              padding: 20,
                                              display: "flex",
@@ -147,7 +172,9 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                                                   background: "#FFE500", border: "2px solid #000",
                                                   padding: "2px 10px", fontFamily: "'Bangers', system-ui, sans-serif",
                                                   fontSize: 12, transform: "rotate(-2deg)", zIndex: 5, color: "#000"
-                                             }}>
+                                             }}
+                                             className="experience-entry-role"
+                                             >
                                                   {exp.role}
                                              </div>
 

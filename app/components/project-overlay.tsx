@@ -2,23 +2,10 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import type { ComicProject } from "./comic-data";
 import { HalftoneDots, TechChip, StatBlock } from "./comic-elements";
 
-type Project = {
-     id: number;
-     issue: string;
-     title: string;
-     tagline: string;
-     description: string;
-     coverEmoji: string;
-     bg: string;
-     ink: string;
-     techStack: string[];
-     stats: { v: string; l: string }[];
-     demoUrl: string;
-};
-
-export function ProjectOverlay({ project, onClose, origin }: { project: Project; onClose: () => void; origin: { x: number; y: number } | null }) {
+export function ProjectOverlay({ project, onClose, origin }: { project: ComicProject; onClose: () => void; origin: { x: number; y: number } | null }) {
      const { bg, ink } = project;
 
      return (

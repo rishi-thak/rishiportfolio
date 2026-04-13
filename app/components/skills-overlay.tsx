@@ -29,6 +29,8 @@ export const SKILLS = [
      }
 ];
 
+type SkillGroup = typeof SKILLS[number];
+
 export function SkillsOverlay({ onClose, origin }: { onClose: () => void; origin: { x: number; y: number } | null }) {
      return (
           <motion.div
@@ -65,7 +67,7 @@ export function SkillsOverlay({ onClose, origin }: { onClose: () => void; origin
                          }}
                          style={{ flex: 1, overflowY: "auto", display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "auto auto", padding: 8, gap: 8, background: "#000" }}
                     >
-                         {SKILLS.map((s: any, idx: number) => (
+                         {SKILLS.map((s: SkillGroup, idx: number) => (
                               <motion.div
                                    key={s.category}
                                    variants={{
@@ -74,7 +76,7 @@ export function SkillsOverlay({ onClose, origin }: { onClose: () => void; origin
                                    }}
                                    style={{
                                         gridColumn: idx === 2 ? "1 / span 2" : "auto",
-                                        background: s.color, border: "4px solid #000", position: "relative", padding: 18, overflow: "hidden",
+                                        background: s.color, border: "4px solid #000", position: "relative", padding: idx < 2 ? "18px 18px 30px" : 18, overflow: "hidden",
                                         display: "flex", flexDirection: "column"
                                    }}
                               >

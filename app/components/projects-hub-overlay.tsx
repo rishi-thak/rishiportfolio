@@ -2,21 +2,8 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import type { ComicProject } from "./comic-data";
 import { HalftoneDots, TechChip } from "./comic-elements";
-
-type Project = {
-     id: number;
-     issue: string;
-     title: string;
-     tagline: string;
-     description: string;
-     coverEmoji: string;
-     bg: string;
-     ink: string;
-     techStack: string[];
-     stats: { v: string; l: string }[];
-     demoUrl: string;
-};
 
 export function ProjectsHubOverlay({
      projects,
@@ -24,7 +11,7 @@ export function ProjectsHubOverlay({
      onSelectProject,
      origin
 }: {
-     projects: Project[];
+     projects: ComicProject[];
      onClose: () => void;
      onSelectProject: (index: number, e: React.MouseEvent) => void;
      origin: { x: number; y: number } | null
@@ -102,7 +89,8 @@ export function ProjectsHubOverlay({
                          <div style={{
                               display: "grid",
                               gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-                              gap: 24
+                              gap: 24,
+                              justifyItems: "center"
                          }}>
                               {projects.map((project, idx) => (
                                    <motion.div
@@ -118,6 +106,7 @@ export function ProjectsHubOverlay({
                                         whileHover={{ scale: 1.02, rotate: idx % 2 === 0 ? 0.5 : -0.5 }}
                                         onClick={(e) => onSelectProject(idx, e)}
                                         style={{
+                                             width: "min(100%, 420px)",
                                              background: project.bg,
                                              border: "4px solid #000",
                                              boxShadow: "8px 8px 0 #000",

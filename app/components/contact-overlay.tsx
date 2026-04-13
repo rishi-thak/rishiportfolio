@@ -55,7 +55,7 @@ export function ContactOverlay({ onClose, origin }: { onClose: () => void; origi
                          <motion.div
                               variants={{ hidden: { opacity: 0, y: -10 }, visible: { opacity: 1, y: 0 } }}
                               style={{ background: "#FFE500", border: "3px solid #000", padding: "10px 15px", fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 14, color: "#000", alignSelf: "flex-start", marginBottom: 10, boxShadow: "4px 4px 0 #000" }}>
-                              WANT TO REACH OUT? DON'T HESITATE!
+                              WANT TO REACH OUT? DON&apos;T HESITATE!
                          </motion.div>
 
                          {contactLinks.map((link) => (

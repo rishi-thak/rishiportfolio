@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import { HalftoneDots, RadialBurst, TechChip, ThinkingBox } from "./comic-elements";
 import { ProjectOverlay } from "./project-overlay";
 import { SkillsOverlay } from "./skills-overlay";
@@ -139,12 +139,7 @@ export default function ComicPage() {
      const [experienceOpen, setExperienceOpen] = useState(false);
      const [projectsOpen, setProjectsOpen] = useState(false);
      const [openedFromHub, setOpenedFromHub] = useState(false);
-     const [mounted, setMounted] = useState(false);
      const [originRect, setOriginRect] = useState<{ x: number, y: number } | null>(null);
-
-     useEffect(() => {
-          setMounted(true);
-     }, []);
 
      const openOverlay = (setter: (v: boolean) => void, e: React.MouseEvent) => {
           const rect = e.currentTarget.getBoundingClientRect();
@@ -157,10 +152,6 @@ export default function ComicPage() {
           setOriginRect({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
           setExpandedProject(index);
      };
-
-     if (!mounted) {
-          return <div style={{ background: "#fff", width: "100vw", height: "100vh" }} />;
-     }
 
      return (
           <>
