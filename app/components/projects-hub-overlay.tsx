@@ -84,9 +84,35 @@ export function ProjectsHubOverlay({
                               position: "relative"
                          }}
                     >
+                         <style>{`
+                              @media (max-width: 768px) {
+                                   .projects-hub-grid {
+                                        grid-template-columns: 1fr !important;
+                                        justify-items: center !important;
+                                   }
+
+                                   .projects-hub-card {
+                                        width: min(100%, 360px) !important;
+                                   }
+
+                                   .projects-hub-card-content {
+                                        text-align: center !important;
+                                   }
+
+                                   .projects-hub-card-tagline {
+                                        display: inline-block !important;
+                                   }
+
+                                   .projects-hub-card-tech {
+                                        justify-content: center !important;
+                                   }
+                              }
+                         `}</style>
                          <HalftoneDots color="#000" opacity={0.05} size={12} />
 
-                         <div style={{
+                         <div
+                              className="projects-hub-grid"
+                              style={{
                               display: "grid",
                               gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
                               gap: 24,
@@ -94,6 +120,7 @@ export function ProjectsHubOverlay({
                          }}>
                               {projects.map((project, idx) => (
                                    <motion.div
+                                        className="projects-hub-card"
                                         key={project.id}
                                         variants={{
                                              hidden: { opacity: 0, x: -20 },
@@ -121,7 +148,7 @@ export function ProjectsHubOverlay({
                                         }}
                                    >
                                         <HalftoneDots color={project.ink} opacity={0.15} size={8} />
-                                        <div style={{ position: "relative", zIndex: 1, pointerEvents: "none" }}>
+                                        <div className="projects-hub-card-content" style={{ position: "relative", zIndex: 1, pointerEvents: "none" }}>
                                              <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 12, color: project.ink, opacity: 0.9, textTransform: "uppercase" }}>{project.issue}</div>
                                              <div style={{
                                                   fontFamily: "'Bangers', system-ui, sans-serif",
@@ -132,7 +159,7 @@ export function ProjectsHubOverlay({
                                                   margin: "8px 0",
                                                   textTransform: "uppercase"
                                              }}>{project.title}</div>
-                                             <div style={{
+                                             <div className="projects-hub-card-tagline" style={{
                                                   background: "#000",
                                                   color: project.ink,
                                                   fontFamily: "'Bangers', system-ui, sans-serif",
@@ -144,7 +171,7 @@ export function ProjectsHubOverlay({
                                              }}>{project.tagline}</div>
                                              <div style={{ fontSize: 54, filter: "drop-shadow(3px 3px 0 #000)" }}>{project.coverEmoji}</div>
 
-                                             <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 12 }}>
+                                             <div className="projects-hub-card-tech" style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 12 }}>
                                                   {project.techStack.slice(0, 3).map(t => (
                                                        <TechChip key={t} name={t} bg={project.bg} ink={project.ink} />
                                                   ))}

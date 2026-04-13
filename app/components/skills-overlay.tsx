@@ -76,8 +76,13 @@ export function SkillsOverlay({ onClose, origin }: { onClose: () => void; origin
                                    }}
                                    style={{
                                         gridColumn: idx === 2 ? "1 / span 2" : "auto",
-                                        background: s.color, border: "4px solid #000", position: "relative", padding: idx < 2 ? "18px 18px 30px" : 18, overflow: "hidden",
-                                        display: "flex", flexDirection: "column"
+                                        background: s.color,
+                                        border: "4px solid #000",
+                                        position: "relative",
+                                        padding: idx < 2 ? "18px 18px 42px" : 18,
+                                        overflow: "hidden",
+                                        display: "flex",
+                                        flexDirection: "column"
                                    }}
                               >
                                    <HalftoneDots color={s.accent} opacity={0.15} size={10} />
@@ -90,7 +95,14 @@ export function SkillsOverlay({ onClose, origin }: { onClose: () => void; origin
                                         {s.label}
                                    </div>
 
-                                   <div style={{ marginTop: 18, position: "relative", zIndex: 1 }}>
+                                   <div
+                                        style={{
+                                             marginTop: 18,
+                                             paddingBottom: idx < 2 ? 22 : 0,
+                                             position: "relative",
+                                             zIndex: 1
+                                        }}
+                                   >
                                         <h3 style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 24, color: s.accent, marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>{s.category}</h3>
                                         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                                              {s.items.map((item: string) => (
