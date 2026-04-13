@@ -20,11 +20,6 @@ type Project = {
 
 export function ProjectOverlay({ project, onClose, origin }: { project: Project; onClose: () => void; origin: { x: number; y: number } | null }) {
      const { bg, ink } = project;
-     var newURL = "";
-
-     if(project.demoUrl == "https://assigncb.vercel.app/onboarding"){
-          newURL = "https://assigncb.vercel.app";
-     }
 
      return (
           <motion.div
@@ -41,7 +36,7 @@ export function ProjectOverlay({ project, onClose, origin }: { project: Project;
                     transition={{ type: "spring", damping: 25, stiffness: 300 }}
                     onClick={e => e.stopPropagation()}
                     className="expanded-card"
-                    style={{ width: "min(900px, 92vw)", background: bg, border: "4px solid #000", boxShadow: `8px 8px 0 #000`, position: "relative", overflow: "hidden" }}
+                    style={{ width: "min(900px, 92vw)", maxHeight: "92vh", background: bg, border: "4px solid #000", boxShadow: `8px 8px 0 #000`, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}
                >
                     {/* Header */}
                     <div style={{ background: "#000", borderBottom: `4px solid ${ink}`, display: "flex", alignItems: "stretch" }}>
@@ -63,14 +58,14 @@ export function ProjectOverlay({ project, onClose, origin }: { project: Project;
                          variants={{
                               visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
                          }}
-                         style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: 320 }}
+                         style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", minHeight: 320 }}
                     >
                          <motion.div
                               variants={{
                                    hidden: { opacity: 0, x: -20 },
                                    visible: { opacity: 1, x: 0, transition: { type: "spring", damping: 20 } }
                               }}
-                              style={{ padding: 22, borderRight: "4px solid #000", display: "flex", flexDirection: "column", gap: 16, position: "relative", overflow: "hidden" }}
+                              style={{ padding: 22, borderBottom: "4px solid #000", display: "flex", flexDirection: "column", gap: 16, position: "relative", overflow: "visible", flexShrink: 0 }}
                          >
                               <HalftoneDots color={ink} size={10} opacity={0.1} />
                               <div style={{ background: "#000", border: `3px solid ${ink}`, padding: "12px 16px", fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 14, color: "#e8e8e8", lineHeight: 1.4, position: "relative", zIndex: 1, boxShadow: `4px 4px 0 ${ink}`, textTransform: "uppercase" }}>
@@ -89,10 +84,10 @@ export function ProjectOverlay({ project, onClose, origin }: { project: Project;
                          </motion.div>
                          <motion.div
                               variants={{
-                                   hidden: { opacity: 0, x: 20 },
-                                   visible: { opacity: 1, x: 0, transition: { type: "spring", damping: 20 } }
+                                    hidden: { opacity: 0, x: 20 },
+                                    visible: { opacity: 1, x: 0, transition: { type: "spring", damping: 20 } }
                               }}
-                              style={{ padding: 22, background: "#000", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}
+                              style={{ padding: 22, background: "#000", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", minHeight: 420, height: "min(52vh, 520px)", flexShrink: 0 }}
                          >
                               <HalftoneDots color={bg} size={9} opacity={0.07} />
                               <div style={{ flex: 1, position: "relative", zIndex: 1, display: "flex", flexDirection: "column" }}>

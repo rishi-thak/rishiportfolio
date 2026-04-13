@@ -63,7 +63,7 @@ export function SkillsOverlay({ onClose, origin }: { onClose: () => void; origin
                          variants={{
                               visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } }
                          }}
-                         style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "auto auto", padding: 8, gap: 8, background: "#000" }}
+                         style={{ flex: 1, overflowY: "auto", display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "auto auto", padding: 8, gap: 8, background: "#000" }}
                     >
                          {SKILLS.map((s: any, idx: number) => (
                               <motion.div

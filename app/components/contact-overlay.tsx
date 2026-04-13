@@ -30,7 +30,7 @@ export function ContactOverlay({ onClose, origin }: { onClose: () => void; origi
                     transition={{ type: "spring", damping: 25, stiffness: 300 }}
                     onClick={e => e.stopPropagation()}
                     className="expanded-card"
-                    style={{ width: "min(600px, 90vw)", background: redAccent, border: "5px solid #000", boxShadow: `12px 12px 0 #000`, position: "relative", overflow: "hidden" }}
+                    style={{ width: "min(600px, 90vw)", maxHeight: "92vh", background: redAccent, border: "5px solid #000", boxShadow: `12px 12px 0 #000`, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}
                >
                     <HalftoneDots color={yellowAccent} opacity={0.15} size={10} />
 
@@ -50,7 +50,7 @@ export function ContactOverlay({ onClose, origin }: { onClose: () => void; origi
                          variants={{
                               visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } }
                          }}
-                         style={{ padding: 30, display: "flex", flexDirection: "column", gap: 20, position: "relative", zIndex: 1 }}
+                         style={{ flex: 1, overflowY: "auto", padding: 30, display: "flex", flexDirection: "column", gap: 20, position: "relative", zIndex: 1 }}
                     >
                          <motion.div
                               variants={{ hidden: { opacity: 0, y: -10 }, visible: { opacity: 1, y: 0 } }}
@@ -86,7 +86,7 @@ export function ContactOverlay({ onClose, origin }: { onClose: () => void; origi
                     </motion.div>
 
                     {/* Footer strip */}
-                    <div style={{ height: 25, background: "#000", display: "flex", alignItems: "center", padding: "0 20px", marginTop: 10 }}>
+                    <div style={{ height: 25, background: "#000", display: "flex", alignItems: "center", padding: "0 20px", marginTop: 10, flexShrink: 0 }}>
                          {/* <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 9, color: yellowAccent }}>TRANSMISSION SECURED // RISHI PORTFOLIO</div> */}
                     </div>
                </motion.div>

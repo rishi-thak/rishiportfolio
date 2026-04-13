@@ -2,6 +2,10 @@ import { motion } from "framer-motion";
 
 /* ═══ SVG EFFECTS ═══ */
 
+function stableCoord(value: number) {
+     return value.toFixed(3);
+}
+
 export function HalftoneDots({ color, size = 8, opacity = 0.2, hovered = false }: { color: string; size?: number; opacity?: number; hovered?: boolean }) {
      const id = `ht${color.replace(/[^a-z0-9]/gi, "")}${size}`;
      return (
@@ -30,8 +34,8 @@ export function RadialBurst({ color, opacity = 0.15, hovered = false }: { color:
           >
                {[...Array(24)].map((_, i) => {
                     const angle = (i / 24) * Math.PI * 2;
-                    const x2 = 100 + Math.cos(angle) * 150;
-                    const y2 = 100 + Math.sin(angle) * 150;
+                    const x2 = stableCoord(100 + Math.cos(angle) * 150);
+                    const y2 = stableCoord(100 + Math.sin(angle) * 150);
                     return <line key={i} x1="100" y1="100" x2={x2} y2={y2} stroke={color} strokeWidth={i % 3 === 0 ? "3" : "1.5"} />;
                })}
           </motion.svg>
@@ -65,7 +69,7 @@ export function StatBlock({ v, l, ink }: { v: string; l: string; ink: string }) 
      );
 }
 
-export function ThinkingBox({ text, color = "#000" }: { text: string; color?: string }) {
+export function ThinkingBox({ text }: { text: string }) {
      return (
           <div style={{
                position: "absolute",

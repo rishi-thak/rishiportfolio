@@ -24,7 +24,7 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                     transition={{ type: "spring", damping: 25, stiffness: 300 }}
                     onClick={e => e.stopPropagation()}
                     className="expanded-card"
-                    style={{ width: "min(850px, 92vw)", background: greenAccent, border: "4px solid #000", boxShadow: `10px 10px 0 #000`, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}
+                    style={{ width: "min(850px, 92vw)", maxHeight: "92vh", background: greenAccent, border: "4px solid #000", boxShadow: `10px 10px 0 #000`, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}
                >
                     <HalftoneDots color={darkGreen} opacity={0.2} size={10} />
 
@@ -44,7 +44,7 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                          variants={{
                               visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
                          }}
-                         style={{ padding: "24px 30px", display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 24, position: "relative", zIndex: 1, minHeight: 420 }}
+                         style={{ flex: 1, overflowY: "auto", padding: "24px 30px", display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 24, position: "relative", zIndex: 1, minHeight: 420 }}
                     >
 
                          {/* Left Column: Stats & Status */}
