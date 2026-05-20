@@ -1,17 +1,22 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 export default function IntroZoom() {
      const [phase, setPhase] = useState<"hold" | "zoom" | "done">("hold");
+     const skippedRef = useRef(false);
 
      const skip = useCallback(() => {
+          if (skippedRef.current) return;
+          skippedRef.current = true;
           setPhase("done");
           window.dispatchEvent(new CustomEvent("intro-finished"));
      }, []);
 
      useEffect(() => {
-          const zoomTimer = setTimeout(() => setPhase("zoom"), 1000);
+          const zoomTimer = setTimeout(() => {
+               if (!skippedRef.current) setPhase("zoom");
+          }, 1000);
           return () => clearTimeout(zoomTimer);
      }, []);
 
@@ -31,11 +36,6 @@ export default function IntroZoom() {
                window.removeEventListener("click", handleClick);
           };
      }, [skip]);
-
-     const handleAnimationEnd = useCallback(() => {
-          setPhase("done");
-          window.dispatchEvent(new CustomEvent("intro-finished"));
-     }, []);
 
      if (phase === "done") return null;
 
@@ -98,7 +98,7 @@ export default function IntroZoom() {
                >
                     <span
                          className={`intro-name ${phase === "zoom" ? "intro-name--zooming" : ""}`}
-                         onAnimationEnd={handleAnimationEnd}
+                         onAnimationEnd={skip}
                     >
                          Rishi Thakkar
                     </span>
