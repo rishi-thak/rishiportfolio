@@ -1,10 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { HalftoneDots } from "./comic-elements";
 
 export function ContactOverlay({ onClose, origin }: { onClose: () => void; origin: { x: number; y: number } | null }) {
+     useEffect(() => {
+          const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+          window.addEventListener("keydown", handler);
+          return () => window.removeEventListener("keydown", handler);
+     }, [onClose]);
      const redAccent = "#cc2200";
      const yellowAccent = "#ffcc00";
      const inkBlack = "#000000";
@@ -21,6 +26,9 @@ export function ContactOverlay({ onClose, origin }: { onClose: () => void; origi
                animate={{ opacity: 1 }}
                exit={{ opacity: 0, pointerEvents: "none" }}
                onClick={onClose}
+               role="dialog"
+               aria-label="Contact"
+               aria-modal="true"
                style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center" }}
           >
                <motion.div

@@ -1,22 +1,61 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { HalftoneDots, TechChip } from "./comic-elements";
 
 export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; origin: { x: number; y: number } | null }) {
+     useEffect(() => {
+          const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+          window.addEventListener("keydown", handler);
+          return () => window.removeEventListener("keydown", handler);
+     }, [onClose]);
      const experiences = [
           {
+               company: "AHEAD",
+               role: "Artificial Intelligence Intern",
+               period: "Incoming Summer 2026",
+               color: "#2E1065",
+               accent: "#FACC15",
+               points: [
+                    "Building cloud-deployed AI systems; prioritizing production-grade model APIs, data flows, and customer-facing automation"
+               ],
+               tags: ["AI", "Cloud", "Production"]
+          },
+          {
+               company: "Scoop",
+               role: "Founding Software Engineer",
+               period: "March 2026 - Present",
+               color: "#cc2200",
+               accent: "#ffcc00",
+               points: [
+                    "Built a real-time matching engine via PostgreSQL RPCs to pool riders by proximity and direction",
+                    "Engineered multi-stop routing using JSONB and implemented automated fare settlement with Stripe error recovery for pooled bookings of up to 12 riders"
+               ],
+               tags: ["PostgreSQL", "Stripe", "Full-Stack"]
+          },
+          {
+               company: "Vectr",
+               role: "Co-founder & CTO",
+               period: "Jan 2026 - May 2026",
+               color: "#00bbcc",
+               accent: "#003344",
+               points: [
+                    "Built Vectr from 0-to-1, turning an AI workflow tool into a backed startup funded by RedBrick VC in a 5-month sprint",
+                    "Owned product, architecture, and engineering execution; shipped customer-ready workflows, onboarded startup customers, and converted feedback into product iterations"
+               ],
+               tags: ["Startup", "AI", "Product"]
+          },
+          {
                company: "CodeBox",
-               role: "Co-Founder & President",
+               role: "Technical Lead & President",
                period: "April 2025 - Present",
                color: "#ccbb00",
                accent: "#443300",
                points: [
-                    "Co-founded Cal Poly’s first student project accelerator, with 200+ applicants and 50+ admitted members",
-                    "Spearheaded 5 projects, including a mobile-based campus map, a note-sharing website, a full-stack buy/sell marketplace, a challenge based social media app, and a machine learning based reporting system for campus issues",
-                    "Worked as key technical lead on AuraFarm, overseeing 10 developers and architecting tech stack with React Native, Expo, Prisma, Supabase, and a RESTful API, encouraging best version control practices",
-                    "Built extensive internal tooling, including AssignCB - a full stack webapp for CodeBox to facilitate assignments through both club-wide initiatives and project-team specific tasks."
+                    "Launched Cal Poly’s first student project accelerator, with 200+ applicants and 50+ admitted builders, establishing high-agency engineering teams",
+                    "Spearheaded 5 projects, including an iOS campus map, note-sharing platform, buy/sell marketplace, a challenge-based social app, and a ML reporting system for campus issues; reached 500+ users within 1 week of collective launch",
+                    "Led technical direction for 10 engineers using React Native, Expo, Prisma, Supabase; introduced PR gates, schema ownership, and API contracts that kept 7 parallel workstreams shipping through a 3-month build"
                ],
                tags: ["Leadership", "Full-Stack", "Community"]
           },
@@ -24,20 +63,20 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                company: "Cal Poly Quantitative Finance",
                role: "Software Engineering Lead",
                period: "Dec 2024 - Present",
-               color: "#cc2200",
-               accent: "#ffcc00",
+               color: "#00aa88",
+               accent: "#003322",
                points: [
                     "Engineered scalable trading algorithms, in Python, integrating data pipelines with yfinance and analytics with pandas; optimized parameters and tested over multi-year data, achieving a 55% return",
                     "Designed and optimized trading models using custom backtesting frameworks and automated parameter tuning",
-                    "Engineered pairs trading models with extensive Matplotlib visualizations to analyze correlation breakdowns, cointegration, and entry/exit signal performance across strategy iterations",
+                    "Engineered pairs trading models with extensive Matplotlib visualizations to analyze correlation breakdowns, cointegration, and entry/exit signal performance across strategy iterations"
                ],
                tags: ["Python", "Algorithms", "FinTech"]
           },
           {
                company: "Noyce School of Computing",
-               role: "Teacher's Assistant",
+               role: "Teacher’s Assistant",
                period: "Jan 2026 - Present",
-               color: "#00bbcc",
+               color: "#059669",
                accent: "#003344",
                points: [
                     "Lead lab sections for 35+ students in CSC 101, guiding implementation of fundamental algorithms",
@@ -49,11 +88,11 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                company: "Belonging Beyond Boundaries",
                role: "Research Assistant",
                period: "Feb 2025 - May 2025",
-               color: "#00aa88",
-               accent: "#003322",
+               color: "#6B21A8",
+               accent: "#E9D5FF",
                points: [
                     "Collaborated with faculty and peers to design and deploy React-based surveys integrated with EEG hardware",
-                    "Supported data collection and cleaning for a machine learning pipeline predicting student sense of belonging–- processed and structured 50+ student datapoints from EEG-integrated surveys"
+                    "Supported data collection and cleaning for a machine learning pipeline predicting student sense of belonging — processed and structured 50+ student datapoints from EEG-integrated surveys"
                ],
                tags: ["React", "Research", "NeuroTech"]
           }
@@ -65,6 +104,9 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                animate={{ opacity: 1 }}
                exit={{ opacity: 0, pointerEvents: "none" }}
                onClick={onClose}
+               role="dialog"
+               aria-label="Experience"
+               aria-modal="true"
                style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.85)", display: "flex", alignItems: "center", justifyContent: "center" }}
           >
                <motion.div

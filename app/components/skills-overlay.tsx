@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { HalftoneDots } from "./comic-elements";
 
@@ -8,22 +8,28 @@ export const SKILLS = [
      {
           category: "LANGUAGES",
           label: "THE FOUNDATION",
-          items: ["Python", "TypeScript", "Java", "SQL", "JavaScript", "RISC-V Assembly", "C"],
+          items: ["Python", "TypeScript", "Rust", "Java", "SQL", "JavaScript", "C", "RISC-V Assembly"],
           color: "#00bbcc",
           accent: "#003344"
      },
      {
           category: "FRAMEWORKS",
           label: "THE INFRASTRUCTURE",
-          items: ["React", "React Native", "Next.js", "Node.js", "Expo", "Flask", "FastAPI" ,"Prisma",
-          ],
+          items: ["Next.js", "React", "React Native", "Node.js", "FastAPI", "Prisma", "Tauri", "Expo", "Flask"],
           color: "#cc2200",
           accent: "#ffcc00"
      },
      {
+          category: "AI & INFRA",
+          label: "THE BRAINS",
+          items: ["Neo4j", "Ollama (Local LLMs)", "Supabase", "Convex", "Vercel", "Git", "SQLite"],
+          color: "#059669",
+          accent: "#003322"
+     },
+     {
           category: "TOOLS & CLOUD",
           label: "THE UTILITY BELT",
-          items: ["AWS (S3)", "Azure", "Supabase", "SQLite", "REST APIs", "Git", "Pandas", "NumPy", "TanStack Query", "Matplotlib"],
+          items: ["Sponge (EVM/Base)", "TanStack Query", "Pandas", "NumPy", "Matplotlib", "AWS (S3)", "Azure"],
           color: "#ccbb00",
           accent: "#443300"
      }
@@ -32,12 +38,21 @@ export const SKILLS = [
 type SkillGroup = typeof SKILLS[number];
 
 export function SkillsOverlay({ onClose, origin }: { onClose: () => void; origin: { x: number; y: number } | null }) {
+     useEffect(() => {
+          const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+          window.addEventListener("keydown", handler);
+          return () => window.removeEventListener("keydown", handler);
+     }, [onClose]);
+
      return (
           <motion.div
                initial={{ opacity: 0 }}
                animate={{ opacity: 1 }}
                exit={{ opacity: 0, pointerEvents: "none" }}
                onClick={onClose}
+               role="dialog"
+               aria-label="Skills"
+               aria-modal="true"
                style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center" }}
           >
                <motion.div
@@ -75,11 +90,10 @@ export function SkillsOverlay({ onClose, origin }: { onClose: () => void; origin
                                         visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", damping: 20, stiffness: 200 } }
                                    }}
                                    style={{
-                                        gridColumn: idx === 2 ? "1 / span 2" : "auto",
                                         background: s.color,
                                         border: "4px solid #000",
                                         position: "relative",
-                                        padding: idx < 2 ? "18px 18px 42px" : 18,
+                                        padding: 18,
                                         overflow: "hidden",
                                         display: "flex",
                                         flexDirection: "column"
@@ -98,7 +112,6 @@ export function SkillsOverlay({ onClose, origin }: { onClose: () => void; origin
                                    <div
                                         style={{
                                              marginTop: 18,
-                                             paddingBottom: idx < 2 ? 22 : 0,
                                              position: "relative",
                                              zIndex: 1
                                         }}

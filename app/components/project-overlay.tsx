@@ -1,11 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import type { ComicProject } from "./comic-data";
 import { HalftoneDots, TechChip, StatBlock } from "./comic-elements";
 
 export function ProjectOverlay({ project, onClose, origin }: { project: ComicProject; onClose: () => void; origin: { x: number; y: number } | null }) {
+     useEffect(() => {
+          const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+          window.addEventListener("keydown", handler);
+          return () => window.removeEventListener("keydown", handler);
+     }, [onClose]);
+
      const { bg, ink } = project;
 
      return (
@@ -14,6 +20,9 @@ export function ProjectOverlay({ project, onClose, origin }: { project: ComicPro
                animate={{ opacity: 1 }}
                exit={{ opacity: 0, pointerEvents: "none" }}
                onClick={onClose}
+               role="dialog"
+               aria-label={`Project: ${project.title.replace("\n", " ")}`}
+               aria-modal="true"
                style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.75)", display: "flex", alignItems: "center", justifyContent: "center" }}
           >
                <motion.div
@@ -79,29 +88,58 @@ export function ProjectOverlay({ project, onClose, origin }: { project: ComicPro
                               <HalftoneDots color={bg} size={9} opacity={0.07} />
                               <div style={{ flex: 1, position: "relative", zIndex: 1, display: "flex", flexDirection: "column" }}>
                                    {project.demoUrl ? (
-                                        <div style={{ border: `4px solid ${ink}`, boxShadow: `6px 6px 0 ${bg}`, flex: 1, display: "flex", flexDirection: "column" }}>
-                                             <div style={{ background: "#111", padding: "5px 10px", display: "flex", gap: 5, alignItems: "center", borderBottom: `2px solid ${ink}`, flexShrink: 0 }}>
-                                                  {["#E8003A", "#FFE500", "#009933"].map(c => <span key={c} style={{ width: 9, height: 9, borderRadius: "50%", background: c, border: "1px solid #000", display: "inline-block" }} />)}
+                                        project.demoUrl.includes("github.com") ? (
+                                             <div style={{ flex: 1, border: `4px solid ${ink}`, boxShadow: `6px 6px 0 ${bg}`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 16 }}>
+                                                  <span style={{ fontSize: 64 }}>💻</span>
                                                   <a
                                                        href={project.demoUrl}
                                                        target="_blank"
                                                        rel="noopener noreferrer"
                                                        style={{
-                                                            marginLeft: 6,
-                                                            fontFamily: "monospace",
-                                                            fontSize: 9,
-                                                            color: "#fff",
-                                                            textDecoration: "none"
+                                                            background: ink, color: bg, border: "3px solid #000",
+                                                            padding: "12px 28px", fontFamily: "'Bangers', system-ui, sans-serif",
+                                                            fontSize: 20, letterSpacing: "0.08em", textTransform: "uppercase",
+                                                            textDecoration: "none", boxShadow: "5px 5px 0 #000",
+                                                            transition: "transform 0.1s"
                                                        }}
-                                                       onMouseEnter={e => e.currentTarget.style.textDecoration = "underline"}
-                                                       onMouseLeave={e => e.currentTarget.style.textDecoration = "none"}
+                                                       onMouseEnter={e => e.currentTarget.style.transform = "translate(-2px, -2px)"}
+                                                       onMouseLeave={e => e.currentTarget.style.transform = "none"}
                                                   >
-                                                       {project.demoUrl.replace("https://", "").replace("/onboarding", "")}
-                                                       
+                                                       View on GitHub
                                                   </a>
+                                                  <span style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 12, color: ink, textTransform: "uppercase", opacity: 0.8 }}>
+                                                       {project.demoUrl.replace("https://", "")}
+                                                  </span>
                                              </div>
-                                             <iframe src={project.demoUrl} title={project.title} style={{ width: "100%", flex: 1, border: "none", background: "#0a0a0a" }} />
-                                        </div>
+                                        ) : (
+                                             <div style={{ border: `4px solid ${ink}`, boxShadow: `6px 6px 0 ${bg}`, flex: 1, display: "flex", flexDirection: "column" }}>
+                                                  <div style={{ background: "#111", padding: "5px 10px", display: "flex", gap: 5, alignItems: "center", borderBottom: `2px solid ${ink}`, flexShrink: 0 }}>
+                                                       {["#E8003A", "#FFE500", "#009933"].map(c => <span key={c} style={{ width: 9, height: 9, borderRadius: "50%", background: c, border: "1px solid #000", display: "inline-block" }} />)}
+                                                       <a
+                                                            href={project.demoUrl}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            style={{
+                                                                 marginLeft: 6,
+                                                                 fontFamily: "monospace",
+                                                                 fontSize: 9,
+                                                                 color: "#fff",
+                                                                 textDecoration: "none"
+                                                            }}
+                                                            onMouseEnter={e => e.currentTarget.style.textDecoration = "underline"}
+                                                            onMouseLeave={e => e.currentTarget.style.textDecoration = "none"}
+                                                       >
+                                                            {project.demoUrl.replace("https://", "")}
+                                                       </a>
+                                                  </div>
+                                                  <iframe
+                                                       src={project.demoUrl}
+                                                       title={project.title}
+                                                       sandbox="allow-scripts allow-same-origin"
+                                                       style={{ width: "100%", flex: 1, border: "none", background: "#0a0a0a" }}
+                                                  />
+                                             </div>
+                                        )
                                    ) : (
                                         <div style={{ flex: 1, border: `4px dashed ${ink}`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8 }}>
                                              <span style={{ fontSize: 36 }}>🚧</span>

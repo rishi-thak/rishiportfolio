@@ -10,6 +10,7 @@ import { AboutOverlay } from "./about-overlay";
 import { ExperienceOverlay } from "./experience-overlay";
 import { ProjectsHubOverlay } from "./projects-hub-overlay";
 import { ACTIVE_PROJECT_INDEX, COMIC_PROJECTS as PROJECTS, HUB_PROJECTS } from "./comic-data";
+import { useOverlayState } from "./use-overlay-state";
 
 type PanelDef = {
      clip: string;
@@ -132,33 +133,22 @@ function InfoPanel({ bg, accent, emoji, label, effect, onClick }: { bg: string; 
 /* ═══ MAIN COMIC PAGE ═══ */
 
 export default function ComicPage() {
-     const [expandedProject, setExpandedProject] = useState<number | null>(null);
-     const [skillsOpen, setSkillsOpen] = useState(false);
-     const [contactOpen, setContactOpen] = useState(false);
-     const [aboutOpen, setAboutOpen] = useState(false);
-     const [experienceOpen, setExperienceOpen] = useState(false);
-     const [projectsOpen, setProjectsOpen] = useState(false);
-     const [openedFromHub, setOpenedFromHub] = useState(false);
-     const [originRect, setOriginRect] = useState<{ x: number, y: number } | null>(null);
-
-     const openOverlay = (setter: (v: boolean) => void, e: React.MouseEvent) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          setOriginRect({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
-          setter(true);
-     };
-
-     const openProject = (index: number, e: React.MouseEvent) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          setOriginRect({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
-          setExpandedProject(index);
-     };
+     const {
+          expandedProject,
+          skillsOpen, setSkillsOpen,
+          contactOpen, setContactOpen,
+          aboutOpen, setAboutOpen,
+          experienceOpen, setExperienceOpen,
+          projectsOpen, setProjectsOpen,
+          originRect,
+          openOverlay,
+          openProject,
+          closeProject,
+          selectFromHub,
+     } = useOverlayState();
 
      return (
           <>
-               <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Kalam:wght@300;400;700&display=swap');
-      `}</style>
-
                <div style={{ position: "relative", width: "100vw", height: "100vh", background: "#fff", overflow: "hidden" }}>
                     {PANELS.map((panel, i) => (
                          <div key={i} style={{
@@ -207,11 +197,8 @@ export default function ComicPage() {
                               origin={originRect}
                               onClose={() => setProjectsOpen(false)}
                               onSelectProject={(idx, e) => {
-                                   setOpenedFromHub(true);
-                                   setProjectsOpen(false);
-                                   // Map back to the original index from the filtered list
                                    const originalIndex = PROJECTS.indexOf(HUB_PROJECTS[idx]);
-                                   openProject(originalIndex, e);
+                                   selectFromHub(originalIndex, e);
                               }}
                          />
                     )}
@@ -220,13 +207,7 @@ export default function ComicPage() {
                               key={`project-${expandedProject}`}
                               origin={originRect}
                               project={PROJECTS[expandedProject]}
-                              onClose={() => {
-                                   if (openedFromHub) {
-                                        setProjectsOpen(true);
-                                   }
-                                   setExpandedProject(null);
-                                   setOpenedFromHub(false);
-                              }}
+                              onClose={closeProject}
                          />
                     )}
 

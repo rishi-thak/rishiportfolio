@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import type { ComicProject } from "./comic-data";
 import { HalftoneDots, TechChip } from "./comic-elements";
@@ -16,12 +16,21 @@ export function ProjectsHubOverlay({
      onSelectProject: (index: number, e: React.MouseEvent) => void;
      origin: { x: number; y: number } | null
 }) {
+     useEffect(() => {
+          const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+          window.addEventListener("keydown", handler);
+          return () => window.removeEventListener("keydown", handler);
+     }, [onClose]);
+
      return (
           <motion.div
                initial={{ opacity: 0 }}
                animate={{ opacity: 1 }}
                exit={{ opacity: 0, pointerEvents: "none" }}
                onClick={onClose}
+               role="dialog"
+               aria-label="All Projects"
+               aria-modal="true"
                style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.85)", display: "flex", alignItems: "center", justifyContent: "center" }}
           >
                <motion.div

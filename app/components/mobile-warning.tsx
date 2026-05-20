@@ -1,7 +1,6 @@
 "use client";
 
 import type { MouseEvent, ReactNode } from "react";
-import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { AboutOverlay } from "./about-overlay";
 import { ContactOverlay } from "./contact-overlay";
@@ -11,6 +10,7 @@ import { ACTIVE_PROJECT_INDEX, COMIC_PROJECTS, HUB_PROJECTS } from "./comic-data
 import { ProjectOverlay } from "./project-overlay";
 import { ProjectsHubOverlay } from "./projects-hub-overlay";
 import { SkillsOverlay } from "./skills-overlay";
+import { useOverlayState } from "./use-overlay-state";
 
 const FEATURED_PROJECT = COMIC_PROJECTS[ACTIVE_PROJECT_INDEX];
 const CARD_SEAM_OFFSET = 24;
@@ -113,32 +113,23 @@ function TitleCard({
 }
 
 export default function MobileWarning() {
-     const [expandedProject, setExpandedProject] = useState<number | null>(null);
-     const [skillsOpen, setSkillsOpen] = useState(false);
-     const [contactOpen, setContactOpen] = useState(false);
-     const [aboutOpen, setAboutOpen] = useState(false);
-     const [experienceOpen, setExperienceOpen] = useState(false);
-     const [projectsOpen, setProjectsOpen] = useState(false);
-     const [openedFromHub, setOpenedFromHub] = useState(false);
-     const [originRect, setOriginRect] = useState<{ x: number; y: number } | null>(null);
-
-     const openOverlay = (setter: (value: boolean) => void, event: MouseEvent<Element>) => {
-          const rect = event.currentTarget.getBoundingClientRect();
-          setOriginRect({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
-          setter(true);
-     };
-
-     const openProject = (index: number, event: MouseEvent<Element>) => {
-          const rect = event.currentTarget.getBoundingClientRect();
-          setOriginRect({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
-          setExpandedProject(index);
-     };
+     const {
+          expandedProject,
+          skillsOpen, setSkillsOpen,
+          contactOpen, setContactOpen,
+          aboutOpen, setAboutOpen,
+          experienceOpen, setExperienceOpen,
+          projectsOpen, setProjectsOpen,
+          originRect,
+          openOverlay,
+          openProject,
+          closeProject,
+          selectFromHub,
+     } = useOverlayState();
 
      return (
           <>
                <style>{`
-                    @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Kalam:wght@300;400;700&display=swap');
-
                     @media (min-width: 769px) {
                          .mobile-warning-overlay {
                               display: none !important;
@@ -211,10 +202,8 @@ export default function MobileWarning() {
                               origin={originRect}
                               onClose={() => setProjectsOpen(false)}
                               onSelectProject={(index, event) => {
-                                   setOpenedFromHub(true);
-                                   setProjectsOpen(false);
                                    const originalIndex = COMIC_PROJECTS.indexOf(HUB_PROJECTS[index]);
-                                   openProject(originalIndex, event);
+                                   selectFromHub(originalIndex, event);
                               }}
                          />
                     ) : null}
@@ -224,13 +213,7 @@ export default function MobileWarning() {
                               key={`mobile-project-${expandedProject}`}
                               origin={originRect}
                               project={COMIC_PROJECTS[expandedProject]}
-                              onClose={() => {
-                                   if (openedFromHub) {
-                                        setProjectsOpen(true);
-                                   }
-                                   setExpandedProject(null);
-                                   setOpenedFromHub(false);
-                              }}
+                              onClose={closeProject}
                          />
                     ) : null}
 

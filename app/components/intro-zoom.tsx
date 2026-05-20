@@ -5,12 +5,33 @@ import { useState, useEffect, useCallback } from "react";
 export default function IntroZoom() {
      const [phase, setPhase] = useState<"hold" | "zoom" | "done">("hold");
 
+     const skip = useCallback(() => {
+          setPhase("done");
+          window.dispatchEvent(new CustomEvent("intro-finished"));
+     }, []);
+
      useEffect(() => {
           const zoomTimer = setTimeout(() => setPhase("zoom"), 1000);
           return () => clearTimeout(zoomTimer);
      }, []);
 
-     // Remove overlay the instant the CSS animation finishes
+     useEffect(() => {
+          const handleKey = (e: KeyboardEvent) => {
+               if (e.code === "Space" || e.code === "Enter" || e.code === "Escape") {
+                    e.preventDefault();
+                    skip();
+               }
+          };
+          const handleClick = () => skip();
+
+          window.addEventListener("keydown", handleKey);
+          window.addEventListener("click", handleClick);
+          return () => {
+               window.removeEventListener("keydown", handleKey);
+               window.removeEventListener("click", handleClick);
+          };
+     }, [skip]);
+
      const handleAnimationEnd = useCallback(() => {
           setPhase("done");
           window.dispatchEvent(new CustomEvent("intro-finished"));
@@ -46,7 +67,7 @@ export default function IntroZoom() {
           display: flex;
           align-items: center;
           justify-content: center;
-          pointer-events: none;
+          cursor: pointer;
         }
 
         .intro-overlay--zooming {
@@ -69,7 +90,12 @@ export default function IntroZoom() {
         }
       `}</style>
 
-               <div className={`intro-overlay ${phase === "zoom" ? "intro-overlay--zooming" : ""}`}>
+               <div
+                    className={`intro-overlay ${phase === "zoom" ? "intro-overlay--zooming" : ""}`}
+                    role="button"
+                    aria-label="Skip intro animation"
+                    tabIndex={0}
+               >
                     <span
                          className={`intro-name ${phase === "zoom" ? "intro-name--zooming" : ""}`}
                          onAnimationEnd={handleAnimationEnd}

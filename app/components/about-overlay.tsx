@@ -1,10 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { HalftoneDots } from "./comic-elements";
 
 export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin: { x: number; y: number } | null }) {
+     useEffect(() => {
+          const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+          window.addEventListener("keydown", handler);
+          return () => window.removeEventListener("keydown", handler);
+     }, [onClose]);
      const greenAccent = "#00aa88";
      const darkGreen = "#003322";
      const inkBlack = "#000000";
@@ -15,6 +20,9 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                animate={{ opacity: 1 }}
                exit={{ opacity: 0, pointerEvents: "none" }}
                onClick={onClose}
+               role="dialog"
+               aria-label="About Me"
+               aria-modal="true"
                style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(0,0,0,0.75)", display: "flex", alignItems: "center", justifyContent: "center" }}
           >
                <motion.div
@@ -72,9 +80,9 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                                    style={{ background: "#fff", border: "3px solid #000", padding: 15, boxShadow: "6px 6px 0 #000", position: "relative" }}>
                                    <div style={{ position: "absolute", top: -12, left: 10, background: darkGreen, padding: "1px 8px", fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 11, color: "#fff", border: "2px solid #fff" }}>CURRENTly</div>
                                    <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 13, color: "#000", textTransform: "uppercase", lineHeight: 1.5 }}>
-                                        🏗️ President & CO-FOUNDER @ CODEBOX<br />
-                                        📊 SWE LEAD @ CAL POLY Quant finance<br />
-                                        🍎 Teacher&apos;s Assistant @ Cal Poly CSSE
+                                        🤖 AI Intern @ AHEAD (Incoming)<br />
+                                        🚗 Founding SWE @ Scoop<br />
+                                        🏗️ Technical Lead & President @ CodeBox
                                    </div>
                               </motion.div>
 
@@ -99,11 +107,11 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                               >
                                    <h3 style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 18, color: "#000", margin: "0 0 10px 0", borderBottom: "2px solid #000", paddingBottom: 4 }}>Abstract</h3>
                                    <p style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 15, color: "#000", lineHeight: 1.7, margin: 0, textTransform: "uppercase" }}>
-                                        I strongly resonate WITH THE &quot;LEARN BY DOING&quot; PHILOSOPHY. I SPEND MY time building software with impact, and CONNECTING fellow STUDENTS WITH OPPORTUNITIES
+                                        I strongly resonate WITH THE &quot;LEARN BY DOING&quot; PHILOSOPHY. I SPEND MY time building software with impact, co-founding startups, and CONNECTING fellow STUDENTS WITH OPPORTUNITIES.
                                         <br /><br />
-                                        FROM PITCHING a club i co-founded TO AUDIENCES OF hundreds, TO REFINING DATA MODELS FOR QUANTITATIVE FINANCE, MY GOAL IS CONSTANT: BRIDGE THE GAP BETWEEN THEORY AND REALITY.
+                                        FROM CO-FOUNDING VECTR (BACKED BY REDBRICK VC) TO LAUNCHING CAL POLY&apos;S FIRST STUDENT PROJECT ACCELERATOR WITH 200+ APPLICANTS, MY GOAL IS CONSTANT: BRIDGE THE GAP BETWEEN THEORY AND REALITY.
                                         <br /><br />
-                                        CURRENTLY ARCHITECTING SYSTEMS THAT EMPOWER THE NEXT GENERATION OF SOFTWARE ENGINEERS AT CAL POLY.
+                                        CURRENTLY BUILDING REAL-TIME SYSTEMS AT SCOOP AND PREPARING TO SHIP PRODUCTION AI AT AHEAD.
                                    </p>
                               </motion.div>
 
