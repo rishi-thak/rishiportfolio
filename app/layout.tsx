@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Rishi Jay Thakkar", url: "https://rishithakkar.com" }],
   creator: "Rishi Jay Thakkar",
   alternates: {
-    canonical: "https://rishithakkar.com",
+    canonical: "https://rishithakkar.com/",
   },
   icons: {
     icon: "/icon.png",
