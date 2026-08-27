@@ -13,38 +13,41 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
      const experiences = [
           {
                company: "AHEAD",
-               role: "Artificial Intelligence Intern",
-               period: "Incoming Summer 2026",
+               role: "AI Engineer Intern",
+               period: "June 2026 - Present",
                color: "#2E1065",
                accent: "#FACC15",
                points: [
-                    "Building cloud-deployed AI systems; prioritizing production-grade model APIs, data flows, and customer-facing automation"
+                    "Built and shipped a RAG onboarding assistant for a municipal government with source-attributed vector retrieval, SSE streaming, dynamic prompt guardrails, and three RBAC-scoped workflows; demonstrated it to executive stakeholders",
+                    "Developed deployment guidance and operational workflows for running models including Kimi K2.6 on RunAI-managed NVIDIA B300 clusters with KServe and Triton Inference Server for a major financial exchange",
+                    "Shipped Python automation, Jira integrations, and CI/CD improvements for an internal agentic-AI platform used by a Fortune 100 financial-services engineering team; fixed production bugs and merged changes into core repositories"
                ],
-               tags: ["AI", "Cloud", "Production"]
+               tags: ["RAG", "Inference", "Python"]
           },
           {
                company: "Scoop",
-               role: "Founding Software Engineer",
-               period: "March 2026 - Present",
+               role: "Founding Software Engineer (Contract)",
+               period: "March 2026 - May 2026",
                color: "#cc2200",
-               accent: "#ffcc00",
+               accent: "#FFEB4D",
                points: [
-                    "Built a real-time matching engine via PostgreSQL RPCs to pool riders by proximity and direction",
-                    "Engineered multi-stop routing using JSONB and implemented automated fare settlement with Stripe error recovery for pooled bookings of up to 12 riders"
+                    "First engineer hired by the founding team; designed and deployed a PostgreSQL RPC matching engine that grouped 101 riders by geographic proximity and travel direction while preventing duplicate assignment during concurrent booking requests",
+                    "Modeled multi-stop pooled trips in PostgreSQL JSONB and implemented idempotent Stripe settlement with retry and failure-recovery for bookings of up to 12 riders"
                ],
                tags: ["PostgreSQL", "Stripe", "Full-Stack"]
           },
           {
                company: "Vectr",
-               role: "Co-founder & CTO",
-               period: "Jan 2026 - May 2026",
+               role: "Co-founder & Lead Engineer",
+               period: "January 2026 - May 2026",
                color: "#00bbcc",
                accent: "#003344",
                points: [
-                    "Built Vectr from 0-to-1, turning an AI workflow tool into a backed startup funded by RedBrick VC in a 5-month sprint",
-                    "Owned product, architecture, and engineering execution; shipped customer-ready workflows, onboarded startup customers, and converted feedback into product iterations"
+                    "Co-founded and engineered an AI product-management workspace from prototype through pilots with six startup teams, securing a seed grant from RedBrick VC within three months",
+                    "Built the document ingestion and embedding pipeline (pgvector, Supabase) powering source-attributed retrieval and a knowledge graph linking interviews, tickets, and usage data",
+                    "Shipped agentic document generation with stakeholder briefs and guardrails flagging scope creep; used in pilot sprint planning"
                ],
-               tags: ["Startup", "AI", "Product"]
+               tags: ["Startup", "pgvector", "Agents"]
           },
           {
                company: "CodeBox",
@@ -53,9 +56,9 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                color: "#ccbb00",
                accent: "#443300",
                points: [
-                    "Launched Cal Poly’s first student project accelerator, with 200+ applicants and 50+ admitted builders, establishing high-agency engineering teams",
-                    "Spearheaded 5 projects, including an iOS campus map, note-sharing platform, buy/sell marketplace, a challenge-based social app, and a ML reporting system for campus issues; reached 500+ users within 1 week of collective launch",
-                    "Led technical direction for 10 engineers using React Native, Expo, Prisma, Supabase; introduced PR gates, schema ownership, and API contracts that kept 7 parallel workstreams shipping through a 3-month build"
+                    "Founded a student-run project accelerator at Cal Poly, selecting 50+ builders from 200+ applicants and launching five products that collectively acquired 700+ registered users in their first week",
+                    "Directed 10 engineers across seven parallel workstreams, introducing PR review gates, schema ownership, and API contracts to coordinate React Native, Prisma, and Supabase development",
+                    "Built CodeBox’s internal operations platform for 50 daily active users, centralizing team administration through Prisma models and five-level RBAC"
                ],
                tags: ["Leadership", "Full-Stack", "Community"]
           },
@@ -66,7 +69,7 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                color: "#00aa88",
                accent: "#003322",
                points: [
-                    "Engineered scalable trading algorithms, in Python, integrating data pipelines with yfinance and analytics with pandas; optimized parameters and tested over multi-year data, achieving a 55% return",
+                    "Engineered scalable trading algorithms in Python, integrating data pipelines with yfinance and analytics with pandas; built parameter optimization and evaluated strategies against multi-year historical data",
                     "Designed and optimized trading models using custom backtesting frameworks and automated parameter tuning",
                     "Engineered pairs trading models with extensive Matplotlib visualizations to analyze correlation breakdowns, cointegration, and entry/exit signal performance across strategy iterations"
                ],
@@ -77,7 +80,7 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                role: "Teacher’s Assistant",
                period: "Jan 2026 - Present",
                color: "#059669",
-               accent: "#003344",
+               accent: "#001A12",
                points: [
                     "Lead lab sections for 35+ students in CSC 101, guiding implementation of fundamental algorithms",
                     "Translate abstract programming concepts into actionable guidance in Python"
@@ -129,7 +132,7 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                     </div>
 
                     {/* Content Area */}
-                    <div style={{ flex: 1, overflowY: "auto", background: "#f0f0f0", padding: 20 }}>
+                    <div className="comic-scroll" style={{ flex: 1, overflowY: "auto", background: "#f0f0f0", padding: 20 }}>
                          <style>{`
                               @media (max-width: 768px) {
                                    .experience-entry {
@@ -200,7 +203,7 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                                              <HalftoneDots color={exp.accent} opacity={0.2} size={8} />
                                              <div style={{ position: "relative", zIndex: 1 }}>
                                                   <div style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 28, color: exp.accent, lineHeight: 1, marginBottom: 4 }}>{exp.company}</div>
-                                                  <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 13, color: "#000", textTransform: "uppercase", letterSpacing: "0.02em" }}>{exp.period}</div>
+                                                  <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 13, color: exp.accent, textTransform: "uppercase", letterSpacing: "0.02em" }}>{exp.period}</div>
                                              </div>
                                              <div style={{ display: "flex", flexWrap: "wrap", gap: 4, position: "relative", zIndex: 1 }}>
                                                   {exp.tags.map(t => <TechChip key={t} name={t} bg={exp.color} ink={exp.accent} />)}
@@ -224,13 +227,13 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                                                   <ul style={{
                                                        listStyle: "none", padding: 0, margin: 0,
                                                        fontFamily: "'Kalam', cursive", fontWeight: 700,
-                                                       fontSize: 14, color: "#333", display: "flex",
-                                                       flexDirection: "column", gap: 10
+                                                       fontSize: 15, color: "#1f1f1f", lineHeight: 1.5, display: "flex",
+                                                       flexDirection: "column", gap: 12
                                                   }}>
                                                        {exp.points.map((p, idx) => (
                                                             <li key={idx} style={{ display: "flex", gap: 8 }}>
                                                                  <span style={{ color: exp.color, fontSize: 18 }}>▶</span>
-                                                                 <span style={{ textTransform: "uppercase" }}>{p}</span>
+                                                                 <span>{p}</span>
                                                             </li>
                                                        ))}
                                                   </ul>

@@ -8,28 +8,35 @@ export const SKILLS = [
      {
           category: "LANGUAGES",
           label: "THE FOUNDATION",
-          items: ["Python", "TypeScript", "Rust", "Java", "SQL", "JavaScript", "C", "RISC-V Assembly"],
+          items: ["Python", "TypeScript", "Rust", "SQL"],
           color: "#00bbcc",
           accent: "#003344"
      },
      {
-          category: "FRAMEWORKS",
-          label: "THE INFRASTRUCTURE",
-          items: ["Next.js", "React", "React Native", "Node.js", "FastAPI", "Prisma", "Tauri", "Expo", "Flask"],
-          color: "#cc2200",
-          accent: "#ffcc00"
-     },
-     {
-          category: "AI & INFRA",
+          category: "AI & INFERENCE",
           label: "THE BRAINS",
-          items: ["Neo4j", "Ollama (Local LLMs)", "Supabase", "Convex", "Vercel", "Git", "SQLite"],
-          color: "#059669",
-          accent: "#003322"
+          items: ["KServe", "Triton Inference Server", "RunAI", "Ollama", "RAG", "Embedding Pipelines"],
+          color: "#7C2D12",
+          accent: "#FDBA74"
      },
      {
-          category: "TOOLS & CLOUD",
+          category: "BACKEND & DATA",
+          label: "THE ENGINE ROOM",
+          items: ["FastAPI", "Node.js", "PostgreSQL", "pgvector", "Neo4j", "Prisma", "Supabase"],
+          color: "#059669",
+          accent: "#001A12"
+     },
+     {
+          category: "FRONTEND & DESKTOP",
+          label: "THE SURFACE",
+          items: ["React", "Next.js", "React Native", "Expo", "Tauri"],
+          color: "#cc2200",
+          accent: "#FFEB4D"
+     },
+     {
+          category: "TOOLING & CLOUD",
           label: "THE UTILITY BELT",
-          items: ["Sponge (EVM/Base)", "TanStack Query", "Pandas", "NumPy", "Matplotlib", "AWS (S3)", "Azure"],
+          items: ["SWC", "ts-morph", "WebAssembly", "AWS (S3, Lambda)", "Docker", "Linux", "CI/CD", "Git"],
           color: "#ccbb00",
           accent: "#443300"
      }
@@ -80,7 +87,8 @@ export function SkillsOverlay({ onClose, origin }: { onClose: () => void; origin
                          variants={{
                               visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } }
                          }}
-                         style={{ flex: 1, overflowY: "auto", display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "auto auto", padding: 8, gap: 8, background: "#000" }}
+                         className="comic-scroll"
+                         style={{ flex: 1, overflowY: "auto", display: "grid", gridTemplateColumns: "1fr 1fr", gridAutoRows: "auto", padding: 8, gap: 8, background: "#000" }}
                     >
                          {SKILLS.map((s: SkillGroup, idx: number) => (
                               <motion.div
@@ -96,7 +104,9 @@ export function SkillsOverlay({ onClose, origin }: { onClose: () => void; origin
                                         padding: 18,
                                         overflow: "hidden",
                                         display: "flex",
-                                        flexDirection: "column"
+                                        flexDirection: "column",
+                                        // An odd final group would leave a ragged half-row; let it span instead.
+                                        gridColumn: idx === SKILLS.length - 1 && SKILLS.length % 2 === 1 ? "1 / -1" : undefined
                                    }}
                               >
                                    <HalftoneDots color={s.accent} opacity={0.15} size={10} />

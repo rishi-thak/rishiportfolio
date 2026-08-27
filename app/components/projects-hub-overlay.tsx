@@ -85,6 +85,7 @@ export function ProjectsHubOverlay({
                          variants={{
                               visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } }
                          }}
+                         className="comic-scroll"
                          style={{
                               flex: 1,
                               overflowY: "auto",
@@ -128,8 +129,10 @@ export function ProjectsHubOverlay({
                               justifyItems: "center"
                          }}>
                               {projects.map((project, idx) => (
-                                   <motion.div
-                                        className="projects-hub-card"
+                                   <motion.button
+                                        type="button"
+                                        className="projects-hub-card comic-panel-button comic-focusable"
+                                        aria-label={`${project.title.replace("\n", " ")} — ${project.tagline}. Open project details.`}
                                         key={project.id}
                                         variants={{
                                              hidden: { opacity: 0, x: -20 },
@@ -153,7 +156,8 @@ export function ProjectsHubOverlay({
                                              minHeight: "260px",
                                              display: "flex",
                                              flexDirection: "column",
-                                             justifyContent: "center"
+                                             justifyContent: "center",
+                                             textAlign: "left"
                                         }}
                                    >
                                         <HalftoneDots color={project.ink} opacity={0.15} size={8} />
@@ -186,7 +190,7 @@ export function ProjectsHubOverlay({
                                                   ))}
                                              </div>
                                         </div>
-                                   </motion.div>
+                                   </motion.button>
                               ))}
                          </div>
                     </motion.div>

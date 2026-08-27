@@ -41,7 +41,7 @@ export function ProjectOverlay({ project, onClose, origin }: { project: ComicPro
                               <span style={{ fontSize: 38 }}>{project.coverEmoji}</span>
                               <div>
                                    <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 11, color: "#fff", letterSpacing: "0.05em", textTransform: "uppercase" }}>{project.issue}</div>
-                                   <div style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 30, color: ink, lineHeight: 1, textShadow: `2px 2px 0 ${bg}`, whiteSpace: "nowrap", textTransform: "uppercase", letterSpacing: "0.02em" }}>{project.title.replace("\n", " ")}</div>
+                                   <div style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: "clamp(22px, 4vw, 30px)", color: ink, lineHeight: 1.05, textShadow: `2px 2px 0 ${bg}`, textTransform: "uppercase", letterSpacing: "0.02em" }}>{project.title.replace("\n", " ")}</div>
                                    <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 400, fontSize: 12, color: "#fff", letterSpacing: "0.05em", textTransform: "uppercase" }}>{project.tagline}</div>
                               </div>
                          </div>
@@ -54,6 +54,7 @@ export function ProjectOverlay({ project, onClose, origin }: { project: ComicPro
                          variants={{
                               visible: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
                          }}
+                         className="comic-scroll"
                          style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", minHeight: 320 }}
                     >
                          <motion.div
@@ -64,7 +65,7 @@ export function ProjectOverlay({ project, onClose, origin }: { project: ComicPro
                               style={{ padding: 22, borderBottom: "4px solid #000", display: "flex", flexDirection: "column", gap: 16, position: "relative", overflow: "visible", flexShrink: 0 }}
                          >
                               <HalftoneDots color={ink} size={10} opacity={0.1} />
-                              <div style={{ background: "#000", border: `3px solid ${ink}`, padding: "12px 16px", fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 14, color: "#e8e8e8", lineHeight: 1.4, position: "relative", zIndex: 1, boxShadow: `4px 4px 0 ${ink}`, textTransform: "uppercase" }}>
+                              <div style={{ background: "#000", border: `3px solid ${ink}`, padding: "12px 16px", fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 15, color: "#e8e8e8", lineHeight: 1.55, position: "relative", zIndex: 1, boxShadow: `4px 4px 0 ${ink}` }}>
                                    <div style={{ position: "absolute", top: -14, left: 20, borderLeft: "10px solid transparent", borderRight: "10px solid transparent", borderBottom: `14px solid ${ink}` }} />
                                    <div style={{ position: "absolute", top: -9, left: 22, borderLeft: "8px solid transparent", borderRight: "8px solid transparent", borderBottom: "11px solid #000" }} />
                                    {project.description}
@@ -107,7 +108,7 @@ export function ProjectOverlay({ project, onClose, origin }: { project: ComicPro
                                                   >
                                                        View on GitHub
                                                   </a>
-                                                  <span style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 12, color: ink, textTransform: "uppercase", opacity: 0.8 }}>
+                                                  <span style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 12, color: ink, opacity: 0.8 }}>
                                                        {project.demoUrl.replace("https://", "")}
                                                   </span>
                                              </div>

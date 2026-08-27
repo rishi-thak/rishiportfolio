@@ -52,6 +52,7 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                          variants={{
                               visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
                          }}
+                         className="comic-scroll"
                          style={{ flex: 1, overflowY: "auto", padding: "24px 30px", display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 24, position: "relative", zIndex: 1, minHeight: 420 }}
                     >
 
@@ -68,10 +69,10 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                                    style={{ background: inkBlack, border: `3px solid ${greenAccent}`, padding: 15, position: "relative", boxShadow: "4px 4px 0 #000" }}
                               >
                                    <div style={{ position: "absolute", top: -12, left: 10, background: greenAccent, padding: "1px 8px", fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 11, color: "#000", border: "2px solid #000" }}>Real quick</div>
-                                   <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 15, color: "#fff", textTransform: "uppercase", lineHeight: 1.4 }}>
-                                        CS + ENTREPRENEURSHIP<br />
-                                        @ CAL POLY SLO<br />
-                                        CLASS OF 2028
+                                   <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 15, color: "#fff", lineHeight: 1.5 }}>
+                                        CS + Entrepreneurship<br />
+                                        @ Cal Poly SLO<br />
+                                        Class of 2028
                                    </div>
                               </motion.div>
 
@@ -79,10 +80,10 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                                    variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
                                    style={{ background: "#fff", border: "3px solid #000", padding: 15, boxShadow: "6px 6px 0 #000", position: "relative" }}>
                                    <div style={{ position: "absolute", top: -12, left: 10, background: darkGreen, padding: "1px 8px", fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 11, color: "#fff", border: "2px solid #fff" }}>CURRENTly</div>
-                                   <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 13, color: "#000", textTransform: "uppercase", lineHeight: 1.5 }}>
-                                        🤖 AI Intern @ AHEAD (Incoming)<br />
-                                        🚗 Founding SWE @ Scoop<br />
-                                        🏗️ Technical Lead & President @ CodeBox
+                                   <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 14, color: "#000", lineHeight: 1.6 }}>
+                                        🤖 AI Engineer Intern @ AHEAD<br />
+                                        🏗️ Technical Lead & President @ CodeBox<br />
+                                        🎨 Building NextCanvas
                                    </div>
                               </motion.div>
 
@@ -106,12 +107,12 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                                    style={{ background: "#FFE500", border: "3px solid #000", padding: "20px 24px", boxShadow: "8px 8px 0 #000" }}
                               >
                                    <h3 style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 18, color: "#000", margin: "0 0 10px 0", borderBottom: "2px solid #000", paddingBottom: 4 }}>Abstract</h3>
-                                   <p style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 15, color: "#000", lineHeight: 1.7, margin: 0, textTransform: "uppercase" }}>
-                                        I strongly resonate WITH THE &quot;LEARN BY DOING&quot; PHILOSOPHY. I SPEND MY time building software with impact, co-founding startups, and CONNECTING fellow STUDENTS WITH OPPORTUNITIES.
+                                   <p style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 16, color: "#000", lineHeight: 1.7, margin: 0 }}>
+                                        I strongly resonate with the &quot;learn by doing&quot; philosophy. I spend my time building software with impact, co-founding startups, and connecting fellow students with opportunities.
                                         <br /><br />
-                                        FROM CO-FOUNDING VECTR (BACKED BY REDBRICK VC) TO LAUNCHING CAL POLY&apos;S FIRST STUDENT PROJECT ACCELERATOR WITH 200+ APPLICANTS, MY GOAL IS CONSTANT: BRIDGE THE GAP BETWEEN THEORY AND REALITY.
+From co-founding Vectr (seed grant from RedBrick VC) to launching Cal Poly&apos;s first student project accelerator with 200+ applicants, my goal is constant: bridge the gap between theory and reality.
                                         <br /><br />
-                                        CURRENTLY BUILDING REAL-TIME SYSTEMS AT SCOOP AND PREPARING TO SHIP PRODUCTION AI AT AHEAD.
+                                        Currently shipping production AI at AHEAD — RAG systems, inference deployment, and agentic tooling — and maintaining NextCanvas, my open-source visual editor for Next.js.
                                    </p>
                               </motion.div>
 

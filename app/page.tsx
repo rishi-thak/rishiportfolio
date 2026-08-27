@@ -7,10 +7,9 @@ const jsonLd = {
   "@type": "Person",
   name: "Rishi Jay Thakkar",
   url: "https://rishithakkar.com",
-  jobTitle: "Software Engineer & Computer Science Student",
+  jobTitle: "AI Engineer Intern & Computer Science Student",
   worksFor: [
-    { "@type": "Organization", name: "AHEAD", description: "Artificial Intelligence Intern" },
-    { "@type": "Organization", name: "Scoop", description: "Founding Software Engineer" },
+    { "@type": "Organization", name: "AHEAD", description: "AI Engineer Intern" },
     { "@type": "Organization", name: "CodeBox", description: "Technical Lead & President" },
   ],
   alumniOf: {
@@ -18,7 +17,7 @@ const jsonLd = {
     name: "California Polytechnic State University, San Luis Obispo",
     alternateName: "Cal Poly SLO",
   },
-  knowsAbout: ["Software Engineering", "Artificial Intelligence", "Full-Stack Development", "React", "Next.js", "Python", "Rust", "TypeScript", "Neo4j", "FastAPI"],
+  knowsAbout: ["Software Engineering", "Artificial Intelligence", "Retrieval-Augmented Generation", "Model Inference", "KServe", "Triton Inference Server", "WebAssembly", "React", "Next.js", "Python", "Rust", "TypeScript", "PostgreSQL", "pgvector", "Neo4j", "FastAPI"],
   sameAs: [
     "https://www.linkedin.com/in/rishi-thakkar1/",
     "https://github.com/rishi-thak",
@@ -33,25 +32,35 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <header className="sr-only" aria-hidden="false">
-        <h1>Rishi Jay Thakkar — Software Engineer & Computer Science Student at Cal Poly SLO</h1>
+        {/* The visible <h1> is the on-page nameplate in ComicPage; this block carries
+            the long-form keyword copy for crawlers as a secondary heading. */}
+        <h2>Rishi Jay Thakkar — Software Engineer & Computer Science Student at Cal Poly SLO</h2>
         <p>
-          Rishi Thakkar is a Computer Science student at California Polytechnic State University, San Luis Obispo (Cal Poly SLO),
-          graduating June 2028. Incoming AI Intern at AHEAD, Founding Software Engineer at Scoop, Co-founder & CTO of Vectr
-          (backed by RedBrick VC), and Technical Lead & President of CodeBox — Cal Poly&apos;s first student project accelerator
-          with 200+ applicants and 50+ admitted builders.
+          Rishi Thakkar is a Computer Science student (minor in Entrepreneurship) at California Polytechnic State University,
+          San Luis Obispo (Cal Poly SLO), graduating June 2028. AI Engineer Intern at AHEAD, where he shipped a source-attributed
+          RAG onboarding assistant for a municipal government and deployment workflows for models on RunAI-managed NVIDIA B300
+          clusters with KServe and Triton Inference Server. Previously Founding Software Engineer at Scoop and Co-founder &
+          Lead Engineer of Vectr (seed grant from RedBrick VC). Technical Lead & President of CodeBox — Cal Poly&apos;s first
+          student project accelerator, with 200+ applicants, 50+ admitted builders, and five products that reached 700+
+          registered users in their first week.
         </p>
         <p>
-          Skills: Python, TypeScript, Rust, Java, SQL, JavaScript, Next.js, React, React Native, Node.js, FastAPI, Prisma, Tauri,
-          Neo4j, Ollama, Supabase, Convex, Vercel, Git, Sponge (EVM/Base), TanStack Query, Pandas, NumPy, Matplotlib.
+          Skills: Python, TypeScript, Rust, SQL, KServe, Triton Inference Server, RunAI, Ollama, RAG, embedding pipelines,
+          FastAPI, Node.js, PostgreSQL, pgvector, Neo4j, Prisma, Supabase, React, Next.js, React Native, Expo, Tauri, SWC,
+          ts-morph, WebAssembly, AWS (S3, Lambda), Docker, Linux, CI/CD, Git.
         </p>
         <p>
-          Projects: Haggle (YC hackathon winner), Locus (local GraphRAG engine), Assigned (internal tooling for 50+ users),
-          Bloom (AI study companion), Rishi&apos;s Records (album rating platform), WSB Analyzer (sentiment analysis tool).
+          Projects: NextCanvas (drop-in Next.js visual editor built on a Rust/WebAssembly SWC plugin, 2,500+ downloads in its
+          first month), Haggle (winner of the Sponge track at Y Combinator&apos;s Call My Agents Hackathon), Locus (100% local
+          GraphRAG engine on Neo4j and Ollama), Assigned (internal operations platform used daily by 50+ CodeBox members).
         </p>
+        {/* Crawlable, but kept out of the tab order — they are visually hidden, so a
+            keyboard user would otherwise land on links they cannot see. The same
+            links are reachable through the Contact panel. */}
         <nav aria-label="External links">
-          <a href="https://www.linkedin.com/in/rishi-thakkar1/">LinkedIn</a>
-          <a href="https://github.com/rishi-thak">GitHub</a>
-          <a href="mailto:rjthakka@calpoly.edu">Email</a>
+          <a href="https://www.linkedin.com/in/rishi-thakkar1/" tabIndex={-1}>LinkedIn</a>
+          <a href="https://github.com/rishi-thak" tabIndex={-1}>GitHub</a>
+          <a href="mailto:rjthakka@calpoly.edu" tabIndex={-1}>Email</a>
         </nav>
       </header>
       <IntroZoom />

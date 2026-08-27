@@ -11,7 +11,7 @@ export function ContactOverlay({ onClose, origin }: { onClose: () => void; origi
           return () => window.removeEventListener("keydown", handler);
      }, [onClose]);
      const redAccent = "#cc2200";
-     const yellowAccent = "#ffcc00";
+     const yellowAccent = "#FFEB4D";
      const inkBlack = "#000000";
 
      const contactLinks = [
@@ -87,7 +87,7 @@ export function ContactOverlay({ onClose, origin }: { onClose: () => void; origi
                                    <span style={{ fontSize: 28 }}>{link.icon}</span>
                                    <div style={{ display: "flex", flexDirection: "column" }}>
                                         <span style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 14, color: yellowAccent, letterSpacing: "0.05em" }}>{link.label}</span>
-                                        <span style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 16, color: "#fff", textTransform: "uppercase" }}>{link.value}</span>
+                                        <span style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 16, color: "#fff" }}>{link.value}</span>
                                    </div>
                               </motion.a>
                          ))}
