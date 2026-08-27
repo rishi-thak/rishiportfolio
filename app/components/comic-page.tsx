@@ -54,9 +54,39 @@ const PANELS: PanelDef[] = [
      {
           clip: "polygon(68% 50%, 100% 49%, 100% 100%, 65% 100%)",
           box: { left: "65%", top: "49%", width: "35%", height: "51%" },
-          type: "info", bg: "#cc2200", accent: "#ffcc00", emoji: "🔗", label: "CONTACT", effect: "halftone"
+          type: "info", bg: "#cc2200", accent: "#FFEB4D", emoji: "🔗", label: "CONTACT", effect: "halftone"
      },
 ];
+
+/* ═══ NAMEPLATE ═══ */
+
+/* The comic grid is all nav labels and no identity — this is the only place the
+   site says whose portfolio it is once the intro has zoomed away. */
+function Nameplate() {
+     return (
+          <div style={{
+               position: "fixed", top: 18, left: 18, zIndex: 30,
+               background: "#fff", border: "4px solid #000",
+               boxShadow: "6px 6px 0 rgba(0,0,0,0.45)",
+               padding: "8px 16px 9px", transform: "rotate(-1.5deg)",
+               pointerEvents: "none", maxWidth: "min(420px, 60vw)",
+          }}>
+               <h1 style={{
+                    margin: 0,
+                    fontFamily: "'Anton', 'Bangers', system-ui, sans-serif",
+                    fontSize: "clamp(22px, 2.6vw, 34px)", lineHeight: 1,
+                    letterSpacing: "0.06em", textTransform: "uppercase", color: "#000",
+               }}>Rishi Thakkar</h1>
+               <p style={{
+                    margin: "4px 0 0",
+                    fontFamily: "'Kalam', cursive", fontWeight: 700,
+                    fontSize: "clamp(10px, 1vw, 13px)", lineHeight: 1.3, color: "#1a1a1a",
+               }}>
+                    CS @ Cal Poly SLO &middot; AI Engineer Intern at AHEAD &middot; building NextCanvas
+               </p>
+          </div>
+     );
+}
 
 /* ═══ PANEL CONTENTS ═══ */
 
@@ -64,13 +94,18 @@ function ProjectPanel({ project, onClick, isCurrentlyWorking }: { project: typeo
      const [hovered, setHovered] = useState(false);
      // If featured on homepage, use the theme colors; otherwise use project's own identity
      const bg = isCurrentlyWorking ? "#a7374b" : project.bg;
-     const ink = isCurrentlyWorking ? "#66ab56" : project.ink;
+     const ink = isCurrentlyWorking ? "#FFE8B0" : project.ink;
 
      return (
-          <div
+          <button
+               type="button"
+               className="comic-panel-button"
+               aria-label={`${project.title.replace("\n", " ")} — ${project.tagline}. Open project details.`}
                onClick={onClick}
                onMouseEnter={() => setHovered(true)}
                onMouseLeave={() => setHovered(false)}
+               onFocus={() => setHovered(true)}
+               onBlur={() => setHovered(false)}
                style={{
                     width: "100%", height: "100%", background: bg,
                     display: "flex", flexDirection: "column", justifyContent: "center",
@@ -99,7 +134,7 @@ function ProjectPanel({ project, onClick, isCurrentlyWorking }: { project: typeo
                          {project.techStack.slice(0, 3).map(t => <TechChip key={t} name={t} bg={bg} ink={ink} />)}
                     </div>
                </div>
-          </div>
+          </button>
      );
 }
 
@@ -107,10 +142,15 @@ function InfoPanel({ bg, accent, emoji, label, effect, onClick }: { bg: string; 
      const [hovered, setHovered] = useState(false);
 
      return (
-          <div
+          <button
+               type="button"
+               className="comic-panel-button"
+               aria-label={`Open ${label.toLowerCase()}`}
                onClick={onClick}
                onMouseEnter={() => setHovered(true)}
                onMouseLeave={() => setHovered(false)}
+               onFocus={() => setHovered(true)}
+               onBlur={() => setHovered(false)}
                style={{
                     width: "100%", height: "100%", background: bg,
                     display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
@@ -126,7 +166,7 @@ function InfoPanel({ bg, accent, emoji, label, effect, onClick }: { bg: string; 
                     color: accent, letterSpacing: "0.1em", position: "relative", zIndex: 1, marginTop: 8,
                     textTransform: "uppercase"
                }}>{label}</span>
-          </div>
+          </button>
      );
 }
 
@@ -150,6 +190,7 @@ export default function ComicPage() {
      return (
           <>
                <div style={{ position: "relative", width: "100vw", height: "100vh", background: "#fff", overflow: "hidden" }}>
+                    <Nameplate />
                     {PANELS.map((panel, i) => (
                          <div key={i} style={{
                               position: "absolute",

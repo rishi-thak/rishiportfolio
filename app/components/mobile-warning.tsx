@@ -112,6 +112,39 @@ function TitleCard({
      );
 }
 
+function MobileNameplate() {
+     return (
+          <div style={{ padding: "26px 22px 20px" }}>
+               <div style={{
+                    background: "#fff",
+                    border: "4px solid #000",
+                    boxShadow: "6px 6px 0 rgba(0,0,0,0.35)",
+                    padding: "12px 16px 14px",
+                    transform: "rotate(-1.5deg)",
+               }}>
+                    <div role="presentation" style={{
+                         fontFamily: "'Anton', 'Bangers', system-ui, sans-serif",
+                         fontSize: "clamp(28px, 8vw, 40px)",
+                         lineHeight: 1,
+                         letterSpacing: "0.05em",
+                         textTransform: "uppercase",
+                         color: "#000",
+                    }}>Rishi Thakkar</div>
+                    <p style={{
+                         margin: "6px 0 0",
+                         fontFamily: "'Kalam', cursive",
+                         fontWeight: 700,
+                         fontSize: 13,
+                         lineHeight: 1.4,
+                         color: "#1a1a1a",
+                    }}>
+                         CS @ Cal Poly SLO &middot; AI Engineer Intern at AHEAD &middot; building NextCanvas
+                    </p>
+               </div>
+          </div>
+     );
+}
+
 export default function MobileWarning() {
      const {
           expandedProject,
@@ -162,6 +195,7 @@ export default function MobileWarning() {
                <div className="mobile-warning-overlay">
                     <div className="mobile-warning-inner">
                          <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 0 }}>
+                              <MobileNameplate />
                               <MobileCardFrame bg="#00aa88" clipPath={CARD_CLIPS[0]} onClick={(event) => openOverlay(setAboutOpen, event)} stackIndex={0}>
                                    <TitleCard title="About Me" emoji="💥" accent="#003322" decoration={<RadialBurst color="#003322" opacity={0.12} />} />
                               </MobileCardFrame>
@@ -175,7 +209,7 @@ export default function MobileWarning() {
                               </MobileCardFrame>
 
                               <MobileCardFrame bg="#cc2200" clipPath={CARD_CLIPS[3]} onClick={(event) => openOverlay(setContactOpen, event)} stackIndex={3}>
-                                   <TitleCard title="Contact" emoji="🔗" accent="#ffcc00" decoration={<HalftoneDots color="#ffcc00" opacity={0.16} size={10} />} />
+                                   <TitleCard title="Contact" emoji="🔗" accent="#FFEB4D" decoration={<HalftoneDots color="#FFEB4D" opacity={0.16} size={10} />} />
                               </MobileCardFrame>
 
                               <MobileCardFrame bg="#00bbcc" clipPath={CARD_CLIPS[4]} onClick={(event) => openOverlay(setSkillsOpen, event)} stackIndex={4}>

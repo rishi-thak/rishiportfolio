@@ -14,13 +14,31 @@ export default function IntroZoom() {
      }, []);
 
      useEffect(() => {
+          // Reduced-motion users skip straight to the page instead of the 3s zoom.
+          const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
           const zoomTimer = setTimeout(() => {
-               if (!skippedRef.current) setPhase("zoom");
-          }, 1000);
-          return () => clearTimeout(zoomTimer);
-     }, []);
+               if (skippedRef.current) return;
+               if (reduced) skip();
+               else setPhase("zoom");
+          }, reduced ? 0 : 1000);
+
+          // Dismissal hangs off onAnimationEnd, which never fires if the tab is
+          // backgrounded or throttled — that would strand the visitor on a black
+          // screen. This guarantees the page appears regardless.
+          const failsafe = setTimeout(skip, 4000);
+
+          return () => {
+               clearTimeout(zoomTimer);
+               clearTimeout(failsafe);
+          };
+     }, [skip]);
 
      useEffect(() => {
+          // This component renders null once done but stays mounted, so the listeners
+          // must be torn down explicitly — otherwise handleKey keeps swallowing every
+          // Enter/Space on the page and the panel buttons can't be activated.
+          if (phase === "done") return;
+
           const handleKey = (e: KeyboardEvent) => {
                if (e.code === "Space" || e.code === "Enter" || e.code === "Escape") {
                     e.preventDefault();
@@ -35,7 +53,7 @@ export default function IntroZoom() {
                window.removeEventListener("keydown", handleKey);
                window.removeEventListener("click", handleClick);
           };
-     }, [skip]);
+     }, [skip, phase]);
 
      if (phase === "done") return null;
 
