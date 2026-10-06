@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import fs from "node:fs";
 import path from "node:path";
 
-export const alt = "Rishi Thakkar — CS at Cal Poly SLO, creator of NextCanvas, former AI Engineer Intern at AHEAD";
+export const alt = "Rishi Thakkar — CS at Cal Poly SLO, former AI Engineer Intern at AHEAD";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -51,7 +51,7 @@ export default async function Image() {
                          style={{
                               position: "absolute",
                               left: 104,
-                              top: 192,
+                              top: 212,
                               width: 992,
                               display: "flex",
                               flexDirection: "column",
@@ -75,7 +75,6 @@ export default async function Image() {
                          >
                               RISHI THAKKAR
                          </div>
-                         {/* Two deliberate lines — one long string orphaned "NextCanvas" */}
                          <div
                               style={{
                                    fontFamily: "Kalam",
@@ -86,16 +85,6 @@ export default async function Image() {
                               }}
                          >
                               CS @ Cal Poly SLO · ex-AI Engineer Intern at AHEAD
-                         </div>
-                         <div
-                              style={{
-                                   fontFamily: "Kalam",
-                                   fontSize: 30,
-                                   lineHeight: 1.3,
-                                   color: "#1a1a1a",
-                              }}
-                         >
-                              Creator of NextCanvas · 2,500+ downloads in month one
                          </div>
                     </div>
 

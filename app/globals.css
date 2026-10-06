@@ -37,26 +37,24 @@ body {
   background: none;
 }
 
-/* Panels lift toward the viewer on hover/focus so they read as buttons.
-   The drop shadow sits on this unclipped wrapper because clip-path clips the
-   filter of the element it is applied to. */
+/* Panels nudge toward the viewer on hover/focus so they read as buttons.
+   Kept deliberately small — no tilt, no cast shadow. */
 .comic-panel-shell {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+  transition: transform 0.18s ease-out;
 }
 
 .comic-panel-shell:has(.comic-panel-button:hover),
 .comic-panel-shell:has(.comic-panel-button:focus-visible) {
   z-index: 10;
-  transform: scale(1.025) rotate(-0.5deg);
-  filter: drop-shadow(8px 10px 0 rgba(0, 0, 0, 0.85));
+  transform: scale(1.01);
 }
 
 /* Touch has no hover: give the mobile cards a press-in instead. */
 .comic-press:active {
-  transform: scale(0.97);
+  transform: scale(0.985);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -64,7 +62,7 @@ body {
   .comic-panel-shell:has(.comic-panel-button:hover),
   .comic-panel-shell:has(.comic-panel-button:focus-visible) {
     transform: none;
-    transition: filter 0.2s ease;
+    transition: none;
   }
 }
 

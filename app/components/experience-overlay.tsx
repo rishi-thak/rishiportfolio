@@ -25,6 +25,31 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                tags: ["RAG", "Inference", "Python"]
           },
           {
+               company: "CodeBox",
+               role: "Technical Lead & President",
+               period: "April 2025 - Present",
+               color: "#ccbb00",
+               accent: "#443300",
+               points: [
+                    "Founded a student-run project accelerator at Cal Poly, selecting two 50-person cohorts from 400+ applicants and launching five products with 2,400+ registered users to date",
+                    "Directed 10 engineers across seven parallel workstreams, introducing PR review gates, schema ownership, and API contracts to coordinate React Native, Prisma, and Supabase development",
+                    "Built CodeBox’s internal operations platform for 50 daily active users, centralizing team administration through Prisma models and five-level RBAC"
+               ],
+               tags: ["Leadership", "Full-Stack", "Community"]
+          },
+          {
+               company: "Noyce School of Computing",
+               role: "Teacher’s Assistant",
+               period: "Winter Quarter 2026\nFall Semester 2026 - Present",
+               color: "#059669",
+               accent: "#001A12",
+               points: [
+                    "Lead lab sections for 35+ students in CSC 101, guiding implementation of fundamental algorithms",
+                    "Translate abstract programming concepts into actionable guidance in Python"
+               ],
+               tags: ["Education", "Mentoring", "Python"]
+          },
+          {
                company: "Scoop",
                role: "Founding Software Engineer (Contract)",
                period: "March 2026 - May 2026",
@@ -50,19 +75,6 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                tags: ["Startup", "pgvector", "Agents"]
           },
           {
-               company: "CodeBox",
-               role: "Technical Lead & President",
-               period: "April 2025 - Present",
-               color: "#ccbb00",
-               accent: "#443300",
-               points: [
-                    "Founded a student-run project accelerator at Cal Poly, selecting two 50-person cohorts from 400+ applicants and launching five products with 2,400+ registered users to date",
-                    "Directed 10 engineers across seven parallel workstreams, introducing PR review gates, schema ownership, and API contracts to coordinate React Native, Prisma, and Supabase development",
-                    "Built CodeBox’s internal operations platform for 50 daily active users, centralizing team administration through Prisma models and five-level RBAC"
-               ],
-               tags: ["Leadership", "Full-Stack", "Community"]
-          },
-          {
                company: "Cal Poly Quantitative Finance",
                role: "Software Engineering Lead",
                period: "Dec 2024 - May 2026",
@@ -74,18 +86,6 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                     "Engineered pairs trading models with extensive Matplotlib visualizations to analyze correlation breakdowns, cointegration, and entry/exit signal performance across strategy iterations"
                ],
                tags: ["Python", "Algorithms", "FinTech"]
-          },
-          {
-               company: "Noyce School of Computing",
-               role: "Teacher’s Assistant",
-               period: "Winter Quarter 2026\nFall Semester 2026 - Present",
-               color: "#059669",
-               accent: "#001A12",
-               points: [
-                    "Lead lab sections for 35+ students in CSC 101, guiding implementation of fundamental algorithms",
-                    "Translate abstract programming concepts into actionable guidance in Python"
-               ],
-               tags: ["Education", "Mentoring", "Python"]
           },
           {
                company: "Belonging Beyond Boundaries",
