@@ -14,21 +14,12 @@ const geistMono = Geist_Mono({
 });
 
 const title = "Rishi Jay Thakkar — Software Engineer & CS Student at Cal Poly SLO";
-const description = "Rishi Thakkar is a Computer Science student at California Polytechnic State University (Cal Poly SLO) and AI Engineer Intern at AHEAD, where he ships RAG systems and model inference on KServe and Triton. Creator of NextCanvas (2,500+ downloads), co-founder & lead engineer of Vectr (RedBrick VC seed grant), founding engineer at Scoop, and Technical Lead & President of CodeBox. Building with Rust, TypeScript, Python, Next.js, FastAPI, PostgreSQL, and pgvector.";
+const description = "Rishi Thakkar is a CS student at Cal Poly SLO, former AI Engineer Intern at AHEAD, and creator of NextCanvas, a Rust/Wasm visual editor for Next.js.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rishithakkar.com"),
   title,
   description,
-  keywords: [
-    "Rishi Thakkar", "Rishi Jay Thakkar", "Rishi Thakkar Cal Poly",
-    "Rishi Cal Poly", "Rishi Thakkar CS", "Rishi Thakkar AHEAD",
-    "Rishi Thakkar software engineer", "Rishi Thakkar Vectr",
-    "Rishi Thakkar CodeBox", "Rishi Thakkar Scoop",
-    "Rishi Thakkar NextCanvas", "NextCanvas Next.js visual editor",
-    "Cal Poly SLO computer science", "Cal Poly software engineer",
-    "Rishi Thakkar portfolio", "Rishi Thakkar developer"
-  ],
   authors: [{ name: "Rishi Jay Thakkar", url: "https://rishithakkar.com" }],
   creator: "Rishi Jay Thakkar",
   alternates: {

@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import { AboutOverlay } from "./about-overlay";
 import { ContactOverlay } from "./contact-overlay";
 import { ExperienceOverlay } from "./experience-overlay";
-import { HalftoneDots, RadialBurst } from "./comic-elements";
+import { HalftoneDots, RadialBurst, comicLettering } from "./comic-elements";
 import { ACTIVE_PROJECT_INDEX, COMIC_PROJECTS, HUB_PROJECTS } from "./comic-data";
 import { ProjectOverlay } from "./project-overlay";
 import { ProjectsHubOverlay } from "./projects-hub-overlay";
@@ -40,6 +40,7 @@ function MobileCardFrame({
      return (
           <button
                type="button"
+               className="comic-press"
                onClick={onClick}
                style={{
                     display: "block",
@@ -51,6 +52,7 @@ function MobileCardFrame({
                     cursor: "pointer",
                     position: "relative",
                     zIndex: 1,
+                    transition: "transform 0.12s ease",
                     marginTop: stackIndex ? -(CARD_SEAM_OFFSET - CARD_SEAM_GAP) : 0,
                }}
           >
@@ -65,11 +67,13 @@ function TitleCard({
      title,
      emoji,
      accent,
+     labelFill,
      decoration,
 }: {
      title: string;
      emoji: string;
      accent: string;
+     labelFill?: string;
      decoration: ReactNode;
 }) {
      return (
@@ -97,7 +101,7 @@ function TitleCard({
                     <h2
                          style={{
                               margin: 0,
-                              color: accent,
+                              ...comicLettering(labelFill ?? accent),
                               fontFamily: "'Bangers', system-ui, sans-serif",
                               fontSize: "clamp(40px, 9vw, 58px)",
                               letterSpacing: "0.05em",
@@ -138,7 +142,9 @@ function MobileNameplate() {
                          lineHeight: 1.4,
                          color: "#1a1a1a",
                     }}>
-                         CS @ Cal Poly SLO &middot; AI Engineer Intern at AHEAD &middot; building NextCanvas
+                         <span style={{ display: "block" }}>CS @ Cal Poly SLO</span>
+                         <span style={{ display: "block" }}>ex-AI Engineer Intern at AHEAD</span>
+                         <span style={{ display: "block" }}>Building NextCanvas</span>
                     </p>
                </div>
           </div>
@@ -197,11 +203,11 @@ export default function MobileWarning() {
                          <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 0 }}>
                               <MobileNameplate />
                               <MobileCardFrame bg="#00aa88" clipPath={CARD_CLIPS[0]} onClick={(event) => openOverlay(setAboutOpen, event)} stackIndex={0}>
-                                   <TitleCard title="About Me" emoji="💥" accent="#003322" decoration={<RadialBurst color="#003322" opacity={0.12} />} />
+                                   <TitleCard title="About Me" emoji="💥" accent="#003322" labelFill="#ffffff" decoration={<RadialBurst color="#003322" opacity={0.12} />} />
                               </MobileCardFrame>
 
                               <MobileCardFrame bg="#ccbb00" clipPath={CARD_CLIPS[1]} onClick={(event) => openOverlay(setExperienceOpen, event)} stackIndex={1}>
-                                   <TitleCard title="Experience" emoji="🔥" accent="#443300" decoration={<RadialBurst color="#443300" opacity={0.12} />} />
+                                   <TitleCard title="Experience" emoji="🔥" accent="#443300" labelFill="#ffffff" decoration={<RadialBurst color="#443300" opacity={0.12} />} />
                               </MobileCardFrame>
 
                               <MobileCardFrame bg="#0024cc" clipPath={CARD_CLIPS[2]} onClick={(event) => openOverlay(setProjectsOpen, event)} stackIndex={2}>
@@ -213,7 +219,7 @@ export default function MobileWarning() {
                               </MobileCardFrame>
 
                               <MobileCardFrame bg="#00bbcc" clipPath={CARD_CLIPS[4]} onClick={(event) => openOverlay(setSkillsOpen, event)} stackIndex={4}>
-                                   <TitleCard title="Skills" emoji="⚡" accent="#003344" decoration={<HalftoneDots color="#003344" opacity={0.16} size={10} />} />
+                                   <TitleCard title="Skills" emoji="⚡" accent="#003344" labelFill="#ffffff" decoration={<HalftoneDots color="#003344" opacity={0.16} size={10} />} />
                               </MobileCardFrame>
 
                               <MobileCardFrame bg={FEATURED_PROJECT.bg} clipPath={CARD_CLIPS[5]} onClick={(event) => openProject(ACTIVE_PROJECT_INDEX, event)} stackIndex={5}>

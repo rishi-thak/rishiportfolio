@@ -81,8 +81,7 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                                    style={{ background: "#fff", border: "3px solid #000", padding: 15, boxShadow: "6px 6px 0 #000", position: "relative" }}>
                                    <div style={{ position: "absolute", top: -12, left: 10, background: darkGreen, padding: "1px 8px", fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 11, color: "#fff", border: "2px solid #fff" }}>CURRENTly</div>
                                    <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 14, color: "#000", lineHeight: 1.6 }}>
-                                        🤖 AI Engineer Intern @ AHEAD<br />
-                                        🏗️ Technical Lead & President @ CodeBox<br />
+                                                                                🏗️ Technical Lead & President @ CodeBox<br />
                                         🎨 Building NextCanvas
                                    </div>
                               </motion.div>
@@ -112,7 +111,7 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                                         <br /><br />
 From co-founding Vectr (seed grant from RedBrick VC) to launching Cal Poly&apos;s first student project accelerator with 200+ applicants, my goal is constant: bridge the gap between theory and reality.
                                         <br /><br />
-                                        Currently shipping production AI at AHEAD — RAG systems, inference deployment, and agentic tooling — and maintaining NextCanvas, my open-source visual editor for Next.js.
+                                        Most recently shipped production AI at AHEAD — RAG systems, inference deployment, and agentic tooling — and now building NextCanvas, a visual editor for Next.js.
                                    </p>
                               </motion.div>
 
@@ -135,7 +134,7 @@ From co-founding Vectr (seed grant from RedBrick VC) to launching Cal Poly&apos;
                                         ALWAYS BUILDING
                                    </a>
                                    <a
-                                        href="mailto:rjthakka@calpoly.edu"
+                                        href="mailto:rishithakkar1@gmail.com"
                                         style={{
                                              flex: 1, background: greenAccent, color: "#000", padding: "6px 12px", border: "2px solid #000",
                                              fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 11, textAlign: "center", textTransform: "uppercase",

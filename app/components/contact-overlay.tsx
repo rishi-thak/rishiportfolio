@@ -15,7 +15,7 @@ export function ContactOverlay({ onClose, origin }: { onClose: () => void; origi
      const inkBlack = "#000000";
 
      const contactLinks = [
-          { label: "EMAIL", value: "rjthakka@calpoly.edu", url: "mailto:rjthakka@calpoly.edu", icon: "📧" },
+          { label: "EMAIL", value: "rishithakkar1@gmail.com", url: "mailto:rishithakkar1@gmail.com", icon: "📧" },
           { label: "LINKEDIN", value: "linkedin.com/in/rishi-thakkar1", url: "https://linkedin.com/in/rishi-thakkar1", icon: "💼" },
           { label: "GITHUB", value: "github.com/rishi-thak", url: "https://github.com/rishi-thak", icon: "💻" }
      ];

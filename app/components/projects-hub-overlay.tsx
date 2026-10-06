@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import type { ComicProject } from "./comic-data";
-import { HalftoneDots, TechChip } from "./comic-elements";
+import { HalftoneDots, IssueCaption, TechChip } from "./comic-elements";
 
 export function ProjectsHubOverlay({
      projects,
@@ -162,7 +162,7 @@ export function ProjectsHubOverlay({
                                    >
                                         <HalftoneDots color={project.ink} opacity={0.15} size={8} />
                                         <div className="projects-hub-card-content" style={{ position: "relative", zIndex: 1, pointerEvents: "none" }}>
-                                             <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 12, color: project.ink, opacity: 0.9, textTransform: "uppercase" }}>{project.issue}</div>
+                                             <IssueCaption number={project.id + 1} year={project.issue} />
                                              <div style={{
                                                   fontFamily: "'Bangers', system-ui, sans-serif",
                                                   fontSize: 42,
