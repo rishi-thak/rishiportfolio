@@ -109,7 +109,7 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                                    <p style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 16, color: "#000", lineHeight: 1.7, margin: 0 }}>
                                         I strongly resonate with the &quot;learn by doing&quot; philosophy. I spend my time building software with impact, co-founding startups, and connecting fellow students with opportunities.
                                         <br /><br />
-From co-founding Vectr (seed grant from RedBrick VC) to launching Cal Poly&apos;s first student project accelerator with 200+ applicants, my goal is constant: bridge the gap between theory and reality.
+From co-founding Vectr (seed grant from RedBrick VC) to launching Cal Poly&apos;s first student project accelerator with 400+ applicants, my goal is constant: bridge the gap between theory and reality.
                                         <br /><br />
                                         Most recently shipped production AI at AHEAD — RAG systems, inference deployment, and agentic tooling — and now building NextCanvas, a visual editor for Next.js.
                                    </p>

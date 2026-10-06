@@ -56,7 +56,7 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                color: "#ccbb00",
                accent: "#443300",
                points: [
-                    "Founded a student-run project accelerator at Cal Poly, selecting 50+ builders from 200+ applicants and launching five products that collectively acquired 700+ registered users in their first week",
+                    "Founded a student-run project accelerator at Cal Poly, selecting two 50-person cohorts from 400+ applicants and launching five products with 2,400+ registered users to date",
                     "Directed 10 engineers across seven parallel workstreams, introducing PR review gates, schema ownership, and API contracts to coordinate React Native, Prisma, and Supabase development",
                     "Built CodeBox’s internal operations platform for 50 daily active users, centralizing team administration through Prisma models and five-level RBAC"
                ],
