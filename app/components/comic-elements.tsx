@@ -119,14 +119,21 @@ export function ThinkingBox({ text }: { text: string }) {
      );
 }
 
-/* Comic lettering: a heavy black stroke painted under the fill. Keeps panel
-   labels legible over halftone and burst texture without a drop shadow. */
+/* Comic lettering: an even black outline that keeps panel labels legible over
+   halftone and burst texture.
+   Built from eight zero-offset shadows rather than -webkit-text-stroke: Bangers'
+   glyphs have overlapping contours, and a stroke traces all of them, ballooning
+   to the lower right — on the last letter it read as a drop shadow. */
+const OUTLINE = (() => {
+     const d = "0.04em", t = "0.055em";
+     return [
+          `-${d} -${d}`, `${d} -${d}`, `-${d} ${d}`, `${d} ${d}`,
+          `0 -${t}`, `0 ${t}`, `-${t} 0`, `${t} 0`,
+     ].map(o => `${o} 0 #000`).join(", ");
+})();
+
 export function comicLettering(fill: string): React.CSSProperties {
-     return {
-          color: fill,
-          WebkitTextStroke: "0.14em #000",
-          paintOrder: "stroke fill",
-     };
+     return { color: fill, textShadow: OUTLINE };
 }
 
 /* The yellow caption box comics use for "Meanwhile…" — here it numbers each
