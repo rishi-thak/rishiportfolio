@@ -126,7 +126,7 @@ function ProjectPanel({ project, onClick, isCurrentlyWorking }: { project: typeo
                     <IssueCaption number={project.id + 1} year={project.issue} />
                     <div style={{
                          fontFamily: "'Bangers', system-ui, sans-serif", fontSize: "clamp(24px, 4vw, 54px)", lineHeight: 0.9,
-                         color: ink, textShadow: `3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000`,
+                         ...comicLettering(ink),
                          whiteSpace: "pre-line", textTransform: "uppercase", letterSpacing: "0.02em"
                     }}>{project.title}</div>
                     <div style={{

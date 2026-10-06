@@ -119,14 +119,13 @@ export function ThinkingBox({ text }: { text: string }) {
      );
 }
 
-/* Comic lettering: a heavy black stroke painted under the fill, plus a hard
-   drop shadow. Keeps panel labels legible over halftone and burst texture. */
+/* Comic lettering: a heavy black stroke painted under the fill. Keeps panel
+   labels legible over halftone and burst texture without a drop shadow. */
 export function comicLettering(fill: string): React.CSSProperties {
      return {
           color: fill,
           WebkitTextStroke: "0.14em #000",
           paintOrder: "stroke fill",
-          textShadow: "0.09em 0.09em 0 #000",
      };
 }
 
