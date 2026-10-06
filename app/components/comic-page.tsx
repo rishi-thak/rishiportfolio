@@ -167,10 +167,10 @@ function InfoPanel({ bg, accent, labelFill, emoji, label, effect, onClick }: { b
                <span style={{
                     position: "relative", zIndex: 1,
                     display: "flex", flexDirection: "column", alignItems: "center",
-                    transform: hovered ? "scale(1.1) rotate(-2deg)" : "none",
-                    transition: "transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                    transform: hovered ? "scale(1.04)" : "none",
+                    transition: "transform 0.18s ease-out",
                }}>
-                    <span style={{ fontSize: "clamp(32px, 5vw, 64px)", filter: "drop-shadow(3px 4px 0 #000)" }}>{emoji}</span>
+                    <span style={{ fontSize: "clamp(32px, 5vw, 64px)" }}>{emoji}</span>
                     <span style={{
                          fontFamily: "'Bangers', system-ui, sans-serif", fontSize: "clamp(22px, 3.2vw, 44px)",
                          letterSpacing: "0.08em", marginTop: 8, textTransform: "uppercase",
