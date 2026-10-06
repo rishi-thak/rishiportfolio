@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import fs from "node:fs";
 import path from "node:path";
 
-export const alt = "Rishi Thakkar — AI Engineer Intern at AHEAD, CS at Cal Poly SLO";
+export const alt = "Rishi Thakkar — CS at Cal Poly SLO, creator of NextCanvas, former AI Engineer Intern at AHEAD";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -85,7 +85,7 @@ export default async function Image() {
                                    marginTop: 16,
                               }}
                          >
-                              CS @ Cal Poly SLO · AI Engineer Intern at AHEAD
+                              CS @ Cal Poly SLO · ex-AI Engineer Intern at AHEAD
                          </div>
                          <div
                               style={{

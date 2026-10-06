@@ -14,7 +14,7 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
           {
                company: "AHEAD",
                role: "AI Engineer Intern",
-               period: "June 2026 - Present",
+               period: "June 2026 - August 2026",
                color: "#2E1065",
                accent: "#FACC15",
                points: [
@@ -65,7 +65,7 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
           {
                company: "Cal Poly Quantitative Finance",
                role: "Software Engineering Lead",
-               period: "Dec 2024 - Present",
+               period: "Dec 2024 - May 2026",
                color: "#00aa88",
                accent: "#003322",
                points: [
@@ -78,7 +78,7 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
           {
                company: "Noyce School of Computing",
                role: "Teacher’s Assistant",
-               period: "Jan 2026 - Present",
+               period: "Winter Quarter 2026\nFall Semester 2026 - Present",
                color: "#059669",
                accent: "#001A12",
                points: [
@@ -203,7 +203,7 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                                              <HalftoneDots color={exp.accent} opacity={0.2} size={8} />
                                              <div style={{ position: "relative", zIndex: 1 }}>
                                                   <div style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: 28, color: exp.accent, lineHeight: 1, marginBottom: 4 }}>{exp.company}</div>
-                                                  <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 13, color: exp.accent, textTransform: "uppercase", letterSpacing: "0.02em" }}>{exp.period}</div>
+                                                  <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 13, color: exp.accent, textTransform: "uppercase", letterSpacing: "0.02em", whiteSpace: "pre-line" }}>{exp.period}</div>
                                              </div>
                                              <div style={{ display: "flex", flexWrap: "wrap", gap: 4, position: "relative", zIndex: 1 }}>
                                                   {exp.tags.map(t => <TechChip key={t} name={t} bg={exp.color} ink={exp.accent} />)}

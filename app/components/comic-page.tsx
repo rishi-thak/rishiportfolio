@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { HalftoneDots, RadialBurst, TechChip, ThinkingBox } from "./comic-elements";
+import { HalftoneDots, IssueCaption, RadialBurst, TechChip, ThinkingBox, comicLettering } from "./comic-elements";
 import { ProjectOverlay } from "./project-overlay";
 import { SkillsOverlay } from "./skills-overlay";
 import { ContactOverlay } from "./contact-overlay";
@@ -19,6 +19,8 @@ type PanelDef = {
      projectIndex?: number;
      bg?: string;
      accent?: string;
+     /* Label fill when the accent is too dark to read inside a black stroke. */
+     labelFill?: string;
      emoji?: string;
      label?: string;
      effect?: "halftone" | "burst";
@@ -39,17 +41,17 @@ const PANELS: PanelDef[] = [
      {
           clip: "polygon(70% 0, 100% 0, 100% 48%, 67% 49%)",
           box: { left: "67%", top: "0", width: "33%", height: "49%" },
-          type: "info", bg: "#00aa88", accent: "#003322", emoji: "💥", label: "ABOUT ME", effect: "burst"
+          type: "info", bg: "#00aa88", accent: "#003322", labelFill: "#ffffff", emoji: "💥", label: "ABOUT ME", effect: "burst"
      },
      {
           clip: "polygon(0 52%, 22% 51%, 26% 100%, 0 100%)",
           box: { left: "0", top: "51%", width: "26%", height: "49%" },
-          type: "info", bg: "#00bbcc", accent: "#003344", emoji: "⚡", label: "SKILLS", effect: "halftone"
+          type: "info", bg: "#00bbcc", accent: "#003344", labelFill: "#ffffff", emoji: "⚡", label: "SKILLS", effect: "halftone"
      },
      {
           clip: "polygon(23% 51%, 67% 50%, 64% 100%, 27% 100%)",
           box: { left: "23%", top: "50%", width: "44%", height: "50%" },
-          type: "info", bg: "#ccbb00", accent: "#443300", emoji: "🔥", label: "EXPERIENCE", effect: "burst"
+          type: "info", bg: "#ccbb00", accent: "#443300", labelFill: "#ffffff", emoji: "🔥", label: "EXPERIENCE", effect: "burst"
      },
      {
           clip: "polygon(68% 50%, 100% 49%, 100% 100%, 65% 100%)",
@@ -82,7 +84,9 @@ function Nameplate() {
                     fontFamily: "'Kalam', cursive", fontWeight: 700,
                     fontSize: "clamp(10px, 1vw, 13px)", lineHeight: 1.3, color: "#1a1a1a",
                }}>
-                    CS @ Cal Poly SLO &middot; AI Engineer Intern at AHEAD &middot; building NextCanvas
+                    {/* Two explicit lines: a single run wrapped "building / NextCanvas". */}
+                    <span style={{ display: "block" }}>CS @ Cal Poly SLO &middot; ex-AI Engineer Intern at AHEAD</span>
+                    <span style={{ display: "block" }}>Building NextCanvas</span>
                </p>
           </div>
      );
@@ -119,7 +123,7 @@ function ProjectPanel({ project, onClick, isCurrentlyWorking }: { project: typeo
                <RadialBurst color={ink} opacity={0.1} hovered={hovered} />
                {isCurrentlyWorking && <ThinkingBox text="Currently Working On:" />}
                <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
-                    <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 700, fontSize: 11, color: ink, letterSpacing: "0.05em", opacity: 0.9, textTransform: "uppercase" }}>{project.issue}</div>
+                    <IssueCaption number={project.id + 1} year={project.issue} />
                     <div style={{
                          fontFamily: "'Bangers', system-ui, sans-serif", fontSize: "clamp(24px, 4vw, 54px)", lineHeight: 0.9,
                          color: ink, textShadow: `3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000`,
@@ -138,7 +142,7 @@ function ProjectPanel({ project, onClick, isCurrentlyWorking }: { project: typeo
      );
 }
 
-function InfoPanel({ bg, accent, emoji, label, effect, onClick }: { bg: string; accent: string; emoji: string; label: string; effect: "halftone" | "burst"; onClick?: (e: React.MouseEvent) => void }) {
+function InfoPanel({ bg, accent, labelFill, emoji, label, effect, onClick }: { bg: string; accent: string; labelFill?: string; emoji: string; label: string; effect: "halftone" | "burst"; onClick?: (e: React.MouseEvent) => void }) {
      const [hovered, setHovered] = useState(false);
 
      return (
@@ -160,17 +164,27 @@ function InfoPanel({ bg, accent, emoji, label, effect, onClick }: { bg: string; 
           >
                {effect === "halftone" && <HalftoneDots color={accent} size={8} opacity={0.2} hovered={hovered} />}
                {effect === "burst" && <RadialBurst color={accent} opacity={0.15} hovered={hovered} />}
-               <span style={{ fontSize: "clamp(32px, 5vw, 64px)", position: "relative", zIndex: 1 }}>{emoji}</span>
                <span style={{
-                    fontFamily: "'Bangers', system-ui, sans-serif", fontSize: "clamp(16px, 2.5vw, 32px)",
-                    color: accent, letterSpacing: "0.1em", position: "relative", zIndex: 1, marginTop: 8,
-                    textTransform: "uppercase"
-               }}>{label}</span>
+                    position: "relative", zIndex: 1,
+                    display: "flex", flexDirection: "column", alignItems: "center",
+                    transform: hovered ? "scale(1.1) rotate(-2deg)" : "none",
+                    transition: "transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1)",
+               }}>
+                    <span style={{ fontSize: "clamp(32px, 5vw, 64px)", filter: "drop-shadow(3px 4px 0 #000)" }}>{emoji}</span>
+                    <span style={{
+                         fontFamily: "'Bangers', system-ui, sans-serif", fontSize: "clamp(22px, 3.2vw, 44px)",
+                         letterSpacing: "0.08em", marginTop: 8, textTransform: "uppercase",
+                         ...comicLettering(labelFill ?? accent),
+                    }}>{label}</span>
+               </span>
           </button>
      );
 }
 
 /* ═══ MAIN COMIC PAGE ═══ */
+
+/* calc() rejects a bare 0 next to a percentage, and some boxes start at "0". */
+const pct = (v: string) => (v === "0" ? "0%" : v);
 
 export default function ComicPage() {
      const {
@@ -192,7 +206,10 @@ export default function ComicPage() {
                <div style={{ position: "relative", width: "100vw", height: "100vh", background: "#fff", overflow: "hidden" }}>
                     <Nameplate />
                     {PANELS.map((panel, i) => (
-                         <div key={i} style={{
+                         <div key={i} className="comic-panel-shell" style={{
+                              transformOrigin: `calc(${pct(panel.box.left)} + ${panel.box.width} / 2) calc(${pct(panel.box.top)} + ${panel.box.height} / 2)`,
+                         }}>
+                         <div style={{
                               position: "absolute",
                               inset: 0,
                               clipPath: panel.clip,
@@ -213,6 +230,7 @@ export default function ComicPage() {
                                         <InfoPanel
                                              bg={panel.bg!}
                                              accent={panel.accent!}
+                                             labelFill={panel.labelFill}
                                              emoji={panel.emoji!}
                                              label={panel.label!}
                                              effect={panel.effect!}
@@ -226,6 +244,7 @@ export default function ComicPage() {
                                         />
                                    )}
                               </div>
+                         </div>
                          </div>
                     ))}
                </div>

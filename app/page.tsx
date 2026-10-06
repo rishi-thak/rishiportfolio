@@ -7,9 +7,8 @@ const jsonLd = {
   "@type": "Person",
   name: "Rishi Jay Thakkar",
   url: "https://rishithakkar.com",
-  jobTitle: "AI Engineer Intern & Computer Science Student",
+  jobTitle: "Software Engineer & Computer Science Student",
   worksFor: [
-    { "@type": "Organization", name: "AHEAD", description: "AI Engineer Intern" },
     { "@type": "Organization", name: "CodeBox", description: "Technical Lead & President" },
   ],
   alumniOf: {
@@ -37,7 +36,7 @@ export default function Home() {
         <h2>Rishi Jay Thakkar — Software Engineer & Computer Science Student at Cal Poly SLO</h2>
         <p>
           Rishi Thakkar is a Computer Science student (minor in Entrepreneurship) at California Polytechnic State University,
-          San Luis Obispo (Cal Poly SLO), graduating June 2028. AI Engineer Intern at AHEAD, where he shipped a source-attributed
+          San Luis Obispo (Cal Poly SLO), graduating June 2028. Former AI Engineer Intern at AHEAD (June–August 2026), where he shipped a source-attributed
           RAG onboarding assistant for a municipal government and deployment workflows for models on RunAI-managed NVIDIA B300
           clusters with KServe and Triton Inference Server. Previously Founding Software Engineer at Scoop and Co-founder &
           Lead Engineer of Vectr (seed grant from RedBrick VC). Technical Lead & President of CodeBox — Cal Poly&apos;s first
@@ -60,7 +59,7 @@ export default function Home() {
         <nav aria-label="External links">
           <a href="https://www.linkedin.com/in/rishi-thakkar1/" tabIndex={-1}>LinkedIn</a>
           <a href="https://github.com/rishi-thak" tabIndex={-1}>GitHub</a>
-          <a href="mailto:rjthakka@calpoly.edu" tabIndex={-1}>Email</a>
+          <a href="mailto:rishithakkar1@gmail.com" tabIndex={-1}>Email</a>
         </nav>
       </header>
       <IntroZoom />
