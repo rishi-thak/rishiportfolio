@@ -40,8 +40,8 @@ export default function Home() {
           RAG onboarding assistant for a municipal government and deployment workflows for models on RunAI-managed NVIDIA B300
           clusters with KServe and Triton Inference Server. Previously Founding Software Engineer at Scoop and Co-founder &
           Lead Engineer of Vectr (seed grant from RedBrick VC). Technical Lead & President of CodeBox — Cal Poly&apos;s first
-          student project accelerator, with 200+ applicants, 50+ admitted builders, and five products that reached 700+
-          registered users in their first week.
+          student project accelerator, with two 50-person cohorts selected from 400+ applicants and
+          five products that have reached 2,400+ registered users.
         </p>
         <p>
           Skills: Python, TypeScript, Rust, SQL, KServe, Triton Inference Server, RunAI, Ollama, RAG, embedding pipelines,
