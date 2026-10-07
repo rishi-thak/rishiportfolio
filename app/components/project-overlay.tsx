@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import type { ComicProject } from "./comic-data";
-import { HalftoneDots, IssueCaption, TechChip, StatBlock } from "./comic-elements";
+import { HalftoneDots, TechChip, StatBlock } from "./comic-elements";
 
 export function ProjectOverlay({ project, onClose, origin }: { project: ComicProject; onClose: () => void; origin: { x: number; y: number } | null }) {
      useEffect(() => {
@@ -40,7 +40,6 @@ export function ProjectOverlay({ project, onClose, origin }: { project: ComicPro
                          <div style={{ padding: "12px 20px", flex: 1, display: "flex", alignItems: "center", gap: 16 }}>
                               <span style={{ fontSize: 38 }}>{project.coverEmoji}</span>
                               <div>
-                                   <div style={{ display: "flex", marginBottom: 4 }}><IssueCaption number={project.id + 1} year={project.issue} size={11} /></div>
                                    <div style={{ fontFamily: "'Bangers', system-ui, sans-serif", fontSize: "clamp(22px, 4vw, 30px)", color: ink, lineHeight: 1.05, textShadow: `2px 2px 0 ${bg}`, textTransform: "uppercase", letterSpacing: "0.02em" }}>{project.title.replace("\n", " ")}</div>
                                    <div style={{ fontFamily: "'Kalam', cursive", fontWeight: 400, fontSize: 12, color: "#fff", letterSpacing: "0.05em", textTransform: "uppercase" }}>{project.tagline}</div>
                               </div>
