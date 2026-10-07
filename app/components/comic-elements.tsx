@@ -136,19 +136,3 @@ export function comicLettering(fill: string): React.CSSProperties {
      return { color: fill, textShadow: OUTLINE };
 }
 
-/* The yellow caption box comics use for "Meanwhile…" — here it numbers each
-   project like an issue instead of a bare year floating above the title. */
-export function IssueCaption({ number, year, size = 12 }: { number: number; year: string; size?: number }) {
-     return (
-          <span style={{
-               alignSelf: "flex-start", display: "inline-block",
-               background: "#FFE500", color: "#000", border: "2px solid #000",
-               boxShadow: "2px 2px 0 #000", padding: "2px 8px",
-               fontFamily: "'Bangers', system-ui, sans-serif", fontSize: size,
-               letterSpacing: "0.08em", lineHeight: 1.3, textTransform: "uppercase",
-               transform: "rotate(-1.5deg)",
-          }}>
-               Issue #{number} &middot; {year.replace(/\s*-\s*/, "–")}
-          </span>
-     );
-}

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { HalftoneDots, IssueCaption, RadialBurst, TechChip, ThinkingBox, comicLettering } from "./comic-elements";
+import { HalftoneDots, RadialBurst, TechChip, ThinkingBox, comicLettering } from "./comic-elements";
 import { ProjectOverlay } from "./project-overlay";
 import { SkillsOverlay } from "./skills-overlay";
 import { ContactOverlay } from "./contact-overlay";
@@ -123,7 +123,6 @@ function ProjectPanel({ project, onClick, isCurrentlyWorking }: { project: typeo
                <RadialBurst color={ink} opacity={0.1} hovered={hovered} />
                {isCurrentlyWorking && <ThinkingBox text="Currently Working On:" />}
                <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
-                    <IssueCaption number={project.id + 1} year={project.issue} />
                     <div style={{
                          fontFamily: "'Bangers', system-ui, sans-serif", fontSize: "clamp(24px, 4vw, 54px)", lineHeight: 0.9,
                          ...comicLettering(ink),
