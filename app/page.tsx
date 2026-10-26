@@ -117,7 +117,7 @@ export default function Home() {
                               <section aria-labelledby="contact" className="border-t border-rule p-5">
                                    <h2 id="contact" className="mb-3 text-[14px] font-semibold">Contact</h2>
                                    <EmailAddress className="link text-[17px] font-semibold break-all" />
-                                   <EmailTemplates className="mt-4" />
+                                   <EmailTemplates className="mt-4" greeting />
                                    <ul className="mt-4 flex gap-5 text-[14px]">
                                         <li><a href={PROFILE.github} {...NEW_TAB} className="link">GitHub</a></li>
                                         <li><a href={PROFILE.linkedin} {...NEW_TAB} className="link">LinkedIn</a></li>

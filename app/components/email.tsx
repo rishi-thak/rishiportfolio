@@ -68,12 +68,19 @@ export const EMAIL_TEMPLATES: Template[] = [
      },
 ];
 
-/** A question about one project; project pages pass their own name, everywhere else asks about NextCanvas. */
+/** A question about one project, shown only on that project's page. */
 const askAbout = (project: string): Template => ({
      label: `Ask about ${project}`,
      subject: `Question about ${project}`,
      body: `Hi Rishi,\n\nI've been looking at ${project} and wanted to ask about [your question].\n\nThanks,\n[your name]`,
 });
+
+/** A no-agenda hello, offered first on the home page. */
+const SAY_HI: Template = {
+     label: "Just say hi",
+     subject: "Hi Rishi",
+     body: "Hi Rishi,\n\n[Say hello, or tell me what you're working on.]\n\n[your name]",
+};
 
 
 /** Inline link-style button that opens one of the templates above, picked by its label. */
@@ -88,11 +95,24 @@ export function TemplateLink({ label, className = "", children }: { label: strin
 
 /**
  * One-click email templates: each opens the visitor's mail app with a draft filled in.
- * `project` swaps the last one for a question about that project.
+ * `greeting` puts "Just say hi" first (home page); `project` adds a question about that
+ * project at the end (project pages).
  */
-export function EmailTemplates({ className = "", project = "NextCanvas" }: { className?: string; project?: string }) {
-     // CodeBox already has its own template, so don't add a second one for it.
-     const templates = project === "CodeBox" ? EMAIL_TEMPLATES : [...EMAIL_TEMPLATES, askAbout(project)];
+export function EmailTemplates({
+     className = "",
+     project,
+     greeting = false,
+}: {
+     className?: string;
+     project?: string;
+     greeting?: boolean;
+}) {
+     const templates = [
+          ...(greeting ? [SAY_HI] : []),
+          ...EMAIL_TEMPLATES,
+          // CodeBox already has its own template, so don't add a second one for it.
+          ...(project && project !== "CodeBox" ? [askAbout(project)] : []),
+     ];
      return (
           <div className={className}>
                <p className="text-[14px] text-slate">Start an email:</p>
