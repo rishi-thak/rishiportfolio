@@ -1,124 +1,355 @@
 @import "tailwindcss";
 
+/*
+ * The site is drawn as an editor canvas: a cool grey surface, one selection
+ * blue for anything "selected".
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --canvas: #eceef1;
+  --dots: #c8ccd4;
+  --ink: #15171c;
+  --slate: #5f6572;
+  --rule: #d3d7de;
+  --select: #2563ff;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-canvas: var(--canvas);
+  --color-ink: var(--ink);
+  --color-slate: var(--slate);
+  --color-rule: var(--rule);
+  --color-select: var(--select);
+  --font-sans: var(--font-instrument-sans);
+  --font-mono: var(--font-jetbrains);
+  --font-serif: var(--font-instrument-serif);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
+  background: var(--canvas);
+  /* The pile can tilt past the edge of narrow screens; never let that scroll sideways. */
+  overflow-x: clip;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  font-optical-sizing: auto;
 }
 
-/* Comic panels are real buttons; strip the UA chrome but keep them focusable. */
-.comic-panel-button {
-  appearance: none;
-  border: none;
-  margin: 0;
-  padding: 0;
-  font: inherit;
-  color: inherit;
-  text-align: inherit;
-  background: none;
+::selection {
+  background: color-mix(in srgb, var(--select) 22%, transparent);
 }
 
-/* Panels nudge toward the viewer on hover/focus so they read as buttons.
-   Kept deliberately small — no tilt, no cast shadow. */
-.comic-panel-shell {
+:focus-visible {
+  outline: 2px solid var(--select);
+  outline-offset: 3px;
+}
+
+.dot-grid {
+  background-image: radial-gradient(var(--dots) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  background-position: center;
+}
+
+.link {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 30%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color 0.15s;
+}
+.link:hover {
+  text-decoration-color: currentColor;
+}
+
+/* ── Selected element (page titles) ─────────────────────────────── */
+
+.selected {
+  position: relative;
+  display: inline-block;
+}
+/* The marquee dragged out before a title snaps into its selection box (see SelectionBox). */
+.selected-marquee {
+  position: absolute;
+  inset: -0.08em -0.12em -0.04em;
+  border: 1px solid var(--select);
+  background: color-mix(in srgb, var(--select) 8%, transparent);
+  pointer-events: none;
+}
+.selected-box {
+  position: absolute;
+  inset: -0.08em -0.12em -0.04em;
+  border: 1.5px solid var(--select);
+  pointer-events: none;
+}
+.selected-box i,
+.frame-selection i {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background: #fff;
+  border: 1.5px solid var(--select);
+}
+.selected-box i:nth-child(1),
+.frame-selection i:nth-child(1) { top: -5px; left: -5px; }
+.selected-box i:nth-child(2),
+.frame-selection i:nth-child(2) { top: -5px; right: -5px; }
+.selected-box i:nth-child(3),
+.frame-selection i:nth-child(3) { bottom: -5px; left: -5px; }
+.selected-box i:nth-child(4),
+.frame-selection i:nth-child(4) { bottom: -5px; right: -5px; }
+.selected-box::after {
+  content: attr(data-tag);
+  position: absolute;
+  left: -1.5px;
+  bottom: 100%;
+  margin-bottom: 6px;
+  background: var(--select);
+  color: #fff;
+  font-family: var(--font-jetbrains);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  padding: 4px 6px;
+}
+
+/* ── Project canvas ─────────────────────────────────────────────── */
+
+/* Frames are hidden until the script has moved them into the hero pile, so they
+   never flash in their grid slots first. The page adds a <noscript> override. */
+@media (prefers-reduced-motion: no-preference) {
+  .frame-grid[data-pending] .frame {
+    visibility: hidden;
+  }
+}
+
+/* Frames wrap in rows of --cols, with a short last row centred. */
+.frame-grid {
+  /* Frame scale: the smaller of what the width and the height allow. */
+  --zw: 1;
+  --zh: 1;
+  --z: min(var(--zw), var(--zh));
+  --cols: 2;
+  --col-gap: 40px;
+  --row-gap: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: var(--col-gap);
+  row-gap: var(--row-gap);
+  max-width: calc(var(--cols) * 320px * var(--z) + (var(--cols) - 1) * var(--col-gap));
+}
+.frame-grid > .frame {
+  width: calc(320px * var(--z));
+}
+/* Three across once there's room (when the frame count suits it), scaled down a touch until the page is wide. */
+@media (min-width: 1100px) {
+  .frame-grid[data-wide-cols="3"] { --cols: 3; --zw: 0.86; }
+}
+@media (min-width: 1280px) {
+  .frame-grid[data-wide-cols="3"] { --zw: 1; }
+}
+
+.frame {
+  will-change: transform;
+  touch-action: pan-y;
+}
+@media (pointer: fine) {
+  .frame {
+    cursor: grab;
+  }
+  .frame[data-dragging] {
+    cursor: grabbing;
+  }
+}
+.is-tidying .frame {
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* The title link stretches over the whole frame, so the frame is one click target
+   but the link's text is just the project name. */
+.frame-link {
+  outline: none;
+}
+.frame-link::after {
+  content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
+}
+.frame-name,
+.frame-tagline {
+  display: block;
+  opacity: var(--settle, 1);
+}
+.frame-name {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 9px;
+}
+.frame-tagline {
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--slate);
+  margin-top: 10px;
+  max-width: calc(320px * var(--z));
+}
+
+.frame-zoom {
+  zoom: var(--z);
+}
+
+/* Shadow grows while a frame is piled (1 - settle) or lifted mid-flight / being dragged (lift). */
+.frame-art {
+  box-shadow:
+    0 1px 2px rgb(20 23 28 / calc(0.08 + 0.12 * (1 - var(--settle, 1)))),
+    0 calc(18px + 26px * var(--lift, 0)) calc(40px + 36px * var(--lift, 0)) -12px
+      rgb(20 23 28 / calc(0.34 * (1 - var(--settle, 1)) + 0.22 * var(--lift, 0)));
+}
+
+.frame-selection {
+  position: absolute;
+  inset: -1px;
+  border: 1.5px solid var(--select);
+  opacity: 0;
   pointer-events: none;
-  transition: transform 0.18s ease-out;
+}
+.frame-selection[data-path]::after {
+  content: attr(data-path);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 7px);
+  background: var(--select);
+  color: #fff;
+  font: 400 11px/1 var(--font-jetbrains);
+  padding: 3px 5px;
+  white-space: nowrap;
+}
+/* A frame that just locked into its slot: selection box flashes, artwork pops. */
+.frame.is-snapped .frame-selection {
+  animation: snap-select 0.75s ease-out;
+}
+.frame.is-snapped .frame-art {
+  animation: snap-pop 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes snap-select {
+  0%, 55% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes snap-pop {
+  0% { transform: scale(1.035); }
+  100% { transform: scale(1); }
 }
 
-.comic-panel-shell:has(.comic-panel-button:hover),
-.comic-panel-shell:has(.comic-panel-button:focus-visible) {
-  z-index: 10;
-  transform: scale(1.01);
+.frame:hover .frame-selection,
+.frame[data-dragging] .frame-selection,
+.frame:has(.frame-link:focus-visible) .frame-selection {
+  opacity: 1;
+}
+.frame:hover .frame-tagline,
+.frame[data-dragging] .frame-tagline,
+.frame:has(.frame-link:focus-visible) .frame-tagline {
+  visibility: hidden;
 }
 
-/* Touch has no hover: give the mobile cards a press-in instead. */
-.comic-press:active {
-  transform: scale(0.985);
+.tidy-button {
+  color: var(--select);
+  font-weight: 500;
+  cursor: pointer;
+}
+.tidy-button:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@media (max-height: 900px) {
+  .frame-grid { --zh: 0.86; }
+}
+@media (max-height: 780px) {
+  .frame-grid { --zh: 0.74; }
+}
+@media (max-height: 660px) {
+  .frame-grid { --zh: 0.6; }
+}
+
+@media (max-width: 760px) {
+  .frame-grid {
+    --zw: 0.62;
+    --col-gap: 20px;
+    --row-gap: 24px;
+  }
+  .frame-selection[data-path]::after {
+    display: none;
+  }
+  .frame-tagline {
+    font-size: 13px;
+  }
+}
+@media (max-width: 440px) {
+  .frame-grid {
+    --zw: 0.5;
+    --col-gap: 14px;
+    --row-gap: 20px;
+  }
+  .frame-name {
+    font-size: 13px;
+  }
+  .frame-tagline {
+    font-size: 12px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .comic-panel-shell,
-  .comic-panel-shell:has(.comic-panel-button:hover),
-  .comic-panel-shell:has(.comic-panel-button:focus-visible) {
-    transform: none;
-    transition: none;
+  * {
+    transition: none !important;
   }
 }
 
-/* Two-tone ring: a solo yellow ring drops to 1.5:1 on the yellow/teal panels,
-   so pair it with a black band — one of the two always contrasts. */
-.comic-panel-button:focus-visible,
-.comic-focusable:focus-visible {
-  outline: 4px solid #ffe500;
-  outline-offset: -10px;
-  box-shadow: inset 0 0 0 6px #000;
-  z-index: 20;
+/* ── Static frames (projects index and project pages) ───────────── */
+
+.index-art {
+  zoom: 1.4;
+}
+.hero-art {
+  zoom: 1.6;
+}
+.frame-static .frame-art {
+  box-shadow: 0 1px 2px rgb(20 23 28 / 0.08);
+}
+.frame-static:hover .frame-selection,
+.frame-static:has(.frame-link:focus-visible) .frame-selection,
+.frame-static.is-selected .frame-selection {
+  opacity: 1;
+}
+@media (max-width: 1100px) {
+  .index-art { zoom: 1; }
+}
+@media (max-width: 760px) {
+  .index-art,
+  .hero-art { zoom: 1; }
+}
+@media (max-width: 370px) {
+  .index-art,
+  .hero-art { zoom: 0.9; }
 }
 
-/* Chunky always-visible scrollbar so clipped overlay content reads as scrollable.
-   macOS overlay scrollbars are 0px wide, which hid the cue entirely. */
-/* scrollbar-gutter reserves the track so content never sits under the bar.
-   Note: setting scrollbar-width here would make Chrome ignore ::-webkit-scrollbar
-   entirely, so the standard properties are confined to the @supports block below. */
-.comic-scroll {
-  scrollbar-gutter: stable;
-}
+/* ── Email template buttons ─────────────────────────────────────── */
 
-.comic-scroll::-webkit-scrollbar {
-  width: 14px;
-}
-
-.comic-scroll::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.15);
-  border-left: 3px solid #000;
-}
-
-.comic-scroll::-webkit-scrollbar-thumb {
-  background: #ffe500;
-  border: 3px solid #000;
-}
-
-.comic-scroll::-webkit-scrollbar-thumb:hover {
+.template-button {
+  cursor: pointer;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
   background: #fff;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.2;
+  transition: border-color 0.15s, color 0.15s;
 }
-
-/* Firefox has no ::-webkit-scrollbar; give it the standard properties instead. */
-@supports not selector(::-webkit-scrollbar) {
-  .comic-scroll {
-    scrollbar-width: thin;
-    scrollbar-color: #ffe500 rgba(0, 0, 0, 0.25);
-  }
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+.template-button:hover {
+  border-color: var(--select);
+  color: var(--select);
 }
