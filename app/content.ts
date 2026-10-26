@@ -107,6 +107,7 @@ export type Project = {
      summary: string;
      body: string[];
      stack: string[];
+     /** Labels are shown exactly as written (so "npm" stays lowercase). */
      stats: { value: string; label: string }[];
      links: { label: string; url: string }[];
      /** Artboard colours, carried over from the old site's project panels. */
@@ -126,11 +127,12 @@ export const PROJECTS: Project[] = [
                "NextCanvas is a drop-in visual editor for Next.js. Click any element in your running app, change its text, attributes or styles, and the edit is written straight back into your source files.",
                "A Rust/WebAssembly SWC plugin maps rendered JSX back to its source locations at build time. ts-morph then applies formatting-preserving edits, and Fast Refresh shows the result instantly.",
                "Safe writeback covers static and bound text, mixed JSX children, attributes, and styles across imported data, path aliases, mapped collections, and component props. Full edit round trips are verified under both webpack and Turbopack.",
+               "I use NextCanvas to build this site. It runs whenever I'm developing locally, so when I want to change a line of copy, like the intro on the home page, I double-click it in the browser and type, and the edit lands in the source file without me opening the code.",
           ],
           stack: ["Rust", "WebAssembly", "SWC", "TypeScript", "ts-morph", "Next.js"],
           stats: [
                { value: "3.1K+", label: "npm downloads" },
-               { value: "2", label: "bundlers verified" },
+               { value: "2", label: "Bundlers verified" },
           ],
           links: [
                { label: "Website", url: "https://nextcanvas.rishithakkar.com" },
@@ -151,8 +153,8 @@ export const PROJECTS: Project[] = [
           ],
           stack: ["TypeScript", "Next.js", "Convex", "Gemini", "Sponge", "AgentPhone"],
           stats: [
-               { value: "5–10", label: "providers found" },
-               { value: "4+", label: "concurrent calls" },
+               { value: "5–10", label: "Providers found" },
+               { value: "4+", label: "Concurrent calls" },
           ],
           links: [
                { label: "Website", url: "https://callmyhaggle.vercel.app" },
@@ -173,8 +175,8 @@ export const PROJECTS: Project[] = [
           ],
           stack: ["Next.js", "Supabase", "D3.js", "OpenAI Realtime", "Whisper", "DALL-E"],
           stats: [
-               { value: "4", label: "study tools" },
-               { value: "Canvas", label: "integration" },
+               { value: "4", label: "Study tools" },
+               { value: "Canvas", label: "Integration" },
           ],
           links: [{ label: "Website", url: "https://teachbloom.vercel.app" }],
      },
@@ -192,8 +194,8 @@ export const PROJECTS: Project[] = [
           ],
           stack: ["Python", "FastAPI", "Neo4j", "Ollama", "SQLite", "React"],
           stats: [
-               { value: "0", label: "cloud calls" },
-               { value: "2", label: "query surfaces" },
+               { value: "0", label: "Cloud calls" },
+               { value: "2", label: "Query surfaces" },
           ],
           links: [{ label: "GitHub", url: "https://github.com/rishi-thak/locus" }],
      },
