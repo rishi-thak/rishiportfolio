@@ -61,8 +61,8 @@ export default function Home() {
                                              I build developer tools and AI systems.{" "}
                                              <Link href="/projects/nextcanvas" className="link">NextCanvas</Link>, my visual editor for
                                              Next.js, has 3,100+ npm downloads. I also run{" "}
-                                             <a href="https://www.codebox.so" {...NEW_TAB} className="link">CodeBox</a>, Cal Poly&apos;s
-                                             student project accelerator, whose five products have 2,400+ downloads and users.
+                                             <a href="https://www.codebox.so" {...NEW_TAB} className="link">CodeBox</a>, Cal Poly&apos;s first student
+                                             project accelerator. On the side, I develop software for startups.
                                         </p>
                                         <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-slate">
                                              I study CS and Entrepreneurship at{" "}

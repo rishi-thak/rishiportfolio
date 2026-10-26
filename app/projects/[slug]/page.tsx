@@ -99,7 +99,7 @@ export default async function ProjectPage({ params }: Props) {
                                         </div>
                                         {project.stats.map((s) => (
                                              <div key={s.label}>
-                                                  <dt className="text-slate">{s.label[0].toUpperCase() + s.label.slice(1)}</dt>
+                                                  <dt className="text-slate">{s.label}</dt>
                                                   <dd className="mt-0.5 font-semibold">{s.value}</dd>
                                              </div>
                                         ))}
