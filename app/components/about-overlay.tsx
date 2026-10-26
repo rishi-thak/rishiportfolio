@@ -111,7 +111,7 @@ export function AboutOverlay({ onClose, origin }: { onClose: () => void; origin:
                                         <br /><br />
 From co-founding Vectr (seed grant from RedBrick VC) to launching Cal Poly&apos;s first student project accelerator with 400+ applicants, my goal is constant: bridge the gap between theory and reality.
                                         <br /><br />
-                                        Most recently shipped production AI at AHEAD — RAG systems, inference deployment, and agentic tooling — and now building NextCanvas, a visual editor for Next.js.
+                                        Most recently an AI Engineer Intern at AHEAD — prototyping source-cited retrieval, writing model-serving deployment guides, and improving an agentic-AI platform — and now building NextCanvas, a visual editor for Next.js.
                                    </p>
                               </motion.div>
 

@@ -18,9 +18,10 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                color: "#2E1065",
                accent: "#FACC15",
                points: [
-                    "Built and shipped a RAG onboarding assistant for a municipal government with source-attributed vector retrieval, SSE streaming, dynamic prompt guardrails, and three RBAC-scoped workflows; demonstrated it to executive stakeholders",
-                    "Developed deployment guidance and operational workflows for running models including Kimi K2.6 on RunAI-managed NVIDIA B300 clusters with KServe and Triton Inference Server for a major financial exchange",
-                    "Shipped Python automation, Jira integrations, and CI/CD improvements for an internal agentic-AI platform used by a Fortune 100 financial-services engineering team; fixed production bugs and merged changes into core repositories"
+                    "Built a local onboarding prototype for a municipal government engagement using synthetic documents, source-cited retrieval, and three role-based workflows; demonstrated it to executive stakeholders",
+                    "Authored deployment guides used to deploy model-serving workloads for a global financial exchange, covering RunAI-managed NVIDIA B300 clusters and KServe/Triton serving",
+                    "Delivered core application logic fixes and CI/CD improvements for an internal agentic-AI platform used by a Fortune 100 financial-services engineering team, merging changes into core repositories",
+                    "Built a Jira integration that automated ticket cloning across boards for a healthcare client"
                ],
                tags: ["RAG", "Inference", "Python"]
           },
@@ -31,9 +32,9 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
                color: "#ccbb00",
                accent: "#443300",
                points: [
-                    "Founded a student-run project accelerator at Cal Poly, selecting two 50-person cohorts from 400+ applicants and launching five products with 2,400+ registered users to date",
+                    "Founded a student-run project accelerator at Cal Poly, selecting two 50-person cohorts from 400+ applicants and launching five products with 2,400+ combined downloads and users",
                     "Directed 10 engineers across seven parallel workstreams, introducing PR review gates, schema ownership, and API contracts to coordinate React Native, Prisma, and Supabase development",
-                    "Built CodeBox’s internal operations platform for 50 daily active users, centralizing team administration through Prisma models and five-level RBAC"
+                    "Built CodeBox’s internal operations platform for 50 members, centralizing team administration through Prisma models and five-level RBAC"
                ],
                tags: ["Leadership", "Full-Stack", "Community"]
           },
@@ -63,12 +64,12 @@ export function ExperienceOverlay({ onClose, origin }: { onClose: () => void; or
           },
           {
                company: "Vectr",
-               role: "Co-founder & Lead Engineer",
+               role: "Co-founder & Lead Software Engineer",
                period: "January 2026 - May 2026",
                color: "#00bbcc",
                accent: "#003344",
                points: [
-                    "Co-founded and engineered an AI product-management workspace from prototype through pilots with six startup teams, securing a seed grant from RedBrick VC within three months",
+                    "Co-founded and led engineering for an AI product-management workspace from prototype through pilots with six startup teams, securing a seed grant from RedBrick VC within three months",
                     "Built the document ingestion and embedding pipeline (pgvector, Supabase) powering source-attributed retrieval and a knowledge graph linking interviews, tickets, and usage data",
                     "Shipped agentic document generation with stakeholder briefs and guardrails flagging scope creep; used in pilot sprint planning"
                ],
