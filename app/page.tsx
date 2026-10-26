@@ -36,12 +36,14 @@ export default function Home() {
         <h2>Rishi Jay Thakkar — Software Engineer & Computer Science Student at Cal Poly SLO</h2>
         <p>
           Rishi Thakkar is a Computer Science student (minor in Entrepreneurship) at California Polytechnic State University,
-          San Luis Obispo (Cal Poly SLO), graduating June 2028. Former AI Engineer Intern at AHEAD (June–August 2026), where he shipped a source-attributed
-          RAG onboarding assistant for a municipal government and deployment workflows for models on RunAI-managed NVIDIA B300
-          clusters with KServe and Triton Inference Server. Previously Founding Software Engineer at Scoop and Co-founder &
-          Lead Engineer of Vectr (seed grant from RedBrick VC). Technical Lead & President of CodeBox — Cal Poly&apos;s first
+          San Luis Obispo (Cal Poly SLO), graduating June 2028. Former AI Engineer Intern at AHEAD (June–August 2026), where he built a local onboarding
+          prototype for a municipal government engagement using synthetic documents, source-cited retrieval, and three
+          role-based workflows, and authored deployment guides used to deploy model-serving workloads for a global financial
+          exchange, covering RunAI-managed NVIDIA B300 clusters and KServe/Triton serving. Previously Founding Software
+          Engineer at Scoop and Co-founder & Lead Software Engineer of Vectr, where he co-founded and led engineering (seed
+          grant from RedBrick VC). Technical Lead & President of CodeBox — Cal Poly&apos;s first
           student project accelerator, with two 50-person cohorts selected from 400+ applicants and
-          five products that have reached 2,400+ registered users.
+          2,400+ combined downloads and users across five products.
         </p>
         <p>
           Skills: Python, TypeScript, Rust, SQL, KServe, Triton Inference Server, RunAI, Ollama, RAG, embedding pipelines,
@@ -49,9 +51,9 @@ export default function Home() {
           ts-morph, WebAssembly, AWS (S3, Lambda), Docker, Linux, CI/CD, Git.
         </p>
         <p>
-          Projects: NextCanvas (drop-in Next.js visual editor built on a Rust/WebAssembly SWC plugin, 2,500+ downloads in its
-          first month), Haggle (winner of the Sponge track at Y Combinator&apos;s Call My Agents Hackathon), Locus (100% local
-          GraphRAG engine on Neo4j and Ollama), Assigned (internal operations platform used daily by 50+ CodeBox members).
+          Projects: NextCanvas (drop-in Next.js visual editor built on a Rust/WebAssembly SWC plugin, 3,100+ npm package
+          downloads), Haggle (winner of the Sponge track at Y Combinator&apos;s Call My Agents Hackathon), Locus (100% local
+          GraphRAG engine on Neo4j and Ollama), Assigned (internal operations platform for 50 CodeBox members).
         </p>
         {/* Crawlable, but kept out of the tab order — they are visually hidden, so a
             keyboard user would otherwise land on links they cannot see. The same
