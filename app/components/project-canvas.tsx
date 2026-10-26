@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Project } from "../content";
 import { Artboard } from "./artboards";
-import { DISPLAY_H2 } from "./site-chrome";
+import { DISPLAY_H2 } from "./display";
 
 /*
  * The project frames are laid out by a plain CSS grid — that's what crawlers,

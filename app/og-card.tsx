@@ -21,7 +21,7 @@ function Handle({ style }: { style: React.CSSProperties }) {
 }
 
 /** Share card in the site's editor-canvas style: a title selected on a dotted canvas. */
-export function ogCard({ title, subtitle }: { title: string; subtitle: string }) {
+export function ogCard({ title, subtitle, titleSize = 150 }: { title: string; subtitle: string; titleSize?: number }) {
      return new ImageResponse(
           (
                <div
@@ -41,7 +41,7 @@ export function ogCard({ title, subtitle }: { title: string; subtitle: string })
                >
                     <div style={{ display: "flex" }}>
                          <div style={{ display: "flex", position: "relative", padding: "8px 22px" }}>
-                              <div style={{ fontFamily: "Instrument Serif", fontSize: 150, letterSpacing: "-0.025em", lineHeight: 1 }}>{title}</div>
+                              <div style={{ fontFamily: "Instrument Serif", fontSize: titleSize, letterSpacing: "-0.025em", lineHeight: 1.05, maxWidth: 960 }}>{title}</div>
                               {/* Satori has no `inset` shorthand, so spell out all four edges. */}
                               <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, border: `3px solid ${SELECT}`, display: "flex" }} />
                               <Handle style={{ top: -7, left: -7 }} />

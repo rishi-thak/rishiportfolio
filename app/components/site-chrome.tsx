@@ -2,13 +2,13 @@ import Link from "next/link";
 import { PROFILE } from "../content";
 import { EmailAddress, EmailLink, EmailTemplates } from "./email";
 import { SelectionBox } from "./motion";
+import { getPosts } from "../blog/posts";
 
 /** Props for links that leave the site: open in a new tab without giving it access to this one. */
 export const NEW_TAB = { target: "_blank", rel: "noopener noreferrer" } as const;
 
-/** Instrument Serif display styles, shared so every heading matches the name in the hero. */
-export const DISPLAY_TITLE = "font-serif text-[clamp(56px,10vw,128px)] leading-[0.9] font-normal tracking-[-0.025em]";
-export const DISPLAY_H2 = "font-serif text-[clamp(36px,4.8vw,52px)] leading-none font-normal tracking-[-0.015em]";
+// Re-exported so pages can keep importing everything from site-chrome.
+export { DISPLAY_H2, DISPLAY_TITLE } from "./display";
 
 /** Page width shared by every section. */
 export const WRAP = "mx-auto w-full max-w-[1120px] px-5 sm:px-8";
@@ -18,20 +18,25 @@ const SOCIALS = [
      { label: "LinkedIn", url: PROFILE.linkedin },
 ];
 
-export function SiteHeader() {
+/** Async so the Blog link only shows once at least one post is published. */
+export async function SiteHeader() {
+     const hasPosts = (await getPosts()).length > 0;
      return (
           <header className={`${WRAP} flex items-center justify-between gap-6 py-6 text-[15px]`}>
                <Link href="/" className="font-serif text-[22px] leading-none">
                     {PROFILE.name}
                </Link>
                <nav aria-label="Main">
-                    <ul className="flex gap-5 text-slate">
+                    <ul className="flex gap-3.5 text-slate sm:gap-5">
                          <li><Link href="/projects" className="transition-colors hover:text-ink">Projects</Link></li>
                          <li>
                               <Link href="/work" className="transition-colors hover:text-ink">
                                    Work<span className="hidden sm:inline"> with me</span>
                               </Link>
                          </li>
+                         {hasPosts && (
+                              <li><Link href="/blog" className="transition-colors hover:text-ink">Blog</Link></li>
+                         )}
                          {SOCIALS.map((s) => (
                               <li key={s.label} className="hidden sm:block">
                                    <a href={s.url} {...NEW_TAB} className="transition-colors hover:text-ink">{s.label}</a>
