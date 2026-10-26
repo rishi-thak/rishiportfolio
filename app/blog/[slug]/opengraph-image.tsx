@@ -11,6 +11,8 @@ export async function generateStaticParams() {
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
      const post = (await getPost((await params).slug))!;
-     // Post titles are long, so they get a smaller title size than project names.
-     return ogCard({ title: post.title, subtitle: post.description, titleSize: 76 });
+     // Post titles are long, so they get a smaller title size than project names. The
+     // description is too long for the card (link previews show it as text anyway), so
+     // the subtitle is just a byline.
+     return ogCard({ title: post.title, subtitle: "By Rishi Thakkar", titleSize: 76 });
 }

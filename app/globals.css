@@ -35,6 +35,13 @@ body {
   background: var(--canvas);
   color: var(--ink);
   font-optical-sizing: auto;
+  /* Footer sits at the bottom of the window even when a page is shorter than it. */
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+body > main {
+  flex: 1 0 auto;
 }
 
 ::selection {

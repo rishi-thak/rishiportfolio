@@ -3,7 +3,6 @@ export const metadata = {
   description:
     "Inside NextCanvas, my visual editor for Next.js: a Rust SWC plugin that tags every element with where it came from, and a local server that rewrites your source without wrecking its formatting.",
   date: "2026-10-26",
-  draft: true,
 };
 
 An engagement I've worked on extensively recently is the GenAI Innovation Forum site , along with its internal tooling. Early on, the landing page was the main priority, and its what my client and I spent the most time on. As you can imagine, in a corporate environment with 10+ stakeholders, everyone thinks the hero should say something different. Maybe their small bio should be worded differently. I kept running into the same small, annoying loop. 
@@ -12,15 +11,16 @@ Every time a change was proposed, I'd look at the page in the browser, switch to
 
 None of that is really that difficult. It's just slow, and it happens dozens of times a day. This is exactly the type of problem I love solving, so I built NextCanvas: you double-click any text in your running Next.js app, type the new version, and the change is written straight into your source file. Fast Refresh does the rest.
 
-{/* TODO(Rishi): add a short GIF here: double-click a heading, type, page updates. This matters more than anything else in the post. */}
+![NextCanvas in action: double-clicking the headline and typing "hi there!", then rewriting the paragraph below it, right in the browser](/blog/nextcanvas-demo.gif)
 
-This post is about how that works, and about the one question the whole thing hinges on.
+
+This post is about how that works, and about the one question the whole thing hinges on. If I've already caught your attention, docs: [https://nextcanvas.rishithakkar.com/docs](https://nextcanvas.rishithakkar.com/docs)
 
 ## The hard part: which line of code rendered this?
 
-In the browser, you only have DOM nodes. When you double-click an `<h1>`, nothing on it says "I came from `app/page.tsx`, line 12". To edit the source, NextCanvas has to recover that.
+In the browser, you only have DOM nodes. When you double-click an `<h1>`, nothing says "I came from `app/page.tsx`, line 12". To edit the source, NextCanvas has to recover that.
 
-The obvious place to look is React itself. Development builds of React used to attach a `_debugSource` to each component's internal fiber, with the file and line it came from. It's tempting to read that. But it isn't there in current Next.js App Router builds, and reading React's internals is fragile even when it is. I needed something that didn't depend on React keeping a private detail around.
+The obvious place to look is React itself. Development builds of React used to attach a `_debugSource` to each component's internal fiber, with the file and line it came from. It was very tempting to read and build off of that. The issue is that it isn't there in current Next.js App Router builds, and reading React's internals is fragile as it is. I needed something that didn't depend on React keeping a private detail around.
 
 ## The fix: tag every element at compile time
 
@@ -39,11 +39,11 @@ renders in development as:
 <h1 data-loc="/Users/you/site/app/page.tsx:12:7">Launch week</h1>
 ```
 
-Now the browser has everything it needs. When you double-click an element, the editor overlay reads its `data-loc` and knows exactly which file and line to change.
+Now, the browser has everything it needs. When you double-click an element, the editor overlay simply reads its `data-loc` and knows exactly which file and line to change.
 
 Running inside Next's own compiler has a few nice side effects. It works under both of Next's bundlers, webpack and Turbopack. Other compiler features like `next/font` keep working. And setup is two commands: `withCanvas` adds the plugin to your Next config, and the overlay is one component in your root layout.
 
-All of this only happens in development. In a production build, `withCanvas` does nothing: no plugin, no `data-loc` attributes, no overlay.
+Now, an important distinction; all of this only happens in development. In a production build, `withCanvas` does nothing: no plugin, no `data-loc` attributes, no overlay.
 
 ## Writing the edit back without wrecking your code
 
@@ -75,8 +75,6 @@ Mixed text works too. In `<p>Hello <strong>world</strong>!</p>` you can edit the
 
 ## What broke along the way
 
-A few things that bit me, in case they save you time:
-
 - **Turbopack on Windows can't run WebAssembly SWC plugins yet.** The app still runs, but nothing gets tagged, so editing quietly does nothing. On Windows, use `next dev --webpack` until that's fixed upstream.
 - **SWC plugins are tied to a compiler version.** A WebAssembly plugin is built against a specific version of SWC's core. When Next 16.4 shipped a newer plugin runner, NextCanvas failed to load with "Failed to deserialize program received from host". For now that means staying on Next 16.3; the real fix is rebuilding the plugin against the newer SWC.
 - **A TypeScript papercut.** `withCanvas` used to accept a loose object type, so the standard `const nextConfig: NextConfig = {}` failed type-checking. Version 0.3.2 types it against Next's own `NextConfig`.
@@ -84,9 +82,12 @@ A few things that bit me, in case they save you time:
 
 ## Where it is now
 
-NextCanvas has 3,100+ downloads on npm, and I use it to build the site you're reading. Next up:
+NextCanvas has 3,100+ downloads on npm, and I use it to build the site you're reading. 
+
+Next up:
 
 - editing Tailwind classes, not just inline styles
+- fixing apostrophes, as mentioned above
 - moving and duplicating elements
 - Turbopack on Windows, once the upstream gap closes
 
