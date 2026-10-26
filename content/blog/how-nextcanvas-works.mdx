@@ -1,0 +1,102 @@
+export const metadata = {
+  title: "Teaching the browser where your JSX lives",
+  description:
+    "Inside NextCanvas, my visual editor for Next.js: a Rust SWC plugin that tags every element with where it came from, and a local server that rewrites your source without wrecking its formatting.",
+  date: "2026-10-26",
+  draft: true,
+};
+
+An engagement I've worked on extensively recently is the GenAI Innovation Forum site , along with its internal tooling. Early on, the landing page was the main priority, and its what my client and I spent the most time on. As you can imagine, in a corporate environment with 10+ stakeholders, everyone thinks the hero should say something different. Maybe their small bio should be worded differently. I kept running into the same small, annoying loop. 
+
+Every time a change was proposed, I'd look at the page in the browser, switch to VS Code, search the codebase for the text I'd just seen, find the right occurrence, edit it, save, and switch back to check it. Sometimes I'd just ask Claude to do it for me.
+
+None of that is really that difficult. It's just slow, and it happens dozens of times a day. This is exactly the type of problem I love solving, so I built NextCanvas: you double-click any text in your running Next.js app, type the new version, and the change is written straight into your source file. Fast Refresh does the rest.
+
+{/* TODO(Rishi): add a short GIF here: double-click a heading, type, page updates. This matters more than anything else in the post. */}
+
+This post is about how that works, and about the one question the whole thing hinges on.
+
+## The hard part: which line of code rendered this?
+
+In the browser, you only have DOM nodes. When you double-click an `<h1>`, nothing on it says "I came from `app/page.tsx`, line 12". To edit the source, NextCanvas has to recover that.
+
+The obvious place to look is React itself. Development builds of React used to attach a `_debugSource` to each component's internal fiber, with the file and line it came from. It's tempting to read that. But it isn't there in current Next.js App Router builds, and reading React's internals is fragile even when it is. I needed something that didn't depend on React keeping a private detail around.
+
+## The fix: tag every element at compile time
+
+Instead of asking React at runtime, NextCanvas writes the answer into the page while your code is being compiled.
+
+It ships an SWC plugin, written in Rust and compiled to WebAssembly. SWC is the compiler Next.js already uses to turn your JSX into JavaScript, so the plugin runs as one more step inside it. For every HTML element in your JSX, it adds a `data-loc` attribute with the exact file, line and column:
+
+```tsx
+// app/page.tsx, line 12
+<h1>Launch week</h1>
+```
+
+renders in development as:
+
+```html
+<h1 data-loc="/Users/you/site/app/page.tsx:12:7">Launch week</h1>
+```
+
+Now the browser has everything it needs. When you double-click an element, the editor overlay reads its `data-loc` and knows exactly which file and line to change.
+
+Running inside Next's own compiler has a few nice side effects. It works under both of Next's bundlers, webpack and Turbopack. Other compiler features like `next/font` keep working. And setup is two commands: `withCanvas` adds the plugin to your Next config, and the overlay is one component in your root layout.
+
+All of this only happens in development. In a production build, `withCanvas` does nothing: no plugin, no `data-loc` attributes, no overlay.
+
+## Writing the edit back without wrecking your code
+
+Knowing the location is half of it. The other half is changing the file safely.
+
+```
+double-click text ─▶ overlay reads data-loc ─▶ POST to the local edit server
+       ▲                                                   │
+       │                                                   ▼
+  Fast Refresh  ◀──  file rewritten  ◀──  ts-morph edits the syntax tree
+```
+
+The overlay sends the edit to a small server that NextCanvas starts alongside `next dev`. That server uses ts-morph to parse the file, find the exact node, and change it in the syntax tree, rather than doing a find-and-replace on the text. Your formatting and everything around the edit stay untouched. Next's Fast Refresh notices the file changed and updates the page, so there's no WebSocket and no custom reload logic. Edits are just one-way requests.
+
+The server is deliberately narrow about what it will touch: only real source files (`.ts`, `.tsx`, `.js`, `.jsx`, `.mjs`, `.cjs`) inside your project's root folder.
+
+### Text that comes from data
+
+Static text like `<h1>Hello</h1>` is the easy case. Real apps mostly render text from data: `<h3>{speaker.name}</h3>`, a title from a config object, items from a `.map()` over a list in another file.
+
+NextCanvas follows the value back to wherever it actually lives, even across files, and edits it there. This site is a good example. All of its copy lives in one `content.ts` file and gets passed into components, and I can still double-click a line on the page and edit it.
+
+Two rules keep this safe:
+
+- **It finds text by its value, not its position on the page.** If a list has been filtered or re-sorted, the edit still lands on the right entry.
+- **It refuses to guess.** If the same value appears in several entries, it rejects the edit as ambiguous instead of risking the wrong one.
+
+Mixed text works too. In `<p>Hello <strong>world</strong>!</p>` you can edit the plain text around the bold part, while the bold element itself stays locked. If an edit would delete an inline element or empty out a whole run of text, it's rejected and reverted, with a message saying why.
+
+## What broke along the way
+
+A few things that bit me, in case they save you time:
+
+- **Turbopack on Windows can't run WebAssembly SWC plugins yet.** The app still runs, but nothing gets tagged, so editing quietly does nothing. On Windows, use `next dev --webpack` until that's fixed upstream.
+- **SWC plugins are tied to a compiler version.** A WebAssembly plugin is built against a specific version of SWC's core. When Next 16.4 shipped a newer plugin runner, NextCanvas failed to load with "Failed to deserialize program received from host". For now that means staying on Next 16.3; the real fix is rebuilding the plugin against the newer SWC.
+- **A TypeScript papercut.** `withCanvas` used to accept a loose object type, so the standard `const nextConfig: NextConfig = {}` failed type-checking. Version 0.3.2 types it against Next's own `NextConfig`.
+- **Apostrophes.** When an edit contains an apostrophe, NextCanvas writes it as a raw `'` in JSX, which React's lint rule rejects. It works, but it shouldn't need a cleanup step. That one is next on my list.
+
+## Where it is now
+
+NextCanvas has 3,100+ downloads on npm, and I use it to build the site you're reading. Next up:
+
+- editing Tailwind classes, not just inline styles
+- moving and duplicating elements
+- Turbopack on Windows, once the upstream gap closes
+
+## Try it
+
+NextCanvas needs Next.js 16.2 or newer, with the App Router.
+
+```bash
+npm i -D @rishi-thak/nextcanvas
+npx nextcanvas init
+```
+
+Then run `npm run dev`, open your app, and double-click any text. The [docs and demo](https://nextcanvas.rishithakkar.com) cover the rest, and the [project page](/projects/nextcanvas) has the short version. If you hit something it can't handle yet, I'd like to hear about it.
