@@ -35,10 +35,22 @@ export const EXPERIENCE: Experience[] = [
           period: "Jun – Aug 2026",
           summary: "Engineering for Fortune 100 clients, specializing in financial services.",
           points: [
-               "Merged 8 PRs of core-logic and CI/CD fixes, cutting manual code review by 40%",
+               "Merged 8 PRs of core-logic and CI/CD fixes",
                "Wrote model-serving deployment guides for RunAI, KServe and Triton",
                "Designed a shared knowledge base for client engagement teams",
                "Prototyped source-cited retrieval for client onboarding",
+          ],
+     },
+     {
+          company: "GenAI Innovation Forum",
+          url: "https://www.genaiinnovationforum.com",
+          role: "Full-Stack Engineer (Contract)",
+          period: "Jun 2026 – Present",
+          summary: "The only engineer, building and running the full stack for an enterprise AI conference at Stevens Institute of Technology.",
+          points: [
+               "Built the public event site, registration and intake forms",
+               "Built an AI concierge for attendee questions",
+               "Built an admin dashboard and CRM for the organizers",
           ],
      },
      {
@@ -199,6 +211,101 @@ export const PROJECTS: Project[] = [
           ],
           links: [{ label: "GitHub", url: "https://github.com/rishi-thak/locus" }],
      },
+];
+
+// ── Client work (/work) ────────────────────────────────────────────
+// Only name a client here with their OK; otherwise set `client` to a
+// description like "A ride-pooling startup" and leave out `clientUrl`.
+
+export type CaseStudy = {
+     slug: string;
+     client: string;
+     clientUrl?: string;
+     /** What the client does, in a few words. */
+     kind: string;
+     role: string;
+     summary: string;
+     built: string[];
+     results?: { value: string; label: string }[];
+     /** Where clients can see the work: live site, App Store listing, etc. */
+     links?: { label: string; url: string }[];
+     /** Optional artwork from the client's own site, shown faintly behind the card. */
+     background?: string;
+     /** Client logo shown in the card's top-right corner; `displayWidth` is its width on desktop, in px. */
+     logo?: { src: string; width: number; height: number; displayWidth: number };
+     /** A short line from the founder, used only with their permission. */
+     quote?: { text: string; name: string; title: string };
+};
+
+export const CLIENT_WORK: CaseStudy[] = [
+     {
+          slug: "genai-innovation-forum",
+          client: "GenAI Innovation Forum",
+          clientUrl: "https://www.genaiinnovationforum.com",
+          kind: "Conference for leaders deploying AI in enterprises, at Stevens Institute of Technology",
+          role: "Full-stack engineer (contract)",
+          summary:
+               "I'm the Forum's only engineer. I built its entire stack, from the public event site to the organizers' admin tools, own the whole development cycle, and work directly with the organizers to keep developing it.",
+          built: [
+               "The public event site: program, speakers, industry council, venue, FAQ and registration",
+               "Intake and registration forms, with confirmation emails",
+               "An AI concierge that answers attendees' questions about the event",
+               "An admin dashboard and CRM for the organizers",
+               "SEO: sitemap, page metadata and share images",
+          ],
+          links: [{ label: "Visit the site", url: "https://www.genaiinnovationforum.com" }],
+          // The skyline line art from the Forum's own hero.
+          background: "/work/gaif-skyline.png",
+          logo: { src: "/work/gaif-lockup.webp", width: 989, height: 317, displayWidth: 136 },
+     },
+     {
+          slug: "scoop",
+          client: "Scoop Technologies",
+          kind: "Rideshare for groups, like Uber for groups",
+          role: "Founding software engineer (contract)",
+          summary:
+               "Scoop's first engineering hire. I built the engine that groups riders into shared trips, and the payments behind it. Scoop is now a working startup: the team runs real rides and markets the app, Scoop Rides, which is live on the App Store.",
+          built: [
+               "A PostgreSQL ride-matching engine that groups riders from live bookings by location and travel direction",
+               "Safeguards so no rider is assigned twice when bookings arrive at the same time",
+               "Multi-stop pooled trips",
+               "Stripe payment settlement that can't double-charge, with retries and failure recovery",
+          ],
+          links: [{ label: "Scoop Rides on the App Store", url: "https://apps.apple.com/us/app/scoop-rides/id6762161177" }],
+          logo: { src: "/work/scoop-wordmark.png", width: 1012, height: 173, displayWidth: 150 },
+     },
+];
+
+export const SERVICES: { title: string; description: string; examples: { label: string; href: string }[] }[] = [
+     {
+          title: "MVPs and full-stack web apps",
+          description: "From the database to a deployed product: accounts, payments, dashboards and the logic in between.",
+          examples: [
+               { label: "GenAI Innovation Forum", href: "#genai-innovation-forum" },
+               { label: "Scoop", href: "#scoop" },
+          ],
+     },
+     {
+          title: "AI features",
+          description: "Search and assistants over your own documents with sources cited, voice agents, and AI workflows that call real services.",
+          examples: [
+               { label: "Haggle", href: "/projects/haggle" },
+               { label: "Bloom", href: "/projects/bloom" },
+          ],
+     },
+     {
+          title: "Developer and internal tools",
+          description: "Editors, admin panels and tooling your team actually uses day to day.",
+          examples: [{ label: "NextCanvas", href: "/projects/nextcanvas" }],
+     },
+];
+
+// How a client project runs, shown on /work.
+export const PROCESS: { title: string; description: string }[] = [
+     { title: "Intro call", description: "We talk through what you're building, what done looks like, and your budget." },
+     { title: "Proposal & SOW", description: "You get a written scope with milestones, a timeline and a price." },
+     { title: "Build", description: "I share progress every week, with a live preview link you can click through." },
+     { title: "Handoff", description: "You own the code and the accounts, and I document how everything works." },
 ];
 
 export const SKILLS: { category: string; items: string[] }[] = [

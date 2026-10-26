@@ -27,6 +27,11 @@ export function SiteHeader() {
                <nav aria-label="Main">
                     <ul className="flex gap-5 text-slate">
                          <li><Link href="/projects" className="transition-colors hover:text-ink">Projects</Link></li>
+                         <li>
+                              <Link href="/work" className="transition-colors hover:text-ink">
+                                   Work<span className="hidden sm:inline"> with me</span>
+                              </Link>
+                         </li>
                          {SOCIALS.map((s) => (
                               <li key={s.label} className="hidden sm:block">
                                    <a href={s.url} {...NEW_TAB} className="transition-colors hover:text-ink">{s.label}</a>
