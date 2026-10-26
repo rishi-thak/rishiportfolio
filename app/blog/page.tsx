@@ -58,7 +58,7 @@ export default async function BlogIndex() {
                          </ol>
                     )}
                </main>
-               <SiteFooter />
+               <SiteFooter minimal />
           </>
      );
 }

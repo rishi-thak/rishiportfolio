@@ -90,7 +90,7 @@ export default async function BlogPost({ params }: Props) {
                          </nav>
                     </article>
                </main>
-               <SiteFooter />
+               <SiteFooter minimal />
           </>
      );
 }
