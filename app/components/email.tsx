@@ -83,6 +83,29 @@ const SAY_HI: Template = {
 };
 
 
+/** The client-facing inquiry, used by the "Start a project" button on /work. */
+const PROJECT_INQUIRY: Template = {
+     label: "Start a project",
+     subject: "Project inquiry",
+     body: "Hi Rishi,\n\nI'm [your name] from [company]. We're looking to build [what you need], ideally by [timeline]. Our budget is around [range].\n\nThanks,\n[your name]",
+};
+
+/** Primary call-to-action button that opens the project inquiry email. */
+export function InquiryButton({ className = "" }: { className?: string }) {
+     return (
+          <motion.button
+               type="button"
+               onClick={() => openMail(PROJECT_INQUIRY.subject, PROJECT_INQUIRY.body)}
+               className={`cursor-pointer rounded-full bg-ink px-5 py-2.5 text-[16px] font-medium text-canvas ${className}`}
+               whileHover={{ y: -1 }}
+               whileTap={{ scale: 0.96 }}
+               transition={{ type: "spring", stiffness: 600, damping: 30 }}
+          >
+               {PROJECT_INQUIRY.label}
+          </motion.button>
+     );
+}
+
 /** Inline link-style button that opens one of the templates above, picked by its label. */
 export function TemplateLink({ label, className = "", children }: { label: string; className?: string; children: React.ReactNode }) {
      const t = EMAIL_TEMPLATES.find((x) => x.label === label);
