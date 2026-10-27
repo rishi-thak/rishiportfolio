@@ -4,7 +4,8 @@ import { PROFILE } from "../content";
 import { DISPLAY_TITLE, SelectedTitle, SiteFooter, SiteHeader, WRAP } from "../components/site-chrome";
 import { formatDate, getPosts } from "./posts";
 
-const description = `Notes by ${PROFILE.name} on building developer tools and AI systems, and how they work under the hood. Sometimes, thoughts on life and getting better at it.`;
+// Matches the intro on the page, with the name added for search results.
+const description = `A collection of write-ups, notes, and personal thoughts by ${PROFILE.name}.`;
 
 export async function generateMetadata(): Promise<Metadata> {
      const posts = await getPosts();
@@ -27,7 +28,7 @@ export default async function BlogIndex() {
                     <section className="pt-[clamp(48px,8vw,96px)] pb-12">
                          <SelectedTitle className={DISPLAY_TITLE}>Blog</SelectedTitle>
                          <p className="mt-8 max-w-[44ch] text-[clamp(19px,2vw,22px)] leading-snug text-slate">
-                              Notes on what I&apos;m building: developer tools, AI systems, and how they work under the hood. Sometimes, thoughts on life and getting better at it.
+                              A collection of write-ups, notes, and personal thoughts.
                          </p>
                     </section>
 

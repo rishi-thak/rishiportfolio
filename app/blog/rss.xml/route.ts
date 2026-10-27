@@ -26,7 +26,7 @@ export async function GET() {
   <channel>
     <title>${escape(PROFILE.name)}: Blog</title>
     <link>${SITE_URL}/blog</link>
-    <description>Notes on what I&apos;m building: developer tools, AI systems, and how they work under the hood. Sometimes, thoughts on life and getting better at it.</description>
+    <description>A collection of write-ups, notes, and personal thoughts.</description>
     <language>en-us</language>
 ${items}
   </channel>
