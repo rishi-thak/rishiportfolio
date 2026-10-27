@@ -128,6 +128,28 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
      {
+          slug: "haggle",
+          colors: { bg: "#0024cc", ink: "#e6adcf" },
+          title: "Haggle",
+          year: "2026",
+          tagline: "Winner @ Y Combinator hackathon",
+          summary:
+               "An iMessage agent that finds service providers and negotiates with them over the phone.",
+          body: [
+               "Haggle is an iMessage-based agent that negotiates on your behalf. Ask it for a service and it discovers 5–10 providers, runs 4+ concurrent voice negotiations, and settles the offer you pick through an escrow-based payment flow.",
+               "It won the Sponge track at Y Combinator's Call My Agents Hackathon.",
+          ],
+          stack: ["TypeScript", "Next.js", "Convex", "Gemini", "Sponge", "AgentPhone"],
+          stats: [
+               { value: "5–10", label: "Providers found" },
+               { value: "4+", label: "Concurrent calls" },
+          ],
+          links: [
+               { label: "Website", url: "https://callmyhaggle.vercel.app" },
+               { label: "GitHub", url: "https://github.com/rishi-thak/haggle" },
+          ],
+     },
+     {
           slug: "nextcanvas",
           colors: { bg: "#7C2D12", ink: "#FDBA74" },
           title: "NextCanvas",
@@ -149,28 +171,6 @@ export const PROJECTS: Project[] = [
           links: [
                { label: "Website", url: "https://nextcanvas.rishithakkar.com" },
                { label: "npm", url: "https://www.npmjs.com/package/@rishi-thak/nextcanvas" },
-          ],
-     },
-     {
-          slug: "haggle",
-          colors: { bg: "#0024cc", ink: "#e6adcf" },
-          title: "Haggle",
-          year: "2026",
-          tagline: "Winner @ Y Combinator hackathon",
-          summary:
-               "An iMessage agent that finds service providers and negotiates with them over the phone.",
-          body: [
-               "Haggle is an iMessage-based agent that negotiates on your behalf. Ask it for a service and it discovers 5–10 providers, runs 4+ concurrent voice negotiations, and settles the offer you pick through an escrow-based payment flow.",
-               "It won the Sponge track at Y Combinator's Call My Agents Hackathon.",
-          ],
-          stack: ["TypeScript", "Next.js", "Convex", "Gemini", "Sponge", "AgentPhone"],
-          stats: [
-               { value: "5–10", label: "Providers found" },
-               { value: "4+", label: "Concurrent calls" },
-          ],
-          links: [
-               { label: "Website", url: "https://callmyhaggle.vercel.app" },
-               { label: "GitHub", url: "https://github.com/rishi-thak/haggle" },
           ],
      },
      {
