@@ -58,19 +58,19 @@ export default function Home() {
                               <div className="mt-[clamp(32px,5vw,56px)] grid items-start gap-12 md:grid-cols-[minmax(0,1fr)_minmax(280px,380px)]">
                                    <div>
                                         <p className="max-w-[36ch] text-[clamp(22px,2.6vw,30px)] leading-[1.25] font-medium tracking-[-0.015em]">
-                                             I build developer tools and AI systems.{" "}
-                                             <Link href="/projects/nextcanvas" className="link">NextCanvas</Link>, my visual editor for
-                                             Next.js, has 3,100+ npm downloads. I also run{" "}
-                                             <a href="https://www.codebox.so" {...NEW_TAB} className="link">CodeBox</a>, Cal Poly&apos;s first student
-                                             project accelerator. On the side, I{" "}
-                                             <Link href="/work" className="link">develop software for startups</Link>.
+                                             Software engineer building developer tools and AI systems. Looking for summer 2027
+                                             internships.
                                         </p>
                                         <p className="mt-5 max-w-[56ch] text-[17px] leading-relaxed text-slate">
-                                             I study CS and Entrepreneurship at{" "}
+                                             <Link href="/projects/nextcanvas" className="link text-ink">NextCanvas</Link>, my visual
+                                             editor for Next.js, has 3,100+ npm downloads. I run{" "}
+                                             <a href="https://www.codebox.so" {...NEW_TAB} className="link text-ink">CodeBox</a>, Cal
+                                             Poly&apos;s first student project accelerator, and{" "}
+                                             <Link href="/work" className="link text-ink">build software for startups</Link> on the
+                                             side. I study CS and Entrepreneurship at{" "}
                                              <a href={PROFILE.school.url} {...NEW_TAB} className="link text-ink">Cal Poly SLO</a> and
-                                             graduate in 2028. Most recently I was an AI Engineer Intern at{" "}
-                                             <a href="https://www.ahead.com" {...NEW_TAB} className="link text-ink">AHEAD</a>, working on
-                                             source-cited retrieval and model-serving deployments. I&apos;m seeking SWE internships for Summer 2027.
+                                             was most recently an AI Engineer Intern at{" "}
+                                             <a href="https://www.ahead.com" {...NEW_TAB} className="link text-ink">AHEAD</a>.
                                         </p>
                                    </div>
                                    {/* Where the project frames pile up before they're dealt out. */}

@@ -5,7 +5,7 @@ export const SITE_URL = "https://rishithakkar.com";
 
 export const PROFILE = {
      name: "Rishi Thakkar",
-     fullName: "Rishi Jay Thakkar",
+     fullName: "Rishi Thakkar",
      initials: "RT",
      role: "Software Engineer",
      school: { name: "Cal Poly SLO", url: "https://www.calpoly.edu" },

@@ -110,6 +110,9 @@ export function ProjectCanvas({ projects, pileAnchorId }: { projects: Project[];
           const still = !animated.current;
           const p = still ? 1 : m.current;
           const dealingDown = m.target >= m.current;
+          let cleared = false;
+          // The heading row fades in over the first half of the deal, so it's hidden while the pile sits in the hero.
+          sectionRef.current?.style.setProperty("--heading", String(clamp(p / 0.5, 0, 1)));
 
           frameRefs.current.forEach((el, i) => {
                if (!el) return;
@@ -141,8 +144,16 @@ export function ProjectCanvas({ projects, pileAnchorId }: { projects: Project[];
                const f = m.fan * kPile;
                const depth = 6 + i * 5;
 
-               const x = home.x * k + pile.x * kPile + -fy * arcAmp * arc + fan.x * f + m.pointer.x * depth * kPile + off.x;
-               const y = home.y * k + pile.y * kPile + fx * arcAmp * arc + fan.y * f + m.pointer.y * depth * kPile + off.y;
+               // A dragged frame's offset fades out as it heads back to the pile, so scrolling up
+               // never leaves it sitting over the hero; once it's back in the pile the offset resets.
+               const keep = 1 - kPile;
+               if (tl === 0 && (off.x || off.y)) {
+                    dragOffset.current[i] = { x: 0, y: 0 };
+                    cleared = true;
+               }
+
+               const x = home.x * k + pile.x * kPile + -fy * arcAmp * arc + fan.x * f + m.pointer.x * depth * kPile + off.x * keep;
+               const y = home.y * k + pile.y * kPile + fx * arcAmp * arc + fan.y * f + m.pointer.y * depth * kPile + off.y * keep;
                const rz = pile.r * kPile + fan.r * f + side * 9 * arc + m.tilt[i];
                const rx = fy * 16 * arc;
                const ry = -fx * 16 * arc;
@@ -161,6 +172,7 @@ export function ProjectCanvas({ projects, pileAnchorId }: { projects: Project[];
                     m.landed[i] = false;
                }
           });
+          if (cleared && dragOffset.current.every((o) => !o.x && !o.y)) setRearranged(false);
      }, []);
 
      // One animation loop for everything that eases: deal progress, fan, pointer parallax, drag tilt.
@@ -305,6 +317,8 @@ export function ProjectCanvas({ projects, pileAnchorId }: { projects: Project[];
      // Dragging: mouse and pen only, so touch keeps scrolling the page.
      const onPointerDown = (e: React.PointerEvent<HTMLLIElement>, i: number) => {
           if (e.pointerType === "touch" || e.button !== 0) return;
+          // Only frames that have landed in the grid can be dragged.
+          if (animated.current && !motion.current.landed[i]) return;
           const off = dragOffset.current[i];
           drag.current = {
                i, startX: e.clientX, startY: e.clientY, ox: off.x, oy: off.y,
@@ -368,7 +382,22 @@ export function ProjectCanvas({ projects, pileAnchorId }: { projects: Project[];
 
      return (
           <section ref={sectionRef} aria-labelledby="projects" className="relative pt-6 pb-[clamp(64px,9vw,112px)]">
-               <div className="mx-auto mb-8 flex w-full max-w-[1120px] items-end justify-between gap-6 px-5 sm:px-8">
+               {/* Scroll hint: sits at the bottom of the first screen and fades out as soon as the deal starts. */}
+               <svg
+                    aria-hidden
+                    width="28"
+                    height="28"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="pointer-events-none fixed bottom-6 left-1/2 -ml-3.5 text-slate opacity-[calc(1-var(--heading,1)*4)] motion-safe:animate-bounce"
+               >
+                    <path d="M12 5v14M6 13l6 6 6-6" />
+               </svg>
+               <div className="mx-auto mb-8 flex w-full max-w-[1120px] items-end justify-between gap-6 px-5 opacity-(--heading,1) sm:px-8">
                     <div>
                          <h2 id="projects" className={DISPLAY_H2}>
                               Projects
