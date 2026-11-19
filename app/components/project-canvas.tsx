@@ -112,7 +112,8 @@ export function ProjectCanvas({ projects, pileAnchorId }: { projects: Project[];
           const dealingDown = m.target >= m.current;
           let cleared = false;
           // The heading row fades in over the first half of the deal, so it's hidden while the pile sits in the hero.
-          sectionRef.current?.style.setProperty("--heading", String(clamp(p / 0.5, 0, 1)));
+          // It follows the raw scroll, not the eased progress, so a fast scroll up hides it before the hero drops back over it.
+          sectionRef.current?.style.setProperty("--heading", String(still ? 1 : clamp(m.target / 0.5, 0, 1)));
 
           frameRefs.current.forEach((el, i) => {
                if (!el) return;
@@ -216,6 +217,14 @@ export function ProjectCanvas({ projects, pileAnchorId }: { projects: Project[];
           const section = sectionRef.current;
           const anchor = document.getElementById(pileAnchorId);
           if (!grid || !section || !anchor) return;
+
+          // The hero starts centred on the first screen, then rises 3x faster than the scroll until it's
+          // back in its normal spot, so the projects below don't sit any further down the page.
+          const hero = anchor.closest("section");
+          if (hero) {
+               const lift = animated.current ? Math.max(0, (window.innerHeight - hero.offsetTop - hero.offsetHeight) / 2) : 0;
+               hero.style.transform = `translateY(${Math.max(0, lift - window.scrollY * 2)}px)`;
+          }
 
           const a = anchor.getBoundingClientRect();
           const g = grid.getBoundingClientRect(); // the grid itself is never transformed
