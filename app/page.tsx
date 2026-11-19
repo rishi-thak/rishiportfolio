@@ -70,7 +70,7 @@ export default function Home() {
                                              <a href={PROFILE.school.url} {...NEW_TAB} className="link text-ink">Cal Poly SLO</a> and
                                              graduate in 2028. Most recently I was an AI Engineer Intern at{" "}
                                              <a href="https://www.ahead.com" {...NEW_TAB} className="link text-ink">AHEAD</a>, working on
-                                             source-cited retrieval and model-serving deployments.
+                                             source-cited retrieval and model-serving deployments. I&apos;m seeking SWE internships for Summer 2027.
                                         </p>
                                    </div>
                                    {/* Where the project frames pile up before they're dealt out. */}

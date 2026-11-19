@@ -35,8 +35,9 @@ export const EXPERIENCE: Experience[] = [
           period: "Jun – Aug 2026",
           summary: "Engineering for Fortune 100 clients, specializing in financial services.",
           points: [
-               "Merged 8 PRs of core-logic and CI/CD fixes",
-               "Wrote model-serving deployment guides for RunAI, KServe and Triton",
+               "Led an intern team to replace manual competitor research (Python, Qwen3, AWS EC2)",
+               "Merged 8 PRs of core-logic fixes and automated lint/test checks",
+               "Built model-serving configs and deployment guides for RunAI, KServe and Triton",
                "Designed a shared knowledge base for client engagement teams",
                "Prototyped source-cited retrieval for client onboarding",
           ],
@@ -48,9 +49,9 @@ export const EXPERIENCE: Experience[] = [
           period: "Jun 2026 – Present",
           summary: "The only engineer, building and running the full stack for an enterprise AI conference at Stevens Institute of Technology.",
           points: [
-               "Built the public event site, registration and intake forms",
+               "Launched the conference platform with Stripe checkout, automated confirmations and a Supabase CRM",
+               "Used PostHog funnels to cut desktop hero delays of up to 7.5s and add a mobile reservation button",
                "Built an AI concierge for attendee questions",
-               "Built an admin dashboard and CRM for the organizers",
           ],
      },
      {
@@ -90,7 +91,10 @@ export const EXPERIENCE: Experience[] = [
           role: "Teaching Assistant",
           period: "2026 – Present",
           summary: "CSC 101/1001, Fundamentals of Computer Science.",
-          points: ["Lead lab sections for 35+ students"],
+          points: [
+               "Lead lab sections for 35+ students",
+               "Winter Quarter 2026, Fall Semester 2026, Spring Semester 2027 (incoming)",
+          ],
      },
 ];
 
@@ -248,9 +252,10 @@ export const CLIENT_WORK: CaseStudy[] = [
                "I'm the Forum's only engineer. I built its entire stack, from the public event site to the organizers' admin tools, own the whole development cycle, and work directly with the organizers to keep developing it.",
           built: [
                "The public event site: program, speakers, industry council, venue, FAQ and registration",
-               "Intake and registration forms, with confirmation emails",
+               "Registration with Stripe checkout and automated confirmation emails, plus intake forms",
                "An AI concierge that answers attendees' questions about the event",
-               "An admin dashboard and CRM for the organizers",
+               "An admin dashboard and Supabase-backed CRM for the organizers",
+               "Used PostHog funnel data to find homepage drop-off, then cut desktop hero delays of up to 7.5 seconds and added a persistent mobile reservation button",
                "SEO: sitemap, page metadata and share images",
           ],
           links: [{ label: "Visit the site", url: "https://www.genaiinnovationforum.com" }],
@@ -313,7 +318,7 @@ export const SKILLS: { category: string; items: string[] }[] = [
      { category: "Model serving", items: ["KServe", "Triton Inference Server", "RunAI", "Ollama"] },
      { category: "Backend & data", items: ["FastAPI", "Node.js", "PostgreSQL", "pgvector", "Neo4j", "Prisma", "Supabase"] },
      { category: "Frontend & desktop", items: ["React", "Next.js", "React Native", "Expo", "Tauri"] },
-     { category: "Tooling & cloud", items: ["SWC", "ts-morph", "WebAssembly", "AWS (S3, Lambda)", "Docker", "Linux", "CI/CD", "Git"] },
+     { category: "Tools & cloud", items: ["SWC", "ts-morph", "WebAssembly", "AWS (S3, EC2, Lambda)", "Docker", "Kubernetes", "Linux", "CI/CD", "Git"] },
 ];
 
 export function getProject(slug: string) {
