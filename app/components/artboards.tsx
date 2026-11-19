@@ -72,7 +72,7 @@ function HaggleArt({ ink }: { ink: string }) {
                <p className={out} style={{ background: ink }}>Find me a mover for Saturday</p>
                <p className={inbound}>Called 6 movers. Best offer is $340 for 9am. Book it?</p>
                <p className={out} style={{ background: ink }}>Book it</p>
-               <p className="mt-0.5 text-right text-[9.5px] text-white/50">Paid into escrow</p>
+               <p className="mt-0.5 text-right text-[9.5px] text-white/75">Paid into escrow</p>
           </div>
      );
 }
